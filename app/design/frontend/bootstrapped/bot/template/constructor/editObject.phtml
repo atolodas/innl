@@ -1,0 +1,60 @@
+<?php 
+$objectId = Mage::app()->getRequest()->getParam('id');
+
+$object = '';
+?>
+
+<div class="col-md-12">
+	<h4 class="section-header"><?php echo $this->__('Editing object')." '".(Mage::helper('score/oggetto')->getSetNameById($objectId))."'" ?></h4>
+</div>
+
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/grid.css') ?>" />
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/grid.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/grid_front.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/hash_front.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/events.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl() ?>js/prototype/windows/themes/default.css">
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/prototype/window.js"></script>
+<form id="edit_form" afterSubmit="<?php if($objectId) { ?> simpleAjax('<?php echo $this->getUrl('manage/objects') ?>', false); <?php } else { ?>simpleAjax('<?php echo $this->getUrl('manage/objects') ?>?openlast=true');  <?php } ?>" class="ajaxForm" action="<?php echo  Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/saveObject/id/'.$objectId ?>" method="post">
+	<div>
+		<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+	</div>
+  <div id="tabs" class="noborder col-md-12">
+	<ul>
+<?php 
+
+$info = "<div>   </div>";
+
+
+$tabs = array(
+		array('label'=>'Data','id'=>'data','visible'=>1, 'content' => Mage::getBlockSingleton('constructor/objectsgrid')->setObjectId($objectId)->toHtml()),
+	//	array('label'=>'Object Skeleton','id'=>'object','visible'=>0, 'content' => 'TAB2'),
+		array('label'=>'Attributes','id'=>'attributes','visible'=>0, 'content' => Mage::getBlockSingleton('constructor/admin')->setObjectId($objectId)->setTemplate('constructor/objectAttributes.phtml')->toHtml()),
+    array('label'=>'Info','id'=>'info','visible'=>0, 'content' => $info),
+    
+	);
+
+foreach ($tabs as $_tab): ?>
+    <li 
+    class="pointer"
+    id="<?php echo $_tab['id'] ?>"
+    name="<?php echo $_tab['id'] ?>"
+    title="<?php echo $_tab['label'] ?>"
+    style="border-right:5px solid #fff">
+        <a class="black p10"  href="#<?php echo $_tab['id'] ?>_contents">
+           <?php echo $_tab['label']; ?>
+        </a>
+    </li>
+<?php endforeach; ?>
+</ul>
+<?php foreach ($tabs as $_tab): ?>
+     <div id="<?php echo $_tab['id'] ?>_contents" class="col-md-12"><?php echo $_tab['content'] ?></div>
+<?php endforeach; ?>
+</div>
+</form>
+<script type="text/javascript">
+  jQuery(function() {
+    jQuery( "#tabs" ).tabs();
+  });  
+</script>
+

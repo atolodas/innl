@@ -1,0 +1,25 @@
+<?php if($this->getItems()->getSize()): ?>
+<div class="block block-related">
+<?php if($this->getTitle()) { ?>
+    <div class="block-title">
+        <strong><span><?php echo $this->getTitle() ?></span></strong>
+    </div>
+<?php } ?>
+    <div class="block-content">
+
+        <div class="form-horizontal">
+        <?php foreach($this->getItems() as $_item): ?>
+        <?php if($output = Mage::app()->getLayout()->getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($_item,'child')) {
+					echo $output;
+				} else { ?>
+                <div class="child-item">
+                     <a href="<?php echo Mage::helper('score/oggetto')->getOggettoUrl($_item) ?>" title="<?php echo $this->htmlEscape($_item->getName()) ?>">
+                        <?php echo $_item->getName() ?>
+                    </a>
+                    </div>
+                 <?php } ?>
+        <?php endforeach ?>
+        </div>
+    </div>
+</div>
+<?php endif ?>

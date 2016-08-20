@@ -1,0 +1,89 @@
+<?php $objectId = $this->getObjectId();
+  $yesnoSource = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray();
+  $availableTypes = array('text'=>$this->__('Text Field'), 'select'=>$this->__('Select Box'), 'multiselect'=>$this->__('Multi Select Box'), 'textarea'=>$this->__('Text Area'),'gallery'=>$this->__('Image'));
+   
+ ?>
+<div class="list">
+	<div class="col-md-12"> 
+		<div class="col-md-1 col-xs-6"><?php echo $this->__('Code') ?> <i class="fa fa-info-circle pointer purple mleft10"></i></div>
+		<div class="col-md-2 col-xs-6"><?php echo $this->__('Name') ?> <i class="fa fa-info-circle pointer purple mleft10"></i></div>
+		<div class="col-md-2 col-xs-6"><?php echo $this->__('Type') ?><i class="fa fa-info-circle pointer purple mleft10"></i></div>
+		<div class="col-md-1 col-xs-6"><?php echo $this->__('Is Required?') ?><i class="fa fa-info-circle pointer purple mleft10"></i></div>
+		<div class="col-md-1 col-xs-6"><?php echo $this->__('Is Editable?') ?><i class="fa fa-info-circle pointer purple mleft10"></i></div>
+		<div class="col-md-1 col-xs-6"><?php echo $this->__('Is For Registered?') ?><i class="fa fa-info-circle pointer purple mleft10"></i></div>
+		<div class="col-md-1 col-xs-6"><?php echo $this->__('Is For Public Objects?') ?><i class="fa fa-info-circle pointer purple mleft10"></i></div>
+		<div class="col-md-2 col-xs-6"><?php echo $this->__('Is Unique values?') ?><i class="fa fa-info-circle pointer purple mleft10"></i></div>
+		
+		<hr class="col-md-12" style="color:grey; height: 2px; margin:0;padding:0;" />
+	
+	</div>
+	<?php foreach ($this->getAttributes($objectId) as $i=>$attr) { // TODO: lock system attributes ?>
+	<div class="col-md-12"> 
+		<div class="col-md-1 col-xs-6"><?php echo $attr->getAttributeCode() ?></div>
+		<div class="col-md-2 col-xs-6"><input disabled name="attributes[<?php echo $i ?>]['frontend_label']" value="<?php echo $attr->getFrontendLabel() ?>"/></div>
+		<div class="col-md-2 col-xs-6">
+			<select disabled name="frontend_input" class="col-md-6">
+				<?php foreach ($availableTypes as $key => $value) {
+					?>
+					<option value="<?php echo $key ?>" <?php if($key == $attr->getFrontendInput()) { echo "selected"; } ?>><?php echo $value ?></option>
+					<?php
+				} ?>
+			</select>
+		</div>
+		<div class="col-md-1 col-xs-2">
+			<select disabled name="is_required" class="col-md-6">
+				<?php foreach ($yesnoSource as $value) {
+					?>
+					<option value="<?php echo $value['value'] ?>" <?php if($value['value'] == $attr->getData('is_required')) { echo "selected"; } ?>><?php echo $value['label'] ?></option>
+					<?php
+				} ?>
+			</select>
+			</div>
+		<div class="col-md-1 col-xs-2">
+			<select disabled name="is_for_edit" class="col-md-6">
+				<?php foreach ($yesnoSource as $value) {
+					?>
+					<option value="<?php echo $value['value'] ?>" <?php if($value['value'] == $attr->getData('is_for_edit')) { echo "selected"; } ?>><?php echo $value['label'] ?></option>
+					<?php
+				} ?>
+			</select>
+			</div>
+		<div class="col-md-1 col-xs-2">
+			<select disabled name="is_for_logged_in" class="col-md-6"> 
+				<?php foreach ($yesnoSource as $value) {
+					?>
+					<option value="<?php echo $value['value'] ?>" <?php if($value['value'] == $attr->getData('is_for_logged_in')) { echo "selected"; } ?>><?php echo $value['label'] ?></option>
+					<?php
+				} ?>
+			</select>
+			</div>
+		<div class="col-md-1 col-xs-2">
+			<select disabled name="is_public" class="col-md-6">
+				<?php foreach ($yesnoSource as $value) {
+					?>
+					<option value="<?php echo $value['value'] ?>" <?php if($value['value'] == $attr->getData('is_public')) { echo "selected"; } ?>><?php echo $value['label'] ?></option>
+					<?php
+				} ?>
+			</select>
+			</div>
+		<div class="col-md-2 col-xs-2">
+			<select disabled name="is_unique" class="col-md-6">
+				<?php foreach ($yesnoSource as $value) {
+					?>
+					<option value="<?php echo $value['value'] ?>" <?php if($value['value'] == $attr->getData('is_unique')) { echo "selected"; } ?>><?php echo $value['label'] ?></option>
+					<?php
+				} ?>
+			</select>
+			</div>
+		
+		<hr class="col-md-12" style="color:grey; height: 2px; margin:0;padding:0;" />
+	</div>
+
+	<?php } 
+
+	if(isset($_GET['openlast'])) { ?>
+		<script type="text/javascript">
+			simpleAjaxInner('<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/editObject/id/'.$page->getId() ?>');
+		</script>
+	<?php } ?>
+</div>	

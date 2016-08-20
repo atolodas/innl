@@ -1,0 +1,50 @@
+.simplemodal-overlay{background: #000;}
+.simplemodal-container{background: white url(../images/grey-raster.png) top left repeat-x !important;border-radius: 5px;width:525px; }
+.simplemodal-container .page-title h1, .simplemodal-container .page-title h2{text-transform: uppercase;font-family: brandon,arial,sans-serif;color: #7E8083;font-size: 25px;font-weight: normal;}
+
+div.store-box {
+    background: red!important;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    padding: 0px!important;
+    max-width: 1500px!important;
+    min-width: 0px!important;
+}
+.account-create,
+.account-login {
+	
+}
+.review-nologged {background: #FFF;padding: 10px 40px 10px 10px;font-family: Arial, sans-serif;font-size: 14px;font-style: oblique;color: #FF1800;margin: 0;}
+div.store-box div.store-box-content {
+    /*width: 100%;*/
+    max-height: 750px;
+    padding: 0px!important;
+    border: 0px!important;
+    background: white!important;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+a.forgotten:hover {
+    color: #F0701E;
+}
+a.forgotten {
+    padding:24px 0 23px 0;
+    display: inline-block;
+    font-size: 12px;
+    color: #066;
+}
+a.modalCloseImg {
+    z-index: 99;
+    background: url(../images/sprite.png) -159px -51px no-repeat;
+    height: 34px!important;
+    width: 37px!important;
+    display: block;
+    top: 1px;
+    position: absolute;
+    right: -1px;cursor: pointer;
+}

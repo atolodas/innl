@@ -1,0 +1,17 @@
+<form enctype="multipart/form-data" id="products-import-form" method="post" action="<?php echo Mage::getBaseUrl() ?>seller/products/import" target="productsImportFrame">
+        <span style="display:block" id="products-name"></span>
+		<input type="file" class="absolute" name="file" style="opacity: 0; z-index: -1" class="required-entry" id="products-file" onchange="jQuery('#products-name').html('File <b>'+this.value.replace(/^.*(\\|\/|\:)/, '')+'</b> is ready for import')"/>
+        <button class="btn pointer m5" type="button" onclick="jQuery('#products-file').trigger('click')"><?php echo $this->__('Choose file') ?></button>
+        <button class="btn btn-success m5" type="submit"><?php echo $this->__('Import') ?></button>
+</form>
+<form enctype="multipart/form-data" id="products-export-form" method="post" action="<?php echo Mage::getBaseUrl() ?>seller/products/export" target="productsImportFrame">
+    <button class="btn btn-danger m5" type="submit"><?php echo $this->__('Export') ?></button>
+</form>
+<form enctype="multipart/form-data" id="products-example-form" method="post" action="<?php echo Mage::getBaseUrl() ?>seller/products/getimportexample" target="productsImportFrame">
+    <button class="btn btn-danger m5" type="submit"><?php echo $this->__('Get import file example') ?></button>
+</form>
+<script type="text/javascript">
+    var productsImportForm = new VarienForm('products-import-form');
+</script>
+<div class="clearer"></div>
+<iframe id="productsImportFrame" name="productsImportFrame" width="100%" height="500" frameBorder="0" ></iframe>

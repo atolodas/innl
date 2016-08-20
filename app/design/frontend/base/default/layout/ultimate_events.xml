@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ultimate_Events extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Ultimate
+ * @package        Ultimate_Events
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<layout>
+    
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="ultimate_events">
+                <name>events_comments</name>
+                <path>ultimate_events/events_customer_comment</path>
+                <label>events Comments</label>
+            </action>
+        </reference>
+    </customer_account>
+    
+    <ultimate_events_index_index translate="label" module="ultimate_events">
+        <label>Events list</label>
+        <update handle="page_one_column" />
+        <reference name="head">
+        	<action method="addCss">
+                    <stylesheet>fullcalendar/fullcalendar.css</stylesheet>
+                </action>
+                <action method="addJs">
+                    <script>lib/jquery.min.js</script>
+                </action>
+		<action method="addJs">
+                    <script>lib/moment.min.js</script>
+                </action>
+                <action method="addJs">
+                    <script>lib/fullcalendar.min.js</script>
+                </action>
+        </reference>
+        <reference name="content">
+            <block type="ultimate_events/events_list" name="events_list" template="ultimate_events/events/list.phtml" />
+        </reference>
+    </ultimate_events_index_index>
+    
+    <ultimate_events_events_view translate="label" module="ultimate_events">
+        <label>Events view page</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="ultimate_events/events_view" name="events_view" template="ultimate_events/events/view.phtml" />
+            <block type="ultimate_events/events_comment_list" name="events.comments_list" as="events_comment_list" template="ultimate_events/events/comment/list.phtml">
+                <block type="ultimate_events/events_comment_form" name="comment_form" as="comment_form" template="ultimate_events/events/comment/form.phtml" />
+            </block>
+        </reference>
+    </ultimate_events_events_view>
+    
+    <ultimate_events_index_rss translate="label" module="ultimate_events">
+        <label>Events rss feed</label>
+        <block type="ultimate_events/events_rss" output="toHtml" name="ultimate_events.events.rss" />
+    </ultimate_events_index_rss>
+    
+    <rss_index_index>
+        <reference name="content">
+            <block type="ultimate_events/rss" name="events.rss" template="ultimate_events/rss.phtml">
+                <action method="addFeed" ifconfig="ultimate_events/events/rss" translate="label" module="ultimate_events">
+                    <label>Events</label>
+                    <url helper="ultimate_events/events/getRssUrl" />
+                </action>
+            </block>
+        </reference>
+    </rss_index_index>
+    
+    <ultimate_events_index_customer_comment_index translate="label" module="ultimate_events">
+        <label>My Events comments</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="ultimate_events/events_customer_comment_list" name="customer_events_comments" template="ultimate_events/events/customer/comment/list.phtml"/>
+        </reference>
+    </ultimate_events_index_customer_comment_index>
+    
+    <ultimate_events_index_customer_comment_view translate="label" module="ultimate_events">
+        <label>My Events comment view</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="ultimate_events/events_customer_comment_view" name="customer_events_comment" template="ultimate_events/events/customer/comment/view.phtml"/>
+        </reference>
+    </ultimate_events_index_customer_comment_view>
+</layout>

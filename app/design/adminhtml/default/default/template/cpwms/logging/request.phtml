@@ -1,0 +1,65 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
+<div class="content-header">
+    <h3 class="icon-head head-products"><?php echo $this->getHeader() ?></h3>
+    <p class="content-buttons form-buttons"><?php echo $this->getBackButtonHtml() ?>
+    <?php echo $this->getCancelButtonHtml() ?>
+    <?php echo $this->getResendButtonHtml() ?>
+    </p>
+</div>
+<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="wms_logging_request_form" enctype="multipart/form-data">
+    <?php echo $this->getBlockHtml('formkey')?>
+    <div style="display:none"></div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var requestTemplateSyntax = /(^|.|\r|\n)({{(\w+)}})/;
+    var requestForm = new varienForm('wms_logging_request_form', '<?php echo $this->getValidationUrl() ?>');
+
+    requestForm._processValidationResult = function(transport) {
+        var response = transport.responseText.evalJSON();
+        if (response.error){
+            if (response.attribute && $(response.attribute)) {
+                $(response.attribute).setHasError(true, requestForm);
+                Validation.ajaxError($(response.attribute), response.message);
+                if (!Prototype.Browser.IE){
+                    $(response.attribute).focus();
+                }
+            }
+            else if ($('messages')) {
+                $('messages').innerHTML = '<ul class="messages"><li class="error-msg"><ul><li>' + response.message + '</li></ul></li></ul>';
+            }
+        }
+        else{
+            requestForm._submit();
+        }
+    };
+
+    function setSettings(urlTemplate, typeElement) {
+        var template = new Template(urlTemplate, requestTemplateSyntax);
+        setLocation(template.evaluate({type:$F(typeElement)}));
+    }
+
+    Event.observe(window, 'load', function() {
+        var objName = '<?php echo $this->getSelectedTabId() ?>';
+        if (objName) {
+            obj = $(objName);
+            //IE fix (bubbling event model)
+            request_info_tabsJsTabs.setSkipDisplayFirstTab();
+            request_info_tabsJsTabs.showTabContent(obj);
+        }
+//        Product.AttributesBridge.setTabsObject(request_info_tabsJsTabs);
+    });
+    
+    function resend(urlTemplate) {
+        var template = new Template(urlTemplate, requestTemplateSyntax);
+//        var url = template.evaluate({tab_id:request_info_tabsJsTabs.activeTab.id});
+        var url = template.evaluate({tab_id:0});
+        requestForm.submit(url);
+    }
+</script>

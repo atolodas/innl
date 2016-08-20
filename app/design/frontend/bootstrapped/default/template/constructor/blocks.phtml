@@ -1,0 +1,43 @@
+<div class="col-md-12">
+	<h4 class="section-header"><?php echo $this->__('Blocks') ?>
+	<div class="form-buttons pull-right mbottom5">
+		<button type="button" class="btn btn-large btn-info f15 simpleAjaxInner"  href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/editBlock/id/0' ?>"><?php echo $this->__('Add new block') ?></button>
+    </div>
+	</h4>
+</div>
+
+<div class="list centered">
+	<div class="col-md-12 col-sm-12 header white p5 mbottom10"> 
+		<div class="col-md-3 col-sm-3"><?php echo $this->__('Name') ?></div>
+		<div class="col-md-3 col-sm-3"><?php echo $this->__('URL Key') ?></div>
+		<div class="col-md-3 col-sm-3"><?php echo $this->__('Status') ?></div>
+		<div class="col-md-3 col-sm-3"><?php echo $this->__('Actions') ?></div>
+	</div>
+	<?php foreach ($this->getBlocks() as $block) {  ?>
+	<div class="col-md-13"> 
+		<div class="col-md-3 col-sm-3"><?php echo $block->getTitle() ?></div>
+		<div class="col-md-3 col-sm-3"><?php echo $block->getIdentifier() ?></div>
+		<div class="col-md-3 col-sm-3"><?php echo $block->getIsActive()?$this->__('Enabled'):$this->__('Disabled') ?></div>
+		<div class="col-md-3 col-sm-3">
+			<a class="simpleAjaxInner" href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/editBlock/id/'.$block->getId() ?>" title="Edit">
+				<i class="fa fa-edit f20 black mright10"></i> </a> 
+				
+				<?php if(Mage::registry('scode') != 'demo') { ?> 
+				<a class="simpleAjaxNoAction" href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/deleteBlock/id/'.$block->getId() ?>" title="Delete">
+				<i class="fa fa-remove f20 black mright10" onclick="simpleAjax('<?php echo $this->getUrl('manage/blocks') ?>',false)"></i>  </a>
+				<?php } else { ?> 
+					<i class="fa fa-remove f20 grey disabled mright10"></i>
+				<?php } ?>
+		</div>
+		<hr class="col-md-12 col-sm-12" style="color:grey; height: 2px; margin:0;padding:0;" />
+	</div>
+
+	<?php }
+		if(isset($_GET['openlast'])) { ?>
+		<script type="text/javascript">
+			simpleAjaxInner('<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/editBlock/id/'.$block->getId() ?>');
+		</script>
+	<?php } ?>
+</div>	
+
+

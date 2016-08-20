@@ -1,0 +1,256 @@
+<?php
+$bot = $this->getBot();
+$botId = $bot_id = $bot->getAiBot();
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+if(!$customer->getId()) {
+ Mage::app()->getResponse()->setRedirect(Mage::getUrl('customer/account/login'));
+} else {
+$convo_id = md5($customer->getId() . "-" . $bot->getId());
+$url = $this->getUrl("bot/ajax/message");
+$todayDate = Mage::helper('bot')->convertDate(date('Y-m-d H:i:s'), 'Y-m-d');
+$chatHistory = $this->getChatHistory($convo_id, $todayDate);
+$chatDates = $this->getChatDates($convo_id);
+?>
+<div id="chat-container" class="hidder mbottom20 pbottom10" >
+        <div id="chatwin" class=" scroller clear"  style="bottom:120px;">
+            <div id="chat-content" class="sticky" style="bottom:0; height:98%">
+                <?php foreach ($chatDates as $date) {
+                    $date = $date['date'];
+                    if($date == $todayDate) continue;
+                    ?>
+                    <div class="centered">
+                        <a href="javascript:void(0)" onclick="loadChatHistory('<?php echo $date ?>')">
+                            <?php echo Mage::helper('core')->formatDate($date, 'long') ?>
+                        </a>
+                        <hr class="bold grey"/>
+                    </div>
+                    <div id="chat-content-<?php echo $date ?>" class="chat-content"></div>
+
+                <?php } ?>
+                <div class="centered">
+                    <?php echo $this->__('Today') ?>
+                    <hr class="bold grey"/>
+                </div>
+                <div id="chat-content" class="chat-content"></div>
+                </div>
+            </div>
+        </div>
+    <div id="chatdiv" class="relative w100p block h50" style="bottom:20px">
+        <form method="post"   name="talkform" id="talkform" action="index.php">
+          <div id="suggestions-container" style="display:none"></div>
+          <input type="text" autocomplete="off" placeholder="<?php echo Mage::helper('bot')->__('Say something...') ?>" name="say" id="say" class="chat-input" size="60"/>
+          <input type="hidden" name="convo_id" id="convo_id" value="<?php echo $convo_id;?>" />
+          <input type="hidden" name="bot_id" id="bot_id" value="<?php echo $bot_id;?>" />
+          <input type="hidden" name="format" id="format" value="json" />
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="https://raw.githubusercontent.com/devbridge/jQuery-Autocomplete/master/src/jquery.autocomplete.js"></script>
+<script type="text/javascript" >
+var botpic = '<?php echo $image = Mage::helper('score/image')->init($bot, 'image', $bot->getBotPic())->resize(50) ?>';
+var getHistoryUrl = '<?php echo Mage::getBaseUrl() . 'bot/ajax/history/convo/'.$convo_id ?>';
+var spinner = "<h5 class='centered'><i class='fa fa-spinner fa-pulse f25 darkgrey'></i></h5>";
+
+function addUserComment(text, container, time) {
+    var container_id = 'chat-content';
+    if(container!=undefined && container!='') container_id = container_id + '-' + container;
+    jQuery('#'+container_id).append("<div class='chat-message'><span class='w50 mright10 inline pull-left'><img class='avatar' src='"+userpic+"' /></span><label class='username bold'>" + '<?php echo ($customer->getFirstname()?$customer->getFirstname():"You") ?>' + "</label><time>"+time+"</time><div class='message'>" + text + "</div></div>");
+}
+
+function addBotComment(text, container, time) {
+    var container_id = 'chat-content';
+    if(container!=undefined && container!='') container_id = container_id + '-' + container;
+    message = jQuery("<div class='chat-message'><span class='w50 mright10 inline pull-left'><img class='avatar' src='"+botpic+"' /></span><label class='botname bold'>" + '<?php echo $bot->getName() ?>' + "</label><time>"+time+"</time><div class='message'> " + text + "</div></div>");
+    jQuery('#'+container_id).append(message);
+    jQuery('#chatwin').stop().animate({ scrollTop: 99999}, 1000);
+}
+
+function loadChatHistory(date) {
+    jQuery('#chat-content-'+date).html(spinner);
+
+    jQuery.ajax({
+                url: getHistoryUrl + '?date='+date,
+                type: 'POST',
+                complete: function(response) {
+                        jQuery('#chat-content-'+date).html('');
+                        var data = JSON.parse(response.responseText);
+                        jQuery.each(data.messages, function( i, val ) {
+                            addUserComment(val.input, date, val.userdate.replace(date, ''));
+                            addBotComment(val.response, date, val.userdate.replace(date, ''));
+                        });
+                },
+    });
+}
+
+ jQuery(document).ready(function() {
+     jQuery('#say').autocomplete({
+                serviceUrl: '<?php echo $this->getUrl('bot/ajax/autocomplete', array('isAjax' => true)) ?>',
+                appendTo: '#suggestions-container',
+                deferRequestBy: 500,
+                tabDisabled: true,
+                ajaxSettings: '{async: false}',
+                autoSelectFirst: true,
+                orientation: 'top',
+                onSelect: function (suggestion) {
+                    jQuery('#suggestions-container').hide();
+                    jQuery('#say').focus();
+                },
+                onSearchComplete: function (query, suggestions) {
+                    if(suggestions.length) jQuery('#suggestions-container').show();
+                    else jQuery('#suggestions-container').hide();
+                },
+                onSearchStart: function (query) {
+                    if(this.value.indexOf('/') != 0 || this.value.indexOf(' ') != -1) { // no ajax anymore
+                        return false;
+                    }
+                },
+                beforeRender: function(container) {
+                    jQuery(container).css('bottom', "0px");
+                }
+            }
+     );
+
+     <?php if(count($chatHistory)) {
+         foreach ($chatHistory as $value) {
+             $value['input'] = addslashes(implode('', explode("\n",$value['input'])));
+                 $value['response'] = addslashes(implode('', explode("\n",$value['response'])));
+             ?>
+             addUserComment('<?php echo $value['input'] ?>', '', '<?php echo str_replace($todayDate, '', $value['timestamp']) ?>');
+             addBotComment('<?php echo $value['response'] ?>', '', '<?php echo str_replace($todayDate, '', $value['timestamp']) ?>');
+             <?php
+         }
+     } ?>
+
+     jQuery('#say').focus();
+     // put all your jQuery goodness in here.
+     jQuery('#talkform').submit(function(e) {
+      e.preventDefault();
+      var user = jQuery('#say').val();
+      jQuery('.usersay').text(user);
+      var formdata = jQuery("#talkform").serialize();
+      jQuery('#say').val('');
+      jQuery('#say').focus();
+      jQuery.post('<?php echo $url ?>', formdata, function(data){
+        if(!data.botsay) data.botsay = 'Sorry, I have nothing to say here.';
+        var b = data.botsay;
+
+        var usersay = data.usersay;
+        if (user != usersay) {
+          jQuery('.usersay').text(usersay);
+        }
+        jQuery('.botsay').html(b);
+        addUserComment(usersay,'', data.timestamp.replace('<?php echo $todayDate ?>', ''));
+        addBotComment(b,'', data.timestamp.replace('<?php echo $todayDate ?>', ''));
+
+      }, 'json').fail(function(xhr, textStatus, errorThrown){
+        //jQuery('#urlwarning').html("Something went wrong! Error = " + errorThrown);
+      });
+      return false;
+    });
+  });
+</script>
+<?php } ?>
+<style>
+.sticky { position: sticky !important; }
+.scroller {
+    overflow-y: auto;
+    outline: 0;
+    overflow-x: scroll;
+    bottom: 0px;
+}
+
+.avatar {
+    border-radius: 10px;
+}
+
+.hidder {
+    overflow: hidden;
+}
+.chat-input {
+    background: #fff;
+    width: 100%;
+
+    border: 2px solid #E0E0E0;
+    background-clip: padding-box;
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    margin: 0;
+
+    -webkit-appearance: none;
+    box-shadow: none;
+    outline: 0;
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    min-height: 42px !important;
+    color: #3d3c40;
+    line-height: 1.2em;
+    font-size: 17px;
+    padding: 9px 40px 9px 8px;
+    max-height: 10pc !important;
+    resize: none !important;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+    border-radius: 6px;
+}
+.chat-message:hover {
+    background-color: #eee;
+}
+
+.chat-message {
+    min-height: 60px;
+    display: block;
+    width: 100%;
+    position: relative;
+    padding: 5px 0 0 5px;
+    border-radius: 10px;
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    color: #2c2d30;
+    line-height: 1.375rem;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    word-wrap: break-word;
+    clear: both;
+    margin-bottom: 5px;
+
+}
+
+.chat-container {
+}
+
+.message:hover {
+    background-color: rgb(177, 177, 177) !important:
+}
+
+time {
+    margin-left: 5px;
+    font-weight: italic;
+}
+
+.help-col, .chat-col {
+    border-right: 2px solid #E0E0E0
+}
+
+#suggestions-container  { position: fixed; width: 100%; z-index:1000; background-color: #fff; }
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { font-size: 17px; white-space: nowrap; overflow: hidden;     color: #3d3c40; line-height: 20px;  padding: 5px; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+</style>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jstimezonedetect/1.0.4/jstz.min.js"></script>
+<script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery.ajax({
+                type: "POST",
+                url: "<?php echo $this->getUrl('bot/ajax/saveUserTimezone') ?>",
+                data: 'timezone=' + jstz.determine().name(),
+                success: function(data) {}
+            });
+        });
+</script>

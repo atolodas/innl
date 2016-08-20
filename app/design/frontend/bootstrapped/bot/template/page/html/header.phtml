@@ -1,0 +1,56 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<div id="fade">&nbsp;</div>
+<span id="left-mobile"></span>
+	<logo onclick="document,location.href = '<?php echo $this->getUrl('') ?>'" class="dtc pointer left0 top0 mtop10">
+
+    <?php
+		$html =  $this->getLogoAlt();
+		$noHtml = strip_tags($html);
+		if($html != $noHtml) {
+			echo $html;
+		} else {
+	?>
+		<h3 class="bold m5 f20" style="font-family:Verdana"><?php echo $noHtml ?></h3>
+    <?php } ?>
+    </logo>
+
+    <span class="fixed right0 top0">
+        <?php echo $this->getChildHtml('topLinks') ?>
+    </span>
+<?php
+$url = Mage::helper('core/url')->getCurrentUrl();
+if(substr_count($url, 'customer/account') == 0) Mage::getSingleton('customer/session')->setBeforeAuthUrl($url); ?>
+<script type="text/javascript" >
+    function equalHeight() {
+        jQuery(".equal").css('height','auto');
+        jQuery(".equal").responsiveEqualHeightGrid(3);
+    }
+
+function fitScreen() {
+    jQuery('body').css('height',(jQuery(window).height())+'px').css('overflow', 'hidden');
+    jQuery('#chatwin').css('height',(jQuery(window).height()-110)+'px');
+
+    equalHeight();
+}
+
+jQuery(window).resize(function() {
+    fitScreen();
+});
+
+ jQuery(document).ready(function() {
+     fitScreen();
+});
+</script>

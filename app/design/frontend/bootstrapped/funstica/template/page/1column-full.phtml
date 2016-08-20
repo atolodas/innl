@@ -1,0 +1,51 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $this->getLang() ?>">
+    <head>
+        <?php echo $this->getChildHtml('head') ?>
+    </head>
+    <body<?php echo $this->getBodyClass() ? ' class="' . $this->getBodyClass() . '"' : '' ?>>
+        <?php echo $this->getChildHtml('after_body_start') ?>
+        <div class="wrapper">
+            <div class="page">
+                <div class="navbar navbar-top nmb">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <?php echo $this->getChildHtml('header') ?>
+                        </div>
+                    </div>
+                </div>
+                <?php if($this->getUrl('') == $this->getUrl('*/*/*', array('_current'=>false, '_use_rewrite'=>true))) {
+                         echo $this->getChildHtml('top_banner');
+                      }
+                ?>
+                                <?php echo $this->getChildHtml('global_messages') ?>
+                                <div id="mainContent">
+                                    <?php echo $this->getChildHtml('content') ?>
+                                </div>
+            </div>
+        </div>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links')->toHtml() ?>
+        <footer class="footer navbar-fixed-bottom navbar-inner noborder npt">
+            <div class="container">
+                <?php echo $this->getChildHtml('footer') ?>
+                <?php echo $this->getChildHtml('global_notices') ?>
+            </div>
+        </footer>
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+        <?php echo $this->getChildHtml('before_body_end') ?>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<?php
+$image = $this->getImage();
+$attribute = $this->getAttributeByCode();
+if(is_object($attribute)) {
+?>
+<ul>
+      <li class="row">
+        <span class="">
+          <span>
+	        <?php switch($this->getFieldType()) {
+                case 'image': ?>
+                <input type="image" title="<?php echo $this->getAlt() ?>" onclick="if(this.value==1) { this.value=0; } else  { this.value=1; } this.toggleClassName('disabled'); " value="<?php if($oggy = Mage::registry('current_oggetto')) { echo (int)$oggy->getData($attribute->getAttributeCode());  } ?>" class="<?php echo $attribute->getFrontendClass() ?><?php if($oggy = Mage::registry('current_oggetto')) { if($oggy->getData($attribute->getAttributeCode())==0) { echo "disabled"; } } ?>"  src="<?php echo Mage::getBaseUrl().$image?>"  name="<?php echo $attribute->getAttributeCode() ?>" id="<?php echo Mage::registry('current_oggetto')->getId().'-'.$attribute->getAttributeCode() ?>-attr-adv" />
+                <?php break;
+                 case 'inverse': ?>
+                <input type="image" title="<?php echo $this->getAlt() ?>" onclick="if(this.value==1) { this.value=0; } else  { this.value=1; } this.toggleClassName('disabled'); " value="<?php if($oggy = Mage::registry('current_oggetto')) { echo (int)$oggy->getData($attribute->getAttributeCode());  } ?>" class="<?php echo $attribute->getFrontendClass() ?><?php if($oggy = Mage::registry('current_oggetto')) { if($oggy->getData($attribute->getAttributeCode())==1) { echo "disabled"; } } ?>"  src="<?php echo Mage::getBaseUrl().$image?>"  name="<?php echo $attribute->getAttributeCode() ?>" id="<?php echo Mage::registry('current_oggetto')->getId().'-'.$attribute->getAttributeCode() ?>-attr-adv" />
+                <?php break;
+                case 'checkbox':
+                // TODO: fix checkbox don't see click event because of custom skinning
+                ?>
+                <input type="checkbox" onclick="if(this.value==1) { this.value=0; } else  { this.value=1; } this.toggleClassName('disabled'); " value="<?php if($oggy = Mage::registry('current_oggetto')) { echo $oggy->getData($attribute->getAttributeCode());  } ?>" <?php if($oggy = Mage::registry('current_oggetto') && $oggy->getData($attribute->getAttributeCode())==1) { echo "checked";  } ?> class="<?php echo $attribute->getFrontendClass() ?><?php if($oggy = Mage::registry('current_oggetto')) { if($oggy->getData($attribute->getAttributeCode())==0) { echo "disabled"; } } ?>"    name="<?php echo $attribute->getAttributeCode() ?>" id="<?php echo Mage::registry('current_oggetto')->getId().'-'.$attribute->getAttributeCode() ?>-attr-adv" />
+                <?php break;
+                case 'customer_apply': ?>
+                  <button title="<?php echo $this->getAlt() ?>" onclick="this.toggleClassName('disabled');" name="<?php echo $attribute->getAttributeCode() ?>" class="btn-large btn-danger" id="<?php echo Mage::registry('current_oggetto')->getId().'-'.$attribute->getAttributeCode() ?>-attr-customer"><?php echo $this->getAlt() ?></button>
+                <?php
+                break;
+                default:
+                break;
+                } ?>
+          </span>
+        </span>
+        <span class="col-md-5">
+
+        </span>
+      </li>
+      </ul>
+
+        <?php switch($this->getFieldType()) {
+         case 'customer_apply': ?>
+      <script type="text/javascript">
+       var elem = $("<?php echo Mage::registry('current_oggetto')->getId().'-'.$attribute->getAttributeCode() ?>-attr-customer");
+       elem.on('click', function() { applyCustomerToAttribute('<?php echo Mage::registry('current_oggetto')->getId()?>',this.name,this.value, this); });
+      </script>
+      <?php break;
+      default: ?>
+      <script type="text/javascript">
+       var elem = $("<?php echo Mage::registry('current_oggetto')->getId().'-'.$attribute->getAttributeCode() ?>-attr-adv");
+       elem.on('change', function() { saveAttribute('<?php echo Mage::registry('current_oggetto')->getId()?>',this.name,this.value, this); });
+       elem.on('click', function() { saveAttribute('<?php echo Mage::registry('current_oggetto')->getId()?>',this.name,this.value, this); });
+       </script>
+       <?php break; } ?>
+<?php } ?>

@@ -1,0 +1,20 @@
+<?php
+$object = Mage::getModel('score/oggetto')->load($_GET['q']);
+$text = $object->getText();
+$author = $object->getAuthor();
+
+if(!$text) $text = "Quotes are danger. Stay away.";
+if(!$author) $author = "@wwwinnativelife";
+?>
+
+<div class="dt" style="height: 600px; width: 50%; margin-left:25%">
+    <div class="dtc" id="editor">
+        <h3 class="fs60"><?php echo $text ?></h3>
+        <h5 class="f20"><?php echo $author ?></h5>
+    </div>
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('#editor').raptor();
+        });
+    </script>
+</div>

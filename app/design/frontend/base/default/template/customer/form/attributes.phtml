@@ -1,0 +1,55 @@
+
+ <?php
+ $customer = Mage::helper('customer')->getCustomer();
+  $attributes = Mage::getResourceModel('customer/form_attribute_collection')
+                ->addFormCodeFilter($this->getFormCode())
+                ->addFieldToFilter('attribute_code',array('nin'=>array('firstname','lastname','email')))
+		->setSortOrder()
+		 ->load();
+
+      foreach($attributes as $attribute) {
+          if(($attribute->getStoreLabel() == '' || $attribute->getFrontendLabel() == $attribute->getStoreLabel() || !$attribute->getIsVisible())) continue;
+      ?>
+        <span class="row">
+          <label class="desc col-md-3 mright10 mleft10">
+            <?php echo $attribute->getStoreLabel() ?>
+            <?php if($attribute->getIsRequired()) { ?> <span class="req">*</span> <?php } ?>
+         </label>
+          <span class="col-md-8">
+	        <?php switch($attribute->getFrontendInput()) {
+                case 'text': ?>
+                  <input placeholder="<?php if($attribute->getIsRequired()) { ?>*<?php } ?><?php echo $attribute->getStoreLabel() ?>"  name="<?php echo $attribute->getAttributeCode() ?>" type="text" class="field text medium col-md-12 <?php echo $attribute->getFrontendClass() ?>" value="<?php echo $customer->getData($attribute->getAttributeCode()); ?>" maxlength="255" <?php if($attribute->getIsRequired()) { ?> required="" <?php } ?> />
+                <?php break;
+                case 'textarea': ?>
+                  <textarea placeholder="<?php if($attribute->getIsRequired()) { ?>*<?php } ?><?php echo $attribute->getStoreLabel() ?>"  name="<?php echo $attribute->getAttributeCode() ?>" rows="7" cols="20" class="col-md-12 field <?php echo $attribute->getFrontendClass() ?>"><?php echo $customer->getData($attribute->getAttributeCode()); ?></textarea>
+                <?php break;
+		case 'multiselect':  ?>
+                  <select multiple="true" size="5"  name="<?php echo $attribute->getAttributeCode() ?>[]" type="text" class="col-md-12 field  <?php echo $attribute->getFrontendClass() ?>" value="" maxlength="255" <?php if($attribute->getIsRequired()) { ?> required="" <?php } ?>>
+                    <?php $options = $attribute->getSource()->getAllOptions(false);
+                    foreach($options as $key=>$value) { ?>
+                      <option 	<?php if(in_array($value['value'],explode(',',$customer->getData($attribute->getAttributeCode())))) { echo "selected='selected'";  } ?> value="<?php echo $value['value'] ?>"><?php echo $value['label'] ?></option>
+                    <?php }	?>
+                  </select>
+                <?php break;
+                		 case 'select':
+         case 'boolean':
+                   $options = $attribute->getSource()->getAllOptions(false);
+                  ?>
+                  <select name="<?php echo $attribute->getAttributeCode() ?>" type="text" class="col-md-12 field <?php echo $attribute->getFrontendClass() ?>" value="" maxlength="255" <?php if($attribute->getIsRequired()) { ?> required="" <?php } ?>>
+                    <?php
+if(count($options)) {
+ foreach($options as $key=>$value) { ?>
+                      <option 	<?php if(in_array($value['value'],explode(',',$customer->getData($attribute->getAttributeCode())))) { echo "selected='selected'";  } ?> value="<?php echo $value['value'] ?>"><?php echo $value['label'] ?></option>
+                    <?php } } else { 	?>
+                    <option   <?php if(in_array(1,explode(',',$customer->getData($attribute->getAttributeCode())))) { echo "selected='selected'";  } ?> value="1">Yes</option>
+                      <option   <?php if(in_array(0,explode(',',$customer->getData($attribute->getAttributeCode())))) { echo "selected='selected'";  } ?> value="0">No</option>
+<?php } ?>
+                  </select>
+                 <?php break;
+                  case 'date':
+                  default:
+                break;
+                } ?>
+          </span>
+        </span>
+      <?php } ?>

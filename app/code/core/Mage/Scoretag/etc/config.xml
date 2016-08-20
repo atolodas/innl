@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Scoretag
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Mage_Scoretag>
+            <version>1.6.0.0</version>
+        </Mage_Scoretag>
+    </modules>
+    <global>
+        <models>
+            <scoretag>
+                <class>Mage_Scoretag_Model</class>
+                <resourceModel>scoretag_resource</resourceModel>
+            </scoretag>
+            <scoretag_customer>
+                <class>Mage_Scoretag_Model_Customer</class>
+                <!-- <resourceModel>scoretag_customer_mysql4</resourceModel> -->
+                <resourceModel>scoretag_customer_resource</resourceModel>
+            </scoretag_customer>
+            <scoretag_resource>
+                <class>Mage_Scoretag_Model_Resource</class>
+                <deprecatedNode>scoretag_mysql4</deprecatedNode>
+                <entities>
+                    <scoretag>
+                        <table>scoretag</table>
+                    </scoretag>
+                    <relation>
+                        <table>scoretag_relation</table>
+                    </relation>
+                    <summary>
+                        <table>scoretag_summary</table>
+                    </summary>
+                    <properties>
+                        <table>scoretag_properties</table>
+                    </properties>
+                </entities>
+            </scoretag_resource>
+            <scoretag_customer_resource>
+                <class>Mage_Scoretag_Model_Resource_Customer</class>
+            </scoretag_customer_resource>
+        </models>
+        <resources>
+            <scoretag_setup>
+                <setup>
+                    <module>Mage_Scoretag</module>
+                </setup>
+            </scoretag_setup>
+        </resources>
+        <blocks>
+            <scoretag>
+                <class>Mage_Scoretag_Block</class>
+            </scoretag>
+        </blocks>
+        <index>
+            <indexer>
+                <scoretag_summary>
+                    <model>scoretag/indexer_summary</model>
+                </scoretag_summary>
+            </indexer>
+        </index>
+    </global>
+    <frontend>
+        <routers>
+            <scoretag>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Scoretag</module>
+                    <frontName>scoretag</frontName>
+                </args>
+            </scoretag>
+        </routers>
+        <translate>
+            <modules>
+                <Mage_Scoretag>
+                    <files>
+                        <default>Mage_Scoretag.csv</default>
+                    </files>
+                </Mage_Scoretag>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <scoretag module="Mage_Scoretag">
+                    <file>scoretag.xml</file>
+                </scoretag>
+            </updates>
+        </layout>
+        <secure_url>
+            <scoretag_customer>/scoretag/customer/</scoretag_customer>
+        </secure_url>
+    </frontend>
+    <adminhtml>
+        <events>
+            <score_controller_oggetto_save_visibility_changed>
+                <observers>
+                    <scoretag>
+                        <type>model</type>
+                        <class>scoretag/scoretag</class>
+                        <method>oggettoEventAggregate</method>
+                    </scoretag>
+                </observers>
+            </score_controller_oggetto_save_visibility_changed>
+            <score_controller_oggetto_delete>
+                <observers>
+                    <scoretag>
+                        <type>model</type>
+                        <class>scoretag/scoretag</class>
+                        <method>oggettoEventAggregate</method>
+                    </scoretag>
+                </observers>
+            </score_controller_oggetto_delete>
+            <score_oggetto_delete_before>
+                <observers>
+                    <scoretag>
+                        <type>model</type>
+                        <class>scoretag/scoretag</class>
+                        <method>oggettoDeleteEventAction</method>
+                    </scoretag>
+                </observers>
+            </score_oggetto_delete_before>
+        </events>
+        <translate>
+            <modules>
+                <Mage_Scoretag>
+                    <files>
+                        <default>Mage_Scoretag.csv</default>
+                    </files>
+                </Mage_Scoretag>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <scoretag>
+                    <file>scoretag.xml</file>
+                </scoretag>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

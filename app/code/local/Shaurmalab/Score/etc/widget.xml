@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Shaurmalab_Score
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<widgets>
+    <new_oggettos type="score/oggetto_widget_new" translate="name description" module="core">
+        <name>Catalog New Oggettos List</name>
+        <description>List of Oggettos that are set as New</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <display_type translate="label description">
+                <required>1</required>
+                <visible>1</visible>
+                <label>Display Type</label>
+                <type>select</type>
+                <value>all_oggettos</value>
+                <values>
+                    <default translate="label">
+                        <value>all_oggettos</value>
+                        <label>All oggettos</label>
+                    </default>
+                    <item translate="label">
+                        <value>new_oggettos</value>
+                        <label>New oggettos</label>
+                    </item>
+                </values>
+                <description>All oggettos - recently added oggettos, New oggettos - oggettos marked as new</description>
+            </display_type>
+            <show_pager translate="label">
+                <visible>1</visible>
+                <label>Display Page Control</label>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+            </show_pager>
+            <oggettos_per_page translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value>5</value>
+                <label>Number of Oggettos per Page</label>
+                <type>text</type>
+                <depends><show_pager><value>1</value></show_pager></depends>
+            </oggettos_per_page>
+            <oggettos_count translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value>10</value>
+                <label>Number of Oggettos to Display</label>
+                <type>text</type>
+            </oggettos_count>
+            <template>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Template</label>
+                <type>select</type>
+                <value>score/oggetto/widget/new/content/new_grid.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>score/oggetto/widget/new/content/new_grid.phtml</value>
+                        <label>New Oggettos Grid Template</label>
+                    </default>
+                    <list translate="label">
+                        <value>score/oggetto/widget/new/content/new_list.phtml</value>
+                        <label>New Oggettos List Template</label>
+                    </list>
+                </values>
+            </template>
+            <cache_lifetime translate="label description">
+                <label>Cache Lifetime (Seconds)</label>
+                <description>86400 by default, if not set. To refresh instantly, Clear the Blocks HTML Output Cache.</description>
+                <visible>1</visible>
+                <type>text</type>
+            </cache_lifetime>
+        </parameters>
+    </new_oggettos>
+
+    <score_oggetto_link type="score/oggetto_widget_link" translate="name description" module="core">
+        <name>Catalog Oggetto Link</name>
+        <description>Link to a Specified Oggetto</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <id_path translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Oggetto</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/score_oggetto_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Oggetto...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </id_path>
+            <anchor_text translate="label description">
+                <visible>1</visible>
+                <label>Anchor Custom Text</label>
+                <description>If empty, the Oggetto Name will be used</description>
+                <type>text</type>
+            </anchor_text>
+            <title translate="label">
+                <visible>1</visible>
+                <label>Anchor Custom Title</label>
+                <type>text</type>
+            </title>
+            <template translate="label">
+                <label>Template</label>
+                <visible>1</visible>
+                <type>select</type>
+                <value>score/oggetto/widget/link/link_block.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>score/oggetto/widget/link/link_block.phtml</value>
+                        <label>Oggetto Link Block Template</label>
+                    </default>
+                    <link_inline translate="label">
+                        <value>score/oggetto/widget/link/link_inline.phtml</value>
+                        <label>Oggetto Link Inline Template</label>
+                    </link_inline>
+                </values>
+            </template>
+        </parameters>
+    </score_oggetto_link>
+
+    <score_category_link type="score/category_widget_link" translate="name description" module="core">
+        <name>Catalog Category Link</name>
+        <description>Link to a Specified Category</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <id_path translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Category</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/score_category_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Category...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </id_path>
+            <anchor_text translate="label description">
+                <visible>1</visible>
+                <label>Anchor Custom Text</label>
+                <description>If empty, the Category Name will be used</description>
+                <type>text</type>
+            </anchor_text>
+            <title translate="label">
+                <visible>1</visible>
+                <label>Anchor Custom Title</label>
+                <type>text</type>
+            </title>
+            <template translate="label">
+                <label>Template</label>
+                <visible>1</visible>
+                <type>select</type>
+                <value>score/category/widget/link/link_block.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>score/category/widget/link/link_block.phtml</value>
+                        <label>Category Link Block Template</label>
+                    </default>
+                    <link_inline translate="label">
+                        <value>score/category/widget/link/link_inline.phtml</value>
+                        <label>Category Link Inline Template</label>
+                    </link_inline>
+                </values>
+            </template>
+        </parameters>
+    </score_category_link>
+    <oggetto_attribute_edit type="score/oggetto_edit" translate="" module="score">
+        <name>Attribute Edit Widget</name>
+        <description>Attribute Edit Widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <attribute_code translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <label>Attribute code</label>
+                <type>select</type>
+                <source_model>score/oggetto_attribute</source_model>
+            </attribute_code>
+
+            <template>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Template</label>
+                <type>select</type>
+                <source_model>score/oggetto_attribute_template</source_model>
+             </template>
+             <fieldtype>
+                <required>0</required>
+                <visible>1</visible>
+                <label>Field Type (for advanced template only)</label>
+                <type>select</type>
+                <source_model>score/oggetto_attribute_fieldtype</source_model>
+             </fieldtype>
+            <alt>
+                <required>0</required>
+                <visible>1</visible>
+                <label>Alt text</label>
+                <type>text</type>
+             </alt>
+            <image translate="label">
+                <required>0</required>
+                <visible>1</visible>
+                <label>Image (for advanced template and Image Fieldtype)</label>
+                <type>text</type>
+            </image>
+        </parameters>
+    </oggetto_attribute_edit>
+</widgets>

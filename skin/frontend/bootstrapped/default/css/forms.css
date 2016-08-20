@@ -1,0 +1,19 @@
+.product-options input, .fieldset input { 
+	font-size: 15px;
+	width: 100%;
+}
+
+.product-options textarea, .fieldset textarea { 
+	font-size: 15px;
+	width: 100%;
+	height: 200px;
+}
+
+.product-options select, .fieldset select { 
+	font-size: 15px;
+	width: auto;
+}
+
+.validation-advice { 
+	color: #ff0000;
+}

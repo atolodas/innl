@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <abtests_presentations_events>
+                    <title>A/B Testing</title>
+                    <sort_order>74</sort_order>
+                    <children>
+                        <abtest translate="title" module="neklo_abtesting">
+                            <title>Manage A/B Tests</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/neklo_abtesting_abtest/</action>
+                        </abtest>
+                        <abpresentation translate="title" module="neklo_abtesting">
+                            <title>Manage A/B Presentations</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/neklo_abtesting_abpresentation/</action>
+                        </abpresentation>
+                        <report translate="title" module="neklo_abtesting">
+                            <title>Report</title>
+                            <sort_order>100</sort_order>
+                            <action>adminhtml/neklo_abtesting_report/index</action>
+                        </report>
+       
+                    </children>
+                </abtests_presentations_events>
+            </children>
+        </system>
+        <customer>
+            <children>
+                <visitors translate="title" module="neklo_abtesting">
+                    <title>Visitors</title>
+                    <sort_order>100</sort_order>
+                    <action>adminhtml/neklo_abtesting_visitor/</action>
+                </visitors>
+            </children>
+        </customer>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <abtest translate="title" module="neklo_abtesting">
+                                <title>Manage A/B Tests</title>
+                            </abtest>
+                            <config>
+                                <children>
+                                    <neklo_abtesting translate="title" module="neklo_abtesting">
+                                        <title>Neklo A/B Testing</title>
+                                        <sort_order>9998</sort_order>
+                                    </neklo_abtesting>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

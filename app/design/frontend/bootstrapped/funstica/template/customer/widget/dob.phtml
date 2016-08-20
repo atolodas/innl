@@ -1,0 +1,63 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+
+/**
+*USAGE:
+*
+*Simple:*
+*
+*<?php echo $this->getLayout()->createBlock('customer/widget_dob')
+*   ->setDate($this->getCustomer()->getDob())
+*   ->toHtml() ?>
+*
+*For checkout/onepage/billing.phtml:
+*
+*<?php echo $this->getLayout()->createBlock('customer/widget_dob')
+*   ->setDate($this->getCustomer()->getDob())
+*   ->setFieldIdFormat('billing:%s')
+ *  ->setFieldNameFormat('billing[%s]')
+ *  ->toHtml() ?>
+*
+*NOTE: Regarding styles - if we leave it this way, we'll move it to boxes.css
+*      Alternatively we could calculate widths automatically using block input parameters.
+*/
+
+/**
+ * @see Mage_Customer_Block_Widget_Dob
+ */
+ $displayFormat = Varien_Date::convertZendToStrFtime(Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_LONG), true, false);
+     $value = Mage::helper('core')->formatDate(date('Y-m-d', strtotime($this->getDate())),'long',false);
+      
+?>
+
+<div class="control-group">
+	<label for="<?php echo $this->getFieldId('month')?>" class="control-label<?php if ($this->isRequired()) echo ' required' ?>" ><?php if ($this->isRequired()) echo '<em>*</em>' ?><?php echo $this->__('Date of Birth') ?></label>
+	<div class="controls customer-dob">
+	    <div class="dob-full">
+	        <input type="text" onclick="jQuery('#<?php echo $this->getFieldId('dob')?>_trig').click()" id="<?php echo $this->getFieldId('dob')?>" value="<?php echo $value ?>" name="<?php echo $this->getFieldName('dob')?>" /> <i alt="<?php echo $this->helper('core')->__('Select Date') ?>" class="fa fa-calendar pointer f25" title="<?php echo $this->helper('core')->__('Select Date') ?>" id="<?php echo $this->getFieldId('dob')?>_trig"></i>
+	        <script type="text/javascript">
+	        	//<![CDATA[
+	            var calendarSetupObject = {
+	                inputField  : '<?php echo $this->getFieldId('dob')?>',
+	                ifFormat    : "<?php echo $displayFormat ?>",
+	                showsTime   : false,
+	                button      : "<?php echo $this->getFieldId('dob')?>_trig",
+	                align       : "Bl",
+	                singleClick : true
+	            }
+	            Calendar.setup(calendarSetupObject);
+	        //]]>
+        </script>
+	    </div>
+
+	    <div class="validation-advice" style="display:none;"></div>
+	</div>
+</div>

@@ -1,0 +1,106 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Product In Websites') ?></h4>
+    </div>
+    <fieldset id="grop_fields">
+    <?php if($this->getProductId()): ?>
+        <ul class="messages">
+        </ul>
+    <?php endif; ?>
+    <?php foreach ($this->getWebsiteCollection() as $_website): ?>
+    <div>
+        <div class="website-name">
+            <input name="website[website_ids][]" value="<?php echo $_website->getId() ?>" class="checkbox website-checkbox" id="product_website_<?php echo $_website->getId() ?>" type="checkbox"<?php if($this->hasWebsite($_website->getId())): ?> checked<?php endif; ?>/>
+            <big><strong><label for="product_website_<?php echo $_website->getId() ?>"><?php echo $_website->getName() ?></label></strong></big>
+        </div>
+        <div class="webiste-groups" id="product_website_<?php echo $_website->getId() ?>_data">
+        <?php foreach ($this->getGroupCollection($_website) as $_group): ?>
+            <h4><?php echo $_group->getName() ?></h4>
+            <div class="group-stores">
+            <table>
+            <?php foreach ($this->getStoreCollection($_group) as $_store): ?>
+                <tr>
+	                <td>
+	                <?php //if($this->getWebsites() && !$this->hasWebsite($_website->getId())): ?>
+                    <span class="website-<?php echo $_website->getId() ?>-select">
+                    	<input type="checkbox" onClick="makeStr()" class="store_ids" name="store[<?php echo $_store->getId()?>]" value="<?php echo $_store->getId() ?>" <?php if($this->hasStore($_store->getId())): ?> checked<?php endif; ?>/>
+                    </span>
+                    <?php //endif; ?>
+                    </td>
+                    <td><?php echo $_store->getName() ?></td>
+                  
+                </tr>
+            <?php endforeach; ?>
+            </table>
+            </div>
+        <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endforeach; ?>
+    </fieldset>
+  
+<input type="hidden" name="website_id" id="website_id" value="<?php echo $this->getPage()->getWebsiteId() ?>" /> <br/>
+<input type="hidden" name="store_id" id="store_id" value="<?php echo $this->getPage()->getStoreId() ?>" />
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    var websiteCheckboxes = $$('.website-checkbox');
+ 
+  
+    for(var i=0;i<websiteCheckboxes.length;i++){
+        Event.observe(websiteCheckboxes[i], 'click', toggleStoreFromChoosers);
+      
+    }
+    function toggleStoreFromChoosers(event){
+    	var element = Event.element(event);
+        var selects = $('product_website_'+element.value+'_data').getElementsBySelector('input');
+        var selectBlocks = $('product_website_'+element.value+'_data').getElementsByClassName('website-'+element.value+'-select'); 
+        for (var i=0; i<selects.length; i++) {
+            selects[i].checked=element.checked;
+        }
+        makeStr();     
+    }
+    function makeStr() {
+        var storeCheckboxes = $$('.store_ids');
+        var websites = $$('.website-checkbox');
+        var site_str = '';
+	  	for(var i=0;i<websites.length;i++){
+	          if(websites[i].checked) { site_str += websites[i].value+',';  }
+	      }
+	      $('website_id').value = site_str;
+      
+        var store_str = '';
+	  	for(var i=0;i<storeCheckboxes.length;i++){
+	          if(storeCheckboxes[i].checked) { store_str += storeCheckboxes[i].value+',';  }
+	      }
+	      $('store_id').value = store_str;
+	    
+    }
+//]]>
+</script>

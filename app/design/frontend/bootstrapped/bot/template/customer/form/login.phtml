@@ -1,0 +1,76 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<?php
+/**
+ * Customer login form template
+ *
+ * @see app/design/frontend/base/default/template/customer/form/login.phtml
+ */
+/** @var $this Mage_Customer_Block_Form_Login */
+?>
+<div class="mtop20">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+        <div class="row">
+            <div class="col-md-8 well">
+                <div class="">
+
+
+                <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form"  class="form-vertical">
+                    <fieldset>
+                        <legend><?php echo $this->__('If you have an account with us, please log in.') ?></legend>
+                            <div class="control-group">
+                                <?php /*?><label for="email" class="control-label"><em>*</em><?php echo $this->__('Email Address') ?></label><?php */?>
+                                <div class="controls">
+                                    <input placeholder="*<?php echo $this->__('Email Address') ?>" type="text" name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <?php /*?><label for="pass" class="control-label"><em>*</em><?php echo $this->__('Password') ?></label><?php */?>
+                                <div class="controls">
+                                    <input placeholder="*<?php echo $this->__('Password') ?>" type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" />
+                                                                <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a>
+                                </div>
+                            </div>
+                            <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+                            <?php //echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+                        <?php echo $this->getChildHtml('form.additional.info'); ?>
+
+                            <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+                                <input name="context" type="hidden" value="checkout" />
+                            <?php endif; ?>
+                        <div class="form-actions">
+                            <p class="help-block"><?php echo $this->__('* Required Fields') ?></p>
+                            <button type="submit" class="button btn btn-success pull-left" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Enter') ?></span></span></button> <?php echo $this->__('OR') ?>     <button type="button" title="<?php echo $this->__('Create an Account') ?>" class="button btn btn-primary" onclick="window.location='<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><span><span><?php echo $this->__('Create an Account') ?></span></span></button>
+
+                            <a href="#" onclick="return fblogin();" class="fb_button_ps"><img src="<?php echo $this->helper('facebookfree/active')->getLoginImg()?>" alt="<?php echo $this->__('Connect with Facebook')?>" /></a>
+                                <p><?php echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></p>
+
+
+                        </div>
+                    </fieldset>
+
+
+
+
+                </form>
+                </div>
+            </div>
+        </div>
+
+
+    <script type="text/javascript">
+    //<![CDATA[
+        var dataForm = new VarienForm('login-form', true);
+    //]]>
+    </script>
+</div>

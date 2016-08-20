@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+	<default>
+
+		<reference name="head">
+			<action method="addItem"><type>skin_css</type><name>css/social.css</name><params/></action>
+            <block type="core/template" name="social_head" as="social_head" template="social/head.phtml" />
+
+        </reference>
+
+		<reference name="header">
+			<block type="core/template" name="social_header" as="social_header" template="social/header.phtml" after="topMenu" />
+		</reference>
+
+		<reference name="footer">
+			<block type="core/template" name="social_footer" as="social_footer" template="social/footer.phtml"  />
+		</reference>
+
+	</default>
+
+	<catalog_product_view>
+
+		<reference name="product.info.addto">
+			<block type="core/template" name="social_product" as="social_product" template="social/product.phtml"  />
+		</reference>
+
+	</catalog_product_view>
+
+</layout>

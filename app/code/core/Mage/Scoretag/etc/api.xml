@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Scoretag
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <api>
+        <resources>
+            <score_oggetto_scoretag translate="title" module="scoretag">
+                <title>Oggetto Scoretag API</title>
+                <model>scoretag/api</model>
+                <acl>score/oggetto/scoretag</acl>
+                <methods>
+                    <list translate="title" module="scoretag">
+                        <title>Retrieve list of scoretags by oggetto</title>
+                        <method>items</method>
+                        <acl>score/oggetto/scoretag/list</acl>
+                    </list>
+                    <info translate="title" module="scoretag">
+                        <title>Retrieve oggetto scoretag info</title>
+                        <acl>score/oggetto/scoretag/info</acl>
+                    </info>
+                    <add translate="title" module="scoretag">
+                        <title>Add scoretag(s) to oggetto</title>
+                        <acl>score/oggetto/scoretag/add</acl>
+                    </add>
+                    <update translate="title" module="scoretag">
+                        <title>Update oggetto scoretag</title>
+                        <acl>score/oggetto/scoretag/update</acl>
+                    </update>
+                    <remove translate="title" module="scoretag">
+                        <title>Remove oggetto scoretag</title>
+                        <acl>score/oggetto/scoretag/remove</acl>
+                    </remove>
+                </methods>
+                <faults module="scoretag">
+                    <store_not_exists>
+                        <code>101</code>
+                        <message>Requested store does not exist.</message>
+                    </store_not_exists>
+                    <oggetto_not_exists>
+                        <code>102</code>
+                        <message>Requested oggetto does not exist.</message>
+                    </oggetto_not_exists>
+                    <customer_not_exists>
+                        <code>103</code>
+                        <message>Requested customer does not exist.</message>
+                    </customer_not_exists>
+                    <scoretag_not_exists>
+                        <code>104</code>
+                        <message>Requested scoretag does not exist.</message>
+                    </scoretag_not_exists>
+                    <invalid_data>
+                        <code>105</code>
+                        <message>Provided data is invalid.</message>
+                    </invalid_data>
+                    <save_error>
+                        <code>106</code>
+                        <message>Error while saving scoretag. Details in error message.</message>
+                    </save_error>
+                    <remove_error>
+                        <code>107</code>
+                        <message>Error while removing scoretag. Details in error message.</message>
+                    </remove_error>
+                </faults>
+            </score_oggetto_scoretag>
+        </resources>
+        <resources_alias>
+            <oggetto_scoretag>score_oggetto_scoretag</oggetto_scoretag>
+        </resources_alias>
+        <v2>
+            <resources_function_prefix>
+                <oggetto_scoretag>scoreOggettoScoretag</oggetto_scoretag>
+            </resources_function_prefix>
+        </v2>
+        <rest>
+            <mapping>
+                <oggetto_scoretag>
+                    <post>
+                        <method>add</method>
+                    </post>
+                    <delete>
+                        <method>remove</method>
+                    </delete>
+                </oggetto_scoretag>
+            </mapping>
+        </rest>
+        <acl>
+            <resources>
+                <score>
+                    <oggetto>
+                        <scoretag translate="title" module="scoretag">
+                            <title>Scoretag</title>
+                            <sort_order>103</sort_order>
+                            <list translate="title" module="scoretag">
+                                <title>List</title>
+                            </list>
+                            <info translate="title" module="scoretag">
+                                <title>Info</title>
+                            </info>
+                            <add translate="title" module="scoretag">
+                                <title>Add</title>
+                            </add>
+                            <update translate="title" module="scoretag">
+                                <title>Update</title>
+                            </update>
+                            <remove translate="title" module="scoretag">
+                                <title>Remove</title>
+                            </remove>
+                        </scoretag>
+                    </oggetto>
+                </score>
+            </resources>
+        </acl>
+    </api>
+</config>

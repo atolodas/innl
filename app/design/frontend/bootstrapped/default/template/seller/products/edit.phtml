@@ -1,0 +1,55 @@
+
+<div class="form" id="form">
+<form id="form" name="editForm" method="post" onsubmit="saveForm('<?php echo Mage::getBaseUrl() ?>seller/products/save/id/<?php echo $this->getRequest()->getParam('id')?>')">
+  <button type="submit" class="btn btn-success"><?php echo $this->__('Save') ?></button>
+
+<?php echo $this->getForm()->getHtml(); ?>
+
+<?php $categories = Mage::helper('catalog/category')->getStoreCategories(true, true, true); 
+$productCategories = $this->getProduct()->getCategoryIds();
+?>
+<div>
+<label><?php echo $this->__('Categories') ?></label>
+<select class="select select-multiple" multiple="multiple" size="5" name="category_ids[]">
+  <?php  foreach ($categories as $cat) { ?>
+      <option <?php if(in_array($cat->getId(),$productCategories)) { echo "selected"; } ?> value="<?php echo $cat->getId() ?>"><?php echo $cat->getName() ?>  </option>
+  <?php } ?>
+</select>
+</div>
+<button type="submit" class="btn btn-success"><?php echo $this->__('Save') ?></button>
+
+</form>
+
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+    var form = new VarienForm('form');
+    
+    // jQuery(function(){
+    //    jQuery(".select-multiple").multiselect(); 
+    // });
+
+    function saveForm(url) {
+          if(form.validator.validate()) {
+            var params = jQuery('#form :input').serialize().replace(/[\+]/g, " ");
+            jQuery('input').attr('disabled','disabled');
+            jQuery('button').attr('disabled','disabled');
+            formInProgress = true;
+            new EasyAjax.Request(url, {
+            method: 'post',
+            action_content: '',
+            parameters: params,
+            asynchronous: false,
+              onComplete: function (transport)
+              {
+                  var data = transport.responseText.evalJSON();
+                  jQuery('input').removeAttr('disabled');
+                  jQuery('button').removeAttr('disabled');
+                  checkMessages(data);
+              }
+            });
+        }
+    }
+    //]]>
+</script>

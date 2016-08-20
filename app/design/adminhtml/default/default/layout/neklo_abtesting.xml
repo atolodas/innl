@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_neklo_abtesting_abtest_index>
+        <referense name="head">
+            <action method="setTitle" translate="title"><title>Manage A/B Tests</title></action>
+        </referense>
+        <reference name="menu">
+            <action method="setActive"><menupath>system/abtest</menupath></action>
+        </reference>
+        <reference name="content">
+            <block type="neklo_abtesting/adminhtml_system_abtest" name="abtest_list" />
+        </reference>
+    </adminhtml_neklo_abtesting_abtest_index>
+
+    <adminhtml_neklo_abtesting_abpresentation_index>
+
+        <reference name="menu">
+            <action method="setActive"><menupath>system/abpresentation</menupath></action>
+        </reference>
+        <reference name="content">
+            <block type="neklo_abtesting/adminhtml_system_abpresentation" name="abpresentation_list" />
+        </reference>
+    </adminhtml_neklo_abtesting_abpresentation_index>
+
+    <adminhtml_neklo_abtesting_abtest_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="neklo_abtesting/adminhtml_system_abtest_grid" name="abtest.grid"/>
+        </block>
+    </adminhtml_neklo_abtesting_abtest_grid>
+
+    <adminhtml_neklo_abtesting_abtest_edit>
+        <reference name="content">
+            <block type="neklo_abtesting/adminhtml_system_abtest_edit" name="abtest_edit">
+                <block type="neklo_abtesting/adminhtml_system_abtest_edit_form" name="form" />
+            </block>
+        </reference>
+    </adminhtml_neklo_abtesting_abtest_edit>
+
+    <adminhtml_neklo_abtesting_abpresentation_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="neklo_abtesting/adminhtml_system_abpresentation_grid" name="abtest.grid"/>
+        </block>
+    </adminhtml_neklo_abtesting_abpresentation_grid>
+
+    <adminhtml_neklo_abtesting_abpresentation_edit>
+        <reference name="content">
+            <block type="neklo_abtesting/adminhtml_system_abpresentation_edit" name="abtest_edit">
+                <block type="neklo_abtesting/adminhtml_system_abpresentation_edit_form" name="form" />
+            </block>
+        </reference>
+    </adminhtml_neklo_abtesting_abpresentation_edit>
+    
+    <adminhtml_neklo_abtesting_abtest_new>
+        <update handle="neklo_abtesting_adminhtml_abtest_edit" />
+    </adminhtml_neklo_abtesting_abtest_new>
+
+    <adminhtml_neklo_abtesting_report_index>
+        <reference name="content">
+            <block type="neklo_abtesting/adminhtml_report" template="report/grid/container.phtml" name="abtest.report.grid.container">
+                <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher">
+                    <action method="setStoreVarName"><var_name>store_ids</var_name></action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_neklo_abtesting_report_index>
+
+    <adminhtml_neklo_abtesting_visitor_index>
+        <reference name="content">
+            <block type="neklo_abtesting/adminhtml_visitor" name="visitor.grid.container" />
+        </reference>
+    </adminhtml_neklo_abtesting_visitor_index>
+
+      <adminhtml_neklo_abtesting_visitor_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="neklo_abtesting/adminhtml_visitor_grid" name="visitor.grid" />
+        </block>
+    </adminhtml_neklo_abtesting_visitor_grid>
+
+
+</layout>

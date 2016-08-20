@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Shaurmalab_ScoreSearch
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Shaurmalab_ScoreSearch>
+            <version>1.6.0.0</version>
+        </Shaurmalab_ScoreSearch>
+    </modules>
+    <global>
+        <scoresearch_fulltext>
+            <model>scoresearch/fulltext</model>
+        </scoresearch_fulltext>
+        <models>
+            <scoresearch>
+                <class>Shaurmalab_ScoreSearch_Model</class>
+                <resourceModel>scoresearch_resource</resourceModel>
+            </scoresearch>
+            <scoresearch_resource>
+                <class>Shaurmalab_ScoreSearch_Model_Resource</class>
+                <deprecatedNode>scoresearch_mysql4</deprecatedNode>
+                <entities>
+                    <search_query>
+                        <table>scoresearch_query</table>
+                    </search_query>
+                    <result>
+                        <table>scoresearch_result</table>
+                    </result>
+                    <fulltext>
+                        <table>scoresearch_fulltext</table>
+                    </fulltext>
+                </entities>
+            </scoresearch_resource>
+        </models>
+        <helpers>
+            <scoresearch>
+                <class>Shaurmalab_ScoreSearch_Helper</class>
+            </scoresearch>
+        </helpers>
+        <resources>
+            <scoresearch_setup>
+                <setup>
+                    <module>Shaurmalab_ScoreSearch</module>
+                </setup>
+            </scoresearch_setup>
+        </resources>
+        <blocks>
+            <scoresearch>
+                <class>Shaurmalab_ScoreSearch_Block</class>
+            </scoresearch>
+        </blocks>
+        <index>
+            <indexer>
+                <scoresearch_fulltext>
+                    <model>scoresearch/indexer_fulltext</model>
+                </scoresearch_fulltext>
+            </indexer>
+        </index>
+    </global>
+    <frontend>
+        <routers>
+            <scoresearch>
+                <use>standard</use>
+                <args>
+                    <module>Shaurmalab_ScoreSearch</module>
+                    <frontName>scoresearch</frontName>
+                </args>
+            </scoresearch>
+        </routers>
+        <translate>
+            <modules>
+                <Shaurmalab_ScoreSearch>
+                    <files>
+                        <default>Shaurmalab_ScoreSearch.csv</default>
+                    </files>
+                </Shaurmalab_ScoreSearch>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <scoresearch>
+                    <file>scoresearch.xml</file>
+                </scoresearch>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Shaurmalab_ScoreSearch>
+                    <files>
+                        <default>Shaurmalab_ScoreSearch.csv</default>
+                    </files>
+                </Shaurmalab_ScoreSearch>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <scoresearch>
+                    <file>search.xml</file>
+                </scoresearch>
+            </updates>
+        </layout>
+    </adminhtml>
+    <default>
+        <score>
+            <seo>
+                <search_terms>1</search_terms>
+                <site_map>1</site_map>
+            </seo>
+            <search>
+                <min_query_length>1</min_query_length>
+                <max_query_length>128</max_query_length>
+                <max_query_words>10</max_query_words>
+                <search_type>1</search_type>
+                <use_layered_navigation_count>2000</use_layered_navigation_count>
+            </search>
+        </score>
+    </default>
+</config>

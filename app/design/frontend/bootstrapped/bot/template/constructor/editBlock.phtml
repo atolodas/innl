@@ -1,0 +1,111 @@
+<?php 
+$blockId = Mage::app()->getRequest()->getParam('id');
+$block = Mage::getModel('cms/block')->load($blockId); 
+/* 
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/wysiwyg/tiny_mce/setup.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/tinybox/tinybox.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/variables.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/wysiwyg/widget.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/browser.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>skin/adminhtml/default/default/mirror/lib/codemirror.js"></script>
+*/ ?>
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl() ?>js/prototype/windows/themes/default.css">
+
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/prototype/window.js"></script>
+
+<form id="edit_form" afterSubmit="<?php if($blockId) { ?> simpleAjax('<?php echo $this->getUrl('manage/blocks') ?>', false); <?php } else { ?>simpleAjax('<?php echo $this->getUrl('manage/blocks') ?>?openlast=true');  <?php } ?>" class="ajaxForm" action="<?php echo  Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/saveBlock/id/'.$blockId ?>" method="post">
+	<div>
+		<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+	</div>
+	<div id="block_tabs_main_section_content" style=""><div class="entry-edit">
+    <div class="row  header white p5 mbottom10 mtop10 dt" style="width:100%">
+        <h4 class="dtc head-edit-form fieldset-legend p5"><?php echo $this->__('Block Information')?></h4>
+
+        <div class="form-buttons col-md-6 text-right">
+            <button type="submit" class="btn btn-large btn-danger f15" title="<?php echo $this->__('Save') ?>"><?php echo $this->__('Save') ?></button>
+        </div>
+    </div>
+    <div class="fieldset " id="block_base_fieldset">
+    <div class="hor-scroll">
+                        <table class="form-list" cellspacing="0">
+            <tbody>
+    <tr>
+        <td class="input-large"><label for="block_title"><?php echo $this->__('Block Title')?> <span class="required">*</span></label></td>
+    <td class="value">
+        <input id="block_title" name="title" value="<?php echo $block->getTitle() ?>" title="block Title" class="input-large input-text required-entry" type="text">            </td>
+    </tr>
+    <tr>
+        <td class="input-large"><label for="block_identifier"><?php echo $this->__('Identifier')?> <span class="required">*</span></label></td>
+        <td class="value">
+            <input id="block_identifier" name="identifier" value="<?php echo $block->getIdentifier() ?>" title="URL Key" class="input-large validate-xml-identifier input-text required-entry" type="text"> 
+                </td>
+    </tr>
+<tr>
+        <td class="input-large"><label for="block_is_active"><?php echo $this->__('Status')?> <span class="required">*</span></label></td>
+    <td class="value">
+        <select id="block_is_active" name="is_active" title="<?php echo $this->__('block Status')?>" class="input-large required-entry select">
+<option value="1" selected="selected"><?php echo $this->__('Enabled')?></option>
+<option value="0"><?php echo $this->__('Disabled')?></option>
+</select>            </td>
+    </tr>
+            </tbody>
+        </table>
+            </div>
+        </div>
+</div>
+</div><div id="block_tabs_content_section_content" ><div class="entry-edit">
+    <div class="dt row  header white p5 mbottom10 mtop10" style="width:100%">
+    <h4 class="dtc head-edit-form fieldset-legend  p5"><?php echo $this->__('Content')?></h4>
+    <div class="form-buttons"></div>
+</div>
+    <div class="fieldset fieldset-wide" id="block_content_fieldset">
+    <div class="hor-scroll">
+                    <div id="buttonsblock_content" class="buttons-set">
+        <?php /*
+        <button type="button" class="scalable add-widget plugin" onclick="widgetTools.openDialog('http://inl.dev/en/backend/widget/index/widget_target_id/block_content')" style="">Insert Widget...</button>
+        <button type="button" class="scalable add-variable plugin" onclick="MagentovariablePlugin.loadChooser('http://inl.dev/en/backend/system_variable/wysiwygPlugin/', 'block_content');">Insert Variable...</button>
+        <button type="button" class="scalable add-image plugin" onclick="MediabrowserUtility.openDialog('<?php echo $this->getUrl('constructor/wysiwyg_images/index',array('_current'=>true,'target_element_id'=>'block_content')) ?>')" style="">Insert Image...</button>
+</div>
+<script type="text/javascript">
+            //<![CDATA[
+                openEditorPopup = function(url, name, specs, parent) {
+                    if ((typeof popups == "undefined") || popups[name] == undefined || popups[name].closed) {
+                        if (typeof popups == "undefined") {
+                            popups = new Array();
+                        }
+                        var opener = (parent != undefined ? parent : window);
+                        popups[name] = opener.open(url, name, specs);
+                    } else {
+                        popups[name].focus();
+                    }
+                    return popups[name];
+                }
+
+                closeEditorPopup = function(name) {
+                    if ((typeof popups != "undefined") && popups[name] != undefined && !popups[name].closed) {
+                        popups[name].close();
+                    }
+                }
+            //]]>
+            </script>
+        */ ?>
+            
+            <textarea id="block_content" name="content" style="height: 300px; margin:10px; width: 600px;" class=" required-entry textarea"><?php echo $block->getContent() ?></textarea>
+            <link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/css/style.css' ?>" />
+        <link rel="stylesheet" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/css/redactor.css' ?>" />
+        <script src="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/redactor.js' ?>"></script>
+
+            <script type="text/javascript">
+                      jQuery('#block_content').redactor({ imageUpload: '<?php echo $this->getUrl("constructor/admin/imageUpload")?>' });
+           </script>
+            </div>
+        </div>
+</div>
+</div>
+<div class="row header white p5 mbottom10 mtop10 text-right dt" style="width:100%">
+    <button type="submit" class="btn btn-large btn-danger f15" title="<?php echo $this->__('Save') ?>"><?php echo $this->__('Save') ?></button>
+</div>
+</form>
+<script type="text/javascript">
+	var form = new VarienForm('edit_form', true);
+</script>

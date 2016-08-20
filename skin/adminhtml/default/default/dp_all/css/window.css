@@ -1,0 +1,94 @@
+#dp_notif {
+    z-index: 100000000;
+    position: absolute;
+    top: 300px;
+    padding: 0px;
+    left: 50%;
+    border: 4px solid #f3bf8f;
+    border-top-width: 0px;
+    margin: auto;
+    background: #fdf4eb;
+}
+
+#dp_notif .head h3 {
+    margin-left: 12px;
+    font-size: 1.1em;
+    margin-bottom: 0px;
+    margin-top: 0.2em;
+    font-weight: bold;
+    float: left;
+}
+
+#dp_notif .head {
+    background: #f3bf8f;
+    height: 23px;
+
+}
+
+#dp_notif .content {
+    padding: 20px;
+    background: url(../images/info.gif) no-repeat 20px 30px;
+
+}
+
+#dp_notif .head .close {
+    display: block;
+    float: right;
+    background: url(../images/window/btn-close.gif) no-repeat top left;
+    padding-left: 28px;
+    height: 19px;
+    margin-top: 2px;
+    font-size: 11px;
+    font-weight: normal;
+}
+
+#dp_notif .value label {
+
+}
+
+#dpall_extensions a img {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+#dp_notif .form-list td.label label {
+    width: 130px;
+    margin-left: 45px;
+    text-align: right;
+
+}
+
+.adminhtml-system-config-edit #dpall_extensions .label label {
+    width: auto;
+    white-space: nowrap;
+}
+
+#dpall_extensions_table, #dpall_store_response {
+    display: none;
+}
+
+.adminhtml-system-config-edit #dpall_extensions table td {
+    padding: 0px 3px;
+}
+
+ul.tabs a.dpall-section span, ul.tabs a.dpall-section:hover span {
+    background: url("../images/store.png") no-repeat scroll 0 0 transparent;
+    height: 0;
+    overflow: hidden;
+    padding: 21px 0 0;
+    width: 192px;
+}
+
+ul.tabs a.dpall-section, ul.tabs a.dpall-section:hover {
+    background: url("../../images/tabs_span_bg.gif") repeat-x scroll 0 100% transparent;
+    border-bottom: medium none;
+    padding: 0.5em 0.5em 0.28em 1.5em;
+}
+
+ul.tabs a.dpall-section:hover {
+    background-color: #d8e6e6;
+}
+
+ul.tabs a.dpall-section.active, ul.tabs a.dpall-section.active:hover {
+    background-color: #FFFFFF;
+}

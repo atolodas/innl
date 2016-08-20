@@ -1,0 +1,49 @@
+<div class="col-md-12">
+	<h4 class="section-header"><?php echo $this->__('Pages') ?>
+	<div class="form-buttons pull-right mbottom5">
+		<button type="button" class="btn btn-large btn-info f15 simpleAjaxInner"  href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/editPage/id/0' ?>"><?php echo $this->__('Add new page') ?></button>
+    </div>
+	</h4>
+</div>
+
+<div class="list centered">
+	<div class="col-md-12 col-sm-12 header white np mbottom10"> 
+		<div class="col-md-3 col-sm-3 np"><?php echo $this->__('Name') ?></div>
+		<div class="col-md-3 col-sm-3 np"><?php echo $this->__('URL Key') ?></div>
+		<div class="col-md-2 col-sm-2 np"><?php echo $this->__('Layout')?></div>
+		<div class="col-md-2 col-sm-2 np"><?php echo $this->__('Status') ?></div>
+		<div class="col-md-2 col-sm-2 np"><?php echo $this->__('Actions') ?></div>
+	</div>
+	<?php foreach ($this->getPages() as $page) { 
+	if($page->getStoreCode() != Mage::registry('scode').'_'.Mage::registry('slang')) continue;
+	 ?>
+	<div class="col-md-12 np"> 
+		<div class="col-md-3 col-sm-3 np"><?php echo $page->getTitle() ?></div>
+		<div class="col-md-3 col-sm-3 np"><?php echo $page->getIdentifier() ?></div>
+		<div class="col-md-2 col-sm-2 np"><?php echo $this->__($page->getRootTemplate()) ?></div>
+		<div class="col-md-2 col-sm-2 np"><?php echo $page->getIsActive()?$this->__('Enabled'):$this->__('Disabled') ?></div>
+		<div class="col-md-2 col-sm-2 np">
+			<a class="" target="_blank" href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.$page->getIdentifier() ?>" title="Open">
+			<i class="fa fa-eye f20 black mright10"></i> 
+			</a>
+			<a class="simpleAjaxInner" href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/editPage/id/'.$page->getId() ?>" title="Edit">
+				<i class="fa fa-edit f20 black mright10"></i> </a> 
+			
+			<?php if(Mage::registry('scode') != 'demo') { ?> 
+			<a class="simpleAjaxNoAction" href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/deletePage/id/'.$page->getId() ?>" title="Delete">
+				<i class="fa fa-remove f20 black mright10" afterAjax="simpleAjax('<?php echo $this->getUrl('manage/pages') ?>',false)"></i>  </a>
+				<?php } else { ?> 
+					<i class="fa fa-remove f20 grey disabled mright20"></i>
+				<?php } ?>
+		</div>
+		<hr class="col-md-12 col-sm-12 col-xs-12 np nm" style="color:grey; height: 2px;" />
+	</div>
+
+	<?php } 
+
+	if(isset($_GET['openlast'])) { ?>
+		<script type="text/javascript">
+			simpleAjaxInner('<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/editPage/id/'.$page->getId() ?>');
+		</script>
+	<?php } ?>
+</div>	

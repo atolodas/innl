@@ -1,0 +1,86 @@
+/* Basic styling */
+/* Draw the lines */
+.mageMlm .line {
+  height                : 20px;
+  width                 : 4px;
+}
+
+.mageMlm .ChartDown {
+  background-color 		: #555;
+  margin 				: 0px auto;
+}
+
+.mageMlm .ChartTop {
+  border-top          : 2px solid #555;
+}
+
+.mageMlm .ChartLeft {
+  border-right          : 2px solid #555 !important;
+}
+
+.mageMlm .ChartRight {
+  border-left           : 2px solid #555 !important;
+}
+
+/* node cell */
+.mageMlm td {
+  text-align            : center;
+  vertical-align        : top;
+  padding-left          : 2px;
+    padding-right: 2px;
+}
+
+/* The node */
+.mageMlm .node {
+	font-size 			: 12px;
+	background-color 	: #fff;
+	border 				: 1px solid #c4c1bc;
+    min-height: 90px;;
+	width:  90px;
+	margin: auto;
+}
+	.node p{
+		font-family 	: tahoma;
+		font-size 		: 10px;
+		line-height 	: 11px;
+		padding 		: 2px;
+	}
+
+/* jQuery drag 'n drop */
+
+.drag-active {
+  border-style			: dotted !important;
+}
+
+.drop-hover {
+  border-style			: solid !important;
+  border-color 			: #E05E00 !important;
+}
+
+.node .userName {
+    color: #fff;
+    font-weight: bold;
+    background: #fc9d36; border:0; padding:3px 10px;
+}
+
+.magemlm-left {
+    float: left;
+    cleaR: left;
+    widtH: 250px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.magemlm-right {
+    float: right;
+    clear: right;
+    widtH: 280px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.magemlm-full {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}

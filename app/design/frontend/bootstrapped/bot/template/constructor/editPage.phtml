@@ -1,0 +1,213 @@
+<?php 
+$pageId = Mage::app()->getRequest()->getParam('id');
+$page = Mage::getModel('cms/page')->load($pageId); 
+/* ?>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/wysiwyg/tiny_mce/setup.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/tinybox/tinybox.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/variables.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/wysiwyg/widget.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/browser.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>skin/adminhtml/default/default/mirror/lib/codemirror.js"></script>
+<? */ ?>
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl() ?>js/prototype/windows/themes/default.css">
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/prototype/window.js"></script>
+<form id="edit_form" afterSubmit="<?php if($pageId) { ?> simpleAjax('<?php echo $this->getUrl('manage/pages') ?>', false); <?php } else { ?>simpleAjax('<?php echo $this->getUrl('manage/pages') ?>?openlast=true');  <?php } ?>" class="ajaxForm" action="<?php echo  Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/savePage/id/'.$pageId ?>" method="post">
+	<div>
+		<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+	</div>
+	<div id="page_tabs_main_section_content" style="">
+        <div class="entry-edit">
+            <div class="row  header white p5 mbottom10 mtop10 dt" style="width:100%; min-height:40px; position: relative;">
+                <h4 class="dtc head-edit-form fieldset-legend  p5"><?php echo $this->__('Page Information')?></h4>
+                    <div class="form-buttons col-md-6 text-right">          
+                        <button type="button" class="btn btn-large btn-info f15 preview-btn" onclick="ajaxFormSubmit(this.form.serialize(),'<?php echo $this->getUrl('constructor/admin/previewPage',array('_current'=>true)) ?>', this)" title="<?php echo $this->__('Preview') ?>"><?php echo $this->__('Preview') ?></button>
+                        <button type="submit" class="btn btn-large btn-danger f15 save-btn" title="<?php echo $this->__('Save') ?>"><?php echo $this->__('Save') ?></button>
+                    </div>
+            </div>
+            <div class="fieldset " id="page_base_fieldset">
+                <div class="hor-scroll">
+                    <table class="form-list" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td class="input-large"><label for="page_title"><?php echo $this->__('Page Title')?> <span class="required">*</span></label></td>
+                                <td class="value">
+                                <input id="page_title" name="title" value="<?php echo $page->getTitle() ?>" title="Page Title" class="input-large input-text required-entry" type="text">            </td>
+                            </tr>
+                            <tr>
+                                <td class="input-large"><label for="page_identifier"><?php echo $this->__('URL Key')?> <span class="required">*</span></label></td>
+                                <td class="value">
+                                <input id="page_identifier" name="identifier" value="<?php echo $page->getIdentifier() ?>" title="URL Key" class="input-large validate-identifier input-text required-entry" type="text">                    <font class="note inline" id="note_identifier"><span><?php echo $this->__('Relative to Website Base URL')?></span></font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="input-large"><label for="page_is_active"><?php echo $this->__('Status')?> <span class="required">*</span></label></td>
+                                <td class="value">
+                                    <select id="page_is_active" name="is_active" title="<?php echo $this->__('Page Status')?>" class="input-large required-entry select">
+                                        <option value="1" selected="selected"><?php echo $this->__('Enabled')?></option>
+                                        <option value="0"><?php echo $this->__('Disabled')?></option>
+                                    </select>            
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page_tabs_content_section_content" >
+        <div class="entry-edit">
+            <div class="dt row  header white p5 mbottom10 mtop10" style="width:100%">
+                <h4 class="dtc head-edit-form fieldset-legend  p5"><?php echo $this->__('Content')?></h4>
+                <div class="form-buttons"></div>
+            </div>
+            <div class="fieldset fieldset-wide" id="page_content_fieldset">
+                <div class="hor-scroll">
+                    <div id="buttonspage_content" class="buttons-set">
+                        <textarea id="page_content" name="content" style="height: 300px; margin:10px; width: 600px;" class=" required-entry textarea"><?php echo htmlspecialchars($page->getContent()) ?></textarea>
+                        <link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/css/style.css' ?>" />
+                        <link rel="stylesheet" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/css/redactor.css' ?>" />
+                        <script src="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/redactor.js' ?>"></script>
+                        <script type="text/javascript">
+                            var json = [
+                                <?php foreach($this->getImages() as $image) {
+                                echo '{ "thumb": "'.Mage::getBaseUrl("media"). DS . "wysiwyg" . DS . Mage::registry("scode") . DS.$image .'", "image": "'.Mage::getBaseUrl("media"). DS . "wysiwyg" . DS . Mage::registry("scode") . DS.$image.'", "title": "'.$image.'" },';
+                                 } ?>
+                                ];
+                                jQuery('#page_content').redactor({ 
+                                    imageUpload: '<?php echo $this->getUrl("constructor/admin/imageUpload")?>',
+                                    imageGetJson:    json,
+                                });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="page_tabs_design_section_content">
+            <div class="entry-edit">
+                <div class="dt row  header white p5 mbottom10 mtop10" style="width:100%">
+                    <h4 class="dtc head-edit-form fieldset-legend  p5"><?php echo $this->__('Page Layout') ?></h4>
+                    <div class="form-buttons"></div>
+                </div>
+                <div class="fieldset fieldset-wide" id="page_layout_fieldset">
+                    <div class="hor-scroll">
+                        <table class="form-list" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td class="input-large"><label for="page_root_template"><?php echo $this->__('Layout') ?><span class="required">*</span></label></td>
+                                    <td class="value">
+                                        <select id="page_root_template" name="root_template" class=" required-entry select">
+                                            <option value="one_column" <?php if($page->getRootTemplate() =='one_column') { echo 'selected="selected"'; } ?>><?php echo $this->__('1 column')?></option>
+                                            <option value="one_column_full" <?php if($page->getRootTemplate() =='one_column_full') { echo 'selected="selected"'; } ?>><?php echo $this->__('1 column full width')?></option>
+                                            
+                                            <option value="two_columns_left" <?php if($page->getRootTemplate() =='two_columns_left') { echo 'selected="selected"'; } ?>><?php echo $this->__('2 columns left')?></option>
+                                            <option value="two_columns_right" <?php if($page->getRootTemplate() =='two_columns_right') { echo 'selected="selected"'; } ?>><?php echo $this->__('2 columns right')?></option>
+                                            <option value="three_columns" <?php if($page->getRootTemplate() =='three_columns') { echo 'selected="selected"'; } ?>><?php echo $this->__('3 columns')?></option>
+                                            <option value="empty" <?php if($page->getRootTemplate() =='empty') { echo 'selected="selected"'; } ?>><?php echo $this->__('Empty')?></option>
+                                        </select>            
+                                    </td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <?php //if($page->getLayoutUpdateXml()) { ?> 
+                <div class="fieldset fieldset-wide" id="page_layout_fieldset">
+                    <div class="hor-scroll">
+                        <table class="form-list" cellspacing="0">
+                                <tr>
+                                    <td class="input-large"><label for="page_root_template"><?php echo $this->__('Layout Update Xml') ?></label></td>
+                                    <td class="value">
+                                        <textarea style="width:100%" rows="10" name="layout_update_xml"><?php echo $page->getLayoutUpdateXml() ?></textarea>
+                                    </td>
+                                </tr>
+                        </table>
+                    </div>
+                </div>
+                <?php // } ?>
+                </div>
+            </div>
+
+            <div id="page_tabs_design_section_content">
+            <div class="entry-edit">
+                <div class="dt row  header white p5 mbottom10 mtop10" style="width:100%">
+                    <h4 class="dtc head-edit-form fieldset-legend  p5"><?php echo $this->__('Columns content') ?></h4>
+                    <div class="form-buttons"></div>
+                </div>
+                <div class="fieldset fieldset-wide" id="page_layout_fieldset">
+                    <div class="hor-scroll">
+                        <table class="form-list" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td class="input-large"><label for="page_root_template"><?php echo $this->__('Left column') ?></label></td>
+                                    <td class="value">
+                                        <textarea id="left_col" name="left_col" style="height: 300px; margin:10px; width: 600px;" class="textarea"><?php echo htmlspecialchars($page->getLeftCol()) ?></textarea>
+                                        <script type="text/javascript">
+                                                jQuery('#left_col').redactor({ 
+                                                    imageUpload: '<?php echo $this->getUrl("constructor/admin/imageUpload")?>',
+                                                    imageGetJson:    json,
+                                                });
+                                        </script>         
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td class="input-large"><label for="page_root_template"><?php echo $this->__('Right column') ?></label></td>
+                                    <td class="value">
+                                        <textarea id="right_col" name="right_col" style="height: 300px; margin:10px; width: 600px;" class="textarea"><?php echo htmlspecialchars($page->getRightCol()) ?></textarea>
+                                        <script type="text/javascript">
+                                                jQuery('#right_col').redactor({ 
+                                                    imageUpload: '<?php echo $this->getUrl("constructor/admin/imageUpload")?>',
+                                                    imageGetJson:    json,
+                                                });
+                                        </script>         
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        <div id="page_tabs_meta_section_content" >
+            <div class="entry-edit">
+                <div class="row  header white p5 mbottom10 mtop10 dt " style="width:100%">
+                    <h4 class="dtc head-edit-form fieldset-legend  p5"><?php echo $this->__('Meta Data')?></h4>
+                    <div class="form-buttons"></div>
+                </div>
+                <div class="fieldset fieldset-wide" id="page_meta_fieldset">
+                    <div class="hor-scroll">
+                        <table class="form-list" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td class="input-large"><label for="page_meta_keywords"><?php echo $this->__('Keywords')?></label></td>
+                                    <td class="value">
+                                         <textarea id="page_meta_keywords" name="meta_keywords" title="<?php echo $this->__('Meta Keywords')?>" style="height: 150px; width: 400px;" class=" textarea"><?php echo $page->getMetaKeywords() ?></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="input-large"><label for="page_meta_description"><?php echo $this->__('Description')?></label></td>
+                                    <td class="value">
+                                        <textarea id="page_meta_description" name="meta_description" title="<?php echo $this->__('Meta Description')?>" style="height: 150px; width: 400px;" class=" textarea"><?php echo $page->getMetaDescription() ?></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="entry-edit">
+            <div class="row  header white p5 mbottom10 mtop10 text-right pright20" style="width:100%; min-height:40px; position: relative;">
+                <button type="button" class="btn btn-large btn-info f15 preview-btn" onclick="ajaxFormSubmit(this.form.serialize(),'<?php echo $this->getUrl('constructor/admin/previewPage',array('_current'=>true)) ?>', this)" title="<?php echo $this->__('Preview') ?>"><?php echo $this->__('Preview') ?></button>
+                <button type="submit" class="btn btn-large btn-danger f15 save-btn" title="<?php echo $this->__('Save') ?>"><?php echo $this->__('Save') ?></button>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+	var form = new VarienForm('edit_form', true);
+  
+        
+</script>

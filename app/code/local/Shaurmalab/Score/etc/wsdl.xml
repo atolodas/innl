@@ -1,0 +1,2334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/"
+                    schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
+            <complexType name="scoreOggettoEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoAdditionalAttributesEntity">
+                <all>
+                    <element name="multi_data" type="typens:associativeMultiArray" minOccurs="0" />
+                    <element name="single_data" type="typens:associativeArray" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoEntity">
+                <all>
+                    <element name="oggetto_id" type="xsd:string"/>
+                    <element name="sku" type="xsd:string"/>
+                    <element name="name" type="xsd:string"/>
+                    <element name="set" type="xsd:string"/>
+                    <element name="type" type="xsd:string"/>
+                    <element name="category_ids" type="typens:ArrayOfString"/>
+                    <element name="website_ids" type="typens:ArrayOfString"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoRequestAttributes">
+                <all>
+                    <element name="attributes" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="additional_attributes" type="typens:ArrayOfString" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoReturnEntity">
+                <all>
+                    <element name="oggetto_id" type="xsd:string" minOccurs="0"/>
+                    <element name="sku" type="xsd:string" minOccurs="0"/>
+                    <element name="set" type="xsd:string" minOccurs="0"/>
+                    <element name="type" type="xsd:string" minOccurs="0"/>
+                    <element name="categories" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="websites" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="created_at" type="xsd:string" minOccurs="0"/>
+                    <element name="updated_at" type="xsd:string" minOccurs="0"/>
+                    <element name="type_id" type="xsd:string" minOccurs="0"/>
+                    <element name="name" type="xsd:string" minOccurs="0"/>
+                    <element name="description" type="xsd:string" minOccurs="0"/>
+                    <element name="short_description" type="xsd:string" minOccurs="0"/>
+                    <element name="weight" type="xsd:string" minOccurs="0"/>
+                    <element name="status" type="xsd:string" minOccurs="0"/>
+                    <element name="url_key" type="xsd:string" minOccurs="0"/>
+                    <element name="url_path" type="xsd:string" minOccurs="0"/>
+                    <element name="visibility" type="xsd:string" minOccurs="0"/>
+                    <element name="category_ids" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="website_ids" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="has_options" type="xsd:string" minOccurs="0"/>
+                    <element name="gift_message_available" type="xsd:string" minOccurs="0"/>
+                    <element name="price" type="xsd:string" minOccurs="0"/>
+                    <element name="special_price" type="xsd:string" minOccurs="0"/>
+                    <element name="special_from_date" type="xsd:string" minOccurs="0"/>
+                    <element name="special_to_date" type="xsd:string" minOccurs="0"/>
+                    <element name="tax_class_id" type="xsd:string" minOccurs="0"/>
+                    <element name="tier_price" type="typens:scoreOggettoTierPriceEntityArray" minOccurs="0"/>
+                    <element name="meta_title" type="xsd:string" minOccurs="0"/>
+                    <element name="meta_keyword" type="xsd:string" minOccurs="0"/>
+                    <element name="meta_description" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_design" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_layout_update" type="xsd:string" minOccurs="0"/>
+                    <element name="options_container" type="xsd:string" minOccurs="0"/>
+                    <element name="additional_attributes" type="typens:associativeArray" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCreateEntity">
+                <all>
+                    <element name="categories" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="websites" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="name" type="xsd:string" minOccurs="0"/>
+                    <element name="description" type="xsd:string" minOccurs="0"/>
+                    <element name="short_description" type="xsd:string" minOccurs="0"/>
+                    <element name="weight" type="xsd:string" minOccurs="0"/>
+                    <element name="status" type="xsd:string" minOccurs="0"/>
+                    <element name="url_key" type="xsd:string" minOccurs="0"/>
+                    <element name="url_path" type="xsd:string" minOccurs="0"/>
+                    <element name="visibility" type="xsd:string" minOccurs="0"/>
+                    <element name="category_ids" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="website_ids" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="has_options" type="xsd:string" minOccurs="0"/>
+                    <element name="gift_message_available" type="xsd:string" minOccurs="0"/>
+                    <element name="price" type="xsd:string" minOccurs="0"/>
+                    <element name="special_price" type="xsd:string" minOccurs="0"/>
+                    <element name="special_from_date" type="xsd:string" minOccurs="0"/>
+                    <element name="special_to_date" type="xsd:string" minOccurs="0"/>
+                    <element name="tax_class_id" type="xsd:string" minOccurs="0"/>
+                    <element name="tier_price" type="typens:scoreOggettoTierPriceEntityArray" minOccurs="0"/>
+                    <element name="meta_title" type="xsd:string" minOccurs="0"/>
+                    <element name="meta_keyword" type="xsd:string" minOccurs="0"/>
+                    <element name="meta_description" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_design" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_layout_update" type="xsd:string" minOccurs="0"/>
+                    <element name="options_container" type="xsd:string" minOccurs="0"/>
+                    <element name="additional_attributes" type="typens:scoreOggettoAdditionalAttributesEntity" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCreateEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoCreateEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoAttributeSetEntity">
+                <all>
+                    <element name="set_id" type="xsd:int" minOccurs="0"/>
+                    <element name="name" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoAttributeSetEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoAttributeSetEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoTypeEntity">
+                <all>
+                    <element name="type" type="xsd:string" minOccurs="0"/>
+                    <element name="label" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoTypeEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoTypeEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoTierPriceEntity">
+                <all>
+                    <element name="customer_group_id" type="xsd:string" minOccurs="0"/>
+                    <element name="website" type="xsd:string" minOccurs="0"/>
+                    <element name="qty" type="xsd:int" minOccurs="0"/>
+                    <element name="price" type="xsd:double" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoTierPriceEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoTierPriceEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="ArrayOfScoreCategoryEntities">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreCategoryEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreCategoryEntity">
+                <all>
+                    <element name="category_id" type="xsd:int"/>
+                    <element name="parent_id" type="xsd:int"/>
+                    <element name="name" type="xsd:string"/>
+                    <element name="is_active" type="xsd:int"/>
+                    <element name="position" type="xsd:int"/>
+                    <element name="level" type="xsd:int"/>
+                    <element name="children" type="typens:ArrayOfScoreCategoryEntities"/>
+                </all>
+            </complexType>
+            <complexType name="scoreCategoryEntityNoChildren">
+                <all>
+                    <element name="category_id" type="xsd:int"/>
+                    <element name="parent_id" type="xsd:int"/>
+                    <element name="name" type="xsd:string"/>
+                    <element name="is_active" type="xsd:int"/>
+                    <element name="position" type="xsd:int"/>
+                    <element name="level" type="xsd:int"/>
+                </all>
+            </complexType>
+            <complexType name="ArrayOfScoreCategoryEntitiesNoChildren">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreCategoryEntityNoChildren[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreCategoryTree">
+                <all>
+                    <element name="category_id" type="xsd:int"/>
+                    <element name="parent_id" type="xsd:int"/>
+                    <element name="name" type="xsd:string"/>
+                    <element name="position" type="xsd:int"/>
+                    <element name="level" type="xsd:int"/>
+                    <element name="children" type="typens:ArrayOfScoreCategoryEntities"/>
+                </all>
+            </complexType>
+            <complexType name="scoreCategoryEntityCreate">
+                <all>
+                    <element name="name" type="xsd:string" minOccurs="0"/>
+                    <element name="is_active" type="xsd:int" minOccurs="0"/>
+                    <element name="position" type="xsd:int" minOccurs="0"/>
+                    <!-- position parameter is deprecated, category anyway will be positioned in the end of list
+                        and you can not set position directly, use score_category.move instead -->
+                    <element name="available_sort_by" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="custom_design" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_design_apply" type="xsd:int" minOccurs="0"/>
+                    <element name="custom_design_from" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_design_to" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_layout_update" type="xsd:string" minOccurs="0"/>
+                    <element name="default_sort_by" type="xsd:string" minOccurs="0"/>
+                    <element name="description" type="xsd:string" minOccurs="0"/>
+                    <element name="display_mode" type="xsd:string" minOccurs="0"/>
+                    <element name="is_anchor" type="xsd:int" minOccurs="0"/>
+                    <element name="landing_page" type="xsd:int" minOccurs="0"/>
+                    <element name="meta_description" type="xsd:string" minOccurs="0"/>
+                    <element name="meta_keywords" type="xsd:string" minOccurs="0"/>
+                    <element name="meta_title" type="xsd:string" minOccurs="0"/>
+                    <element name="page_layout" type="xsd:string" minOccurs="0"/>
+                    <element name="url_key" type="xsd:string" minOccurs="0"/>
+                    <element name="include_in_menu" type="xsd:int" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreCategoryInfo">
+                <all>
+                    <element name="category_id" type="xsd:string"/>
+                    <element name="is_active" type="xsd:int"/>
+                    <element name="position" type="xsd:string"/>
+                    <element name="level" type="xsd:string"/>
+                    <element name="parent_id" type="xsd:string"/>
+                    <element name="all_children" type="xsd:string"/>
+                    <element name="children" type="xsd:string"/>
+                    <element name="created_at" type="xsd:string" minOccurs="0"/>
+                    <element name="updated_at" type="xsd:string" minOccurs="0"/>
+                    <element name="name" type="xsd:string" minOccurs="0"/>
+                    <element name="url_key" type="xsd:string" minOccurs="0"/>
+                    <element name="description" type="xsd:string" minOccurs="0"/>
+                    <element name="meta_title" type="xsd:string" minOccurs="0"/>
+                    <element name="meta_keywords" type="xsd:string" minOccurs="0"/>
+                    <element name="meta_description" type="xsd:string" minOccurs="0"/>
+                    <element name="path" type="xsd:string" minOccurs="0"/>
+                    <element name="url_path" type="xsd:string" minOccurs="0"/>
+                    <element name="children_count" type="xsd:int" minOccurs="0"/>
+                    <element name="display_mode" type="xsd:string" minOccurs="0"/>
+                    <element name="is_anchor" type="xsd:int" minOccurs="0"/>
+                    <element name="available_sort_by" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="custom_design" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_design_apply" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_design_from" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_design_to" type="xsd:string" minOccurs="0"/>
+                    <element name="page_layout" type="xsd:string" minOccurs="0"/>
+                    <element name="custom_layout_update" type="xsd:string" minOccurs="0"/>
+                    <element name="default_sort_by" type="xsd:string" minOccurs="0"/>
+                    <element name="landing_page" type="xsd:int" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreAssignedOggetto">
+                <all>
+                    <element name="oggetto_id" type="xsd:int"/>
+                    <element name="type" type="xsd:string"/>
+                    <element name="set" type="xsd:int"/>
+                    <element name="sku" type="xsd:string"/>
+                    <element name="position" type="xsd:int"/>
+                </all>
+            </complexType>
+            <complexType name="scoreAssignedOggettoArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreAssignedOggetto[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreAttributeEntity">
+                <all>
+                    <element name="attribute_id" type="xsd:int" minOccurs="0"/>
+                    <element name="code" type="xsd:string" minOccurs="0"/>
+                    <element name="type" type="xsd:string" minOccurs="0"/>
+                    <element name="required" type="xsd:string" minOccurs="0"/>
+                    <element name="scope" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreAttributeEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreAttributeEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreAttributeOptionEntity">
+                <all>
+                    <element name="label" type="xsd:string"/>
+                    <element name="value" type="xsd:string"/>
+                </all>
+            </complexType>
+            <complexType name="scoreAttributeOptionEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreAttributeOptionEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoImageEntity">
+                <all>
+                    <element name="file" type="xsd:string"/>
+                    <element name="label" type="xsd:string"/>
+                    <element name="position" type="xsd:string"/>
+                    <element name="exclude" type="xsd:string"/>
+                    <element name="url" type="xsd:string"/>
+                    <element name="types" type="typens:ArrayOfString"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoImageEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoImageEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoAttributeMediaTypeEntity">
+                <all>
+                    <element name="code" type="xsd:string"/>
+                    <element name="scope" type="xsd:string"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoAttributeMediaTypeEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType"
+                                   wsdl:arrayType="typens:scoreOggettoAttributeMediaTypeEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoImageFileEntity">
+                <all>
+                    <element name="content" type="xsd:string"/>
+                    <element name="mime" type="xsd:string"/>
+                    <element name="name" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoAttributeMediaCreateEntity">
+                <all>
+                    <element name="file" type="typens:scoreOggettoImageFileEntity" minOccurs="0"/>
+                    <element name="label" type="xsd:string" minOccurs="0"/>
+                    <element name="position" type="xsd:string" minOccurs="0"/>
+                    <element name="types" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="exclude" type="xsd:string" minOccurs="0"/>
+                    <element name="remove" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoLinkEntity">
+                <all>
+                    <element name="oggetto_id" type="xsd:string" minOccurs="0"/>
+                    <element name="type" type="xsd:string" minOccurs="0"/>
+                    <element name="set" type="xsd:string" minOccurs="0"/>
+                    <element name="sku" type="xsd:string" minOccurs="0"/>
+                    <element name="position" type="xsd:string" minOccurs="0"/>
+                    <element name="qty" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoLinkEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoLinkEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoLinkAttributeEntity">
+                <all>
+                    <element name="code" type="xsd:string" minOccurs="0"/>
+                    <element name="type" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoLinkAttributeEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoLinkAttributeEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoAttributeFrontendLabelEntity">
+                <all>
+                    <element name="store_id" type="xsd:string" />
+                    <element name="label" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoAttributeFrontendLabelArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoAttributeFrontendLabelEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoAttributeEntityToCreate">
+                <all>
+                    <element name="attribute_code" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="frontend_input" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="scope" type="xsd:string" minOccurs="0" />
+                    <element name="default_value" type="xsd:string" minOccurs="0" />
+                    <element name="is_unique" type="xsd:int" minOccurs="0" />
+                    <element name="is_required" type="xsd:int" minOccurs="0" />
+                    <element name="apply_to" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="is_configurable" type="xsd:int" minOccurs="0" />
+                    <element name="is_searchable" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_in_advanced_search" type="xsd:int" minOccurs="0" />
+                    <element name="is_comparable" type="xsd:int" minOccurs="0" />
+                    <element name="is_used_for_promo_rules" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_on_front" type="xsd:int" minOccurs="0" />
+                    <element name="used_in_oggetto_listing" type="xsd:int" minOccurs="0" />
+                    <element name="additional_fields" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="frontend_label" type="typens:scoreOggettoAttributeFrontendLabelArray" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoAttributeEntityToUpdate">
+                <all>
+                    <element name="scope" type="xsd:string" minOccurs="0" />
+                    <element name="default_value" type="xsd:string" minOccurs="0" />
+                    <element name="is_unique" type="xsd:int" minOccurs="0" />
+                    <element name="is_required" type="xsd:int" minOccurs="0" />
+                    <element name="apply_to" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="is_configurable" type="xsd:int" minOccurs="0" />
+                    <element name="is_searchable" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_in_advanced_search" type="xsd:int" minOccurs="0" />
+                    <element name="is_comparable" type="xsd:int" minOccurs="0" />
+                    <element name="is_used_for_promo_rules" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_on_front" type="xsd:int" minOccurs="0" />
+                    <element name="used_in_oggetto_listing" type="xsd:int" minOccurs="0" />
+                    <element name="additional_fields" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="frontend_label" type="typens:scoreOggettoAttributeFrontendLabelArray" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoAttributeEntity">
+                <all>
+                    <element name="attribute_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="attribute_code" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="frontend_input" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="scope" type="xsd:string" minOccurs="0" />
+                    <element name="default_value" type="xsd:string" minOccurs="0" />
+                    <element name="is_unique" type="xsd:int" minOccurs="0" />
+                    <element name="is_required" type="xsd:int" minOccurs="0" />
+                    <element name="apply_to" type="typens:ArrayOfString" minOccurs="0" />
+                    <element name="is_configurable" type="xsd:int" minOccurs="0" />
+                    <element name="is_searchable" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_in_advanced_search" type="xsd:int" minOccurs="0" />
+                    <element name="is_comparable" type="xsd:int" minOccurs="0" />
+                    <element name="is_used_for_promo_rules" type="xsd:int" minOccurs="0" />
+                    <element name="is_visible_on_front" type="xsd:int" minOccurs="0" />
+                    <element name="used_in_oggetto_listing" type="xsd:int" minOccurs="0" />
+                    <element name="additional_fields" type="typens:associativeArray" minOccurs="0"/>
+                    <element name="options" type="typens:scoreAttributeOptionEntityArray" minOccurs="0"/>
+                    <element name="frontend_label" type="typens:scoreOggettoAttributeFrontendLabelArray" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoAttributeOptionLabelEntity">
+                <all>
+                    <element name="store_id" type="typens:ArrayOfString" />
+                    <element name="value" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoAttributeOptionLabelArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoAttributeOptionLabelEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoAttributeOptionEntityToAdd">
+                <all>
+                    <element name="label" type="typens:scoreOggettoAttributeOptionLabelArray" />
+                    <element name="order" type="xsd:int" />
+                    <element name="is_default" type="xsd:int" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionAdditionalFieldsEntity">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="price" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="price_type" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="sku" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="max_characters" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="file_extension" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="image_size_x" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="image_size_y" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="value_id" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionAdditionalFieldsArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoCustomOptionAdditionalFieldsEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionToAdd">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="is_require" type="xsd:int" minOccurs="0" maxOccurs="1" />
+                    <element name="additional_fields" type="typens:scoreOggettoCustomOptionAdditionalFieldsArray" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionToUpdate">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="type" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                    <element name="is_require" type="xsd:int" minOccurs="0" maxOccurs="1" />
+                    <element name="additional_fields" type="typens:scoreOggettoCustomOptionAdditionalFieldsArray" minOccurs="0" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionInfoEntity">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="is_require" type="xsd:int" minOccurs="1" maxOccurs="1" />
+                    <element name="additional_fields" type="typens:scoreOggettoCustomOptionAdditionalFieldsArray" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionListEntity">
+                <all>
+                    <element name="option_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="is_require" type="xsd:int" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionListArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoCustomOptionListEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionTypesEntity">
+                <all>
+                    <element name="label" type="xsd:string"/>
+                    <element name="value" type="xsd:string"/>
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionTypesArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoCustomOptionTypesEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionValueInfoEntity">
+                <all>
+                    <element name="value_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="option_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sku" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="default_price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="default_price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="store_price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="store_price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="default_title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="store_title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionValueListEntity">
+                <all>
+                    <element name="value_id" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sku" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionValueListArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoCustomOptionValueListEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionValueAddEntity">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sku" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionValueAddArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoCustomOptionValueAddEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoCustomOptionValueUpdateEntity">
+                <all>
+                    <element name="title" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="price_type" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sku" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="sort_order" type="xsd:string" minOccurs="0" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoSpecialPriceReturnEntity">
+                <all>
+                    <element name="special_price" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="special_from_date" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="special_to_date" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+        </schema>
+    </types>
+    <message name="scoreOggettoCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCurrentStoreResponse">
+        <part name="storeView" type="xsd:int"/>
+    </message>
+    <message name="scoreOggettoListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="filters" type="typens:filters"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoListResponse">
+        <part name="storeView" type="typens:scoreOggettoEntityArray"/>
+    </message>
+    <message name="scoreOggettoInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggettoId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+        <part name="attributes" type="typens:scoreOggettoRequestAttributes"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoInfoResponse">
+        <part name="info" type="typens:scoreOggettoReturnEntity"/>
+    </message>
+    <message name="scoreOggettoCreateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="type" type="xsd:string"/>
+        <part name="set" type="xsd:string"/>
+        <part name="sku" type="xsd:string"/>
+        <part name="oggettoData" type="typens:scoreOggettoCreateEntity"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCreateResponse">
+        <part name="result" type="xsd:int"/>
+    </message>
+    <message name="scoreOggettoUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="oggettoData" type="typens:scoreOggettoCreateEntity"/>
+        <part name="storeView" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoUpdateResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoMultiUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggettoIds" type="typens:ArrayOfString"/>
+        <part name="oggettoData" type="typens:scoreOggettoCreateEntityArray"/>
+        <part name="store" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoMultiUpdateResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoSetSpecialPriceRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="specialPrice" type="xsd:string"/>
+        <part name="fromDate" type="xsd:string"/>
+        <part name="toDate" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoSetSpecialPriceResponse">
+        <part name="result" type="xsd:int"/>
+    </message>
+    <message name="scoreOggettoGetSpecialPriceRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoGetSpecialPriceResponse">
+        <part name="result" type="typens:scoreOggettoSpecialPriceReturnEntity"/>
+    </message>
+    <message name="scoreOggettoDeleteRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoDeleteResponse">
+        <part name="result" type="xsd:int"/>
+    </message>
+    <message name="scoreOggettoAttributeCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeCurrentStoreResponse">
+        <part name="storeView" type="xsd:int"/>
+    </message>
+    <message name="scoreOggettoListOfAdditionalAttributesRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="oggettoType" type="xsd:string" />
+        <part name="attributeSetId" type="xsd:string" />
+    </message>
+    <message name="scoreOggettoListOfAdditionalAttributesResponse">
+        <part name="result" type="typens:scoreAttributeEntityArray" />
+    </message>
+    <message name="scoreOggettoAttributeListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="setId" type="xsd:int"/>
+    </message>
+    <message name="scoreOggettoAttributeListResponse">
+        <part name="result" type="typens:scoreAttributeEntityArray"/>
+    </message>
+    <message name="scoreOggettoAttributeOptionsRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attributeId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeOptionsResponse">
+        <part name="result" type="typens:scoreAttributeOptionEntityArray"/>
+    </message>
+    <message name="scoreOggettoAttributeSetCreateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attributeSetName" type="xsd:string"/>
+        <part name="skeletonSetId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeSetCreateResponse">
+        <part name="setId" type="xsd:int"/>
+    </message>
+    <message name="scoreOggettoAttributeSetRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attributeSetId" type="xsd:string"/>
+        <part name="forceOggettosRemove" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeSetRemoveResponse">
+        <part name="isRemoved" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoAttributeSetListRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeSetListResponse">
+        <part name="result" type="typens:scoreOggettoAttributeSetEntityArray"/>
+    </message>
+    <message name="scoreOggettoAttributeSetAttributeAddRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="attributeId" type="xsd:string" />
+        <part name="attributeSetId" type="xsd:string" />
+        <part name="attributeGroupId" type="xsd:string"/>
+        <part name="sortOrder" type="xsd:string" />
+    </message>
+    <message name="scoreOggettoAttributeSetAttributeAddResponse">
+        <part name="isAdded" type="xsd:boolean" />
+    </message>
+    <message name="scoreOggettoAttributeSetAttributeRemoveRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="attributeId" type="xsd:string" />
+        <part name="attributeSetId" type="xsd:string" />
+    </message>
+    <message name="scoreOggettoAttributeSetAttributeRemoveResponse">
+        <part name="isRemoved" type="xsd:boolean" />
+    </message>
+    <message name="scoreOggettoAttributeSetGroupAddRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="attributeSetId" type="xsd:string" />
+        <part name="groupName" type="xsd:string" />
+    </message>
+    <message name="scoreOggettoAttributeSetGroupAddResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="scoreOggettoAttributeSetGroupRenameRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="groupId" type="xsd:string" />
+        <part name="groupName" type="xsd:string" />
+    </message>
+    <message name="scoreOggettoAttributeSetGroupRenameResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="scoreOggettoAttributeSetGroupRemoveRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="attributeGroupId" type="xsd:string" />
+    </message>
+    <message name="scoreOggettoAttributeSetGroupRemoveResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="scoreOggettoAttributeTypesRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeTypesResponse">
+        <part name="result" type="typens:scoreAttributeOptionEntityArray" />
+    </message>
+    <message name="scoreOggettoAttributeCreateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoAttributeEntityToCreate"/>
+    </message>
+    <message name="scoreOggettoAttributeCreateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="scoreOggettoAttributeRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeRemoveResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="scoreOggettoAttributeInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeInfoResponse">
+        <part name="result" type="typens:scoreOggettoAttributeEntity" />
+    </message>
+    <message name="scoreOggettoAttributeUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoAttributeEntityToUpdate"/>
+    </message>
+    <message name="scoreOggettoAttributeUpdateResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoAttributeAddOptionRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoAttributeOptionEntityToAdd"/>
+    </message>
+    <message name="scoreOggettoAttributeAddOptionResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="scoreOggettoAttributeRemoveOptionRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attribute" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeRemoveOptionResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="scoreOggettoTypeListRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoTypeListResponse">
+        <part name="result" type="typens:scoreOggettoTypeEntityArray"/>
+    </message>
+    <message name="scoreOggettoAttributeTierPriceInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeTierPriceInfoResponse">
+        <part name="result" type="typens:scoreOggettoTierPriceEntityArray"/>
+    </message>
+    <message name="scoreOggettoAttributeTierPriceUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="tier_price" type="typens:scoreOggettoTierPriceEntityArray"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeTierPriceUpdateResponse">
+        <part name="result" type="xsd:int"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaCurrentStoreResponse">
+        <part name="storeView" type="xsd:int"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaListResponse">
+        <part name="result" type="typens:scoreOggettoImageEntityArray"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="file" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaInfoResponse">
+        <part name="result" type="typens:scoreOggettoImageEntity"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaTypesRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="setId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaTypesResponse">
+        <part name="result" type="typens:scoreOggettoAttributeMediaTypeEntityArray"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaCreateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoAttributeMediaCreateEntity"/>
+        <part name="storeView" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaCreateResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="file" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoAttributeMediaCreateEntity"/>
+        <part name="storeView" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaUpdateResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="file" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoAttributeMediaRemoveResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoLinkListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="type" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoLinkListResponse">
+        <part name="result" type="typens:scoreOggettoLinkEntityArray"/>
+    </message>
+    <message name="scoreOggettoLinkAssignRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="type" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="linkedOggetto" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoLinkEntity"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoLinkAssignResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoLinkUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="type" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="linkedOggetto" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoLinkEntity"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoLinkUpdateResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoLinkRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="type" type="xsd:string"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="linkedOggetto" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoLinkRemoveResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoLinkTypesRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoLinkTypesResponse">
+        <part name="result" type="typens:ArrayOfString"/>
+    </message>
+    <message name="scoreOggettoLinkAttributesRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="type" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoLinkAttributesResponse">
+        <part name="result" type="typens:scoreOggettoLinkAttributeEntityArray"/>
+    </message>
+    <message name="scoreCategoryCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryCurrentStoreResponse">
+        <part name="storeView" type="xsd:int"/>
+    </message>
+    <message name="scoreOggettoCustomOptionAddRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggettoId" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoCustomOptionToAdd"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionAddResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoCustomOptionUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoCustomOptionToUpdate"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionUpdateResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoCustomOptionListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="oggettoId" type="xsd:string"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionListResponse">
+        <part name="result" type="typens:scoreOggettoCustomOptionListArray"/>
+    </message>
+    <message name="scoreOggettoCustomOptionTypesRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionTypesResponse">
+        <part name="result" type="typens:scoreOggettoCustomOptionTypesArray"/>
+    </message>
+    <message name="scoreOggettoCustomOptionInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionInfoResponse">
+        <part name="result" type="typens:scoreOggettoCustomOptionInfoEntity"/>
+    </message>
+    <message name="scoreOggettoCustomOptionRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionRemoveResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoCustomOptionValueListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionValueListResponse">
+        <part name="result" type="typens:scoreOggettoCustomOptionValueListArray"/>
+    </message>
+    <message name="scoreOggettoCustomOptionValueInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="valueId" type="xsd:string"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionValueInfoResponse">
+        <part name="result" type="typens:scoreOggettoCustomOptionValueInfoEntity"/>
+    </message>
+    <message name="scoreOggettoCustomOptionValueAddRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="optionId" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoCustomOptionValueAddArray"/>
+        <part name="store" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionValueAddResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoCustomOptionValueUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="valueId" type="xsd:string"/>
+        <part name="data" type="typens:scoreOggettoCustomOptionValueUpdateEntity"/>
+        <part name="storeId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionValueUpdateResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreOggettoCustomOptionValueRemoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="valueId" type="xsd:string"/>
+    </message>
+    <message name="scoreOggettoCustomOptionValueRemoveResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreCategoryTreeRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="parentId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryTreeResponse">
+        <part name="tree" type="typens:scoreCategoryTree"/>
+    </message>
+    <message name="scoreCategoryLevelRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="website" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+        <part name="parentCategory" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryLevelResponse">
+        <part name="tree" type="typens:ArrayOfScoreCategoryEntitiesNoChildren"/>
+    </message>
+    <message name="scoreCategoryInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="categoryId" type="xsd:int"/>
+        <part name="storeView" type="xsd:string"/>
+        <part name="attributes" type="typens:ArrayOfString"/>
+    </message>
+    <message name="scoreCategoryInfoResponse">
+        <part name="info" type="typens:scoreCategoryInfo"/>
+    </message>
+    <message name="scoreCategoryCreateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="parentId" type="xsd:int"/>
+        <part name="categoryData" type="typens:scoreCategoryEntityCreate"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryCreateResponse">
+        <part name="attribute_id" type="xsd:int"/>
+    </message>
+    <message name="scoreCategoryUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="categoryId" type="xsd:int"/>
+        <part name="categoryData" type="typens:scoreCategoryEntityCreate"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryUpdateResponse">
+        <part name="id" type="xsd:boolean"/>
+    </message>
+    <message name="scoreCategoryMoveRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="categoryId" type="xsd:int"/>
+        <part name="parentId" type="xsd:int"/>
+        <part name="afterId" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryMoveResponse">
+        <part name="id" type="xsd:boolean"/>
+    </message>
+    <message name="scoreCategoryDeleteRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="categoryId" type="xsd:int"/>
+    </message>
+    <message name="scoreCategoryDeleteResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreCategoryAssignedOggettosRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="categoryId" type="xsd:int"/>
+    </message>
+    <message name="scoreCategoryAssignedOggettosResponse">
+        <part name="result" type="typens:scoreAssignedOggettoArray"/>
+    </message>
+    <message name="scoreCategoryAssignOggettoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="categoryId" type="xsd:int"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="position" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryAssignOggettoResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreCategoryUpdateOggettoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="categoryId" type="xsd:int"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="position" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryUpdateOggettoResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreCategoryRemoveOggettoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="categoryId" type="xsd:int"/>
+        <part name="oggetto" type="xsd:string"/>
+        <part name="identifierType" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryRemoveOggettoResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="scoreCategoryAttributeCurrentStoreRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryAttributeCurrentStoreResponse">
+        <part name="storeView" type="xsd:int"/>
+    </message>
+    <message name="scoreCategoryAttributeListRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryAttributeListResponse">
+        <part name="result" type="typens:scoreAttributeEntityArray"/>
+    </message>
+    <message name="scoreCategoryAttributeOptionsRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="attributeId" type="xsd:string"/>
+        <part name="storeView" type="xsd:string"/>
+    </message>
+    <message name="scoreCategoryAttributeOptionsResponse">
+        <part name="result" type="typens:scoreAttributeOptionEntityArray"/>
+    </message>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="scoreCategoryCurrentStore">
+            <documentation>Set_Get current store view</documentation>
+            <input message="typens:scoreCategoryCurrentStoreRequest"/>
+            <output message="typens:scoreCategoryCurrentStoreResponse"/>
+        </operation>
+        <operation name="scoreCategoryTree">
+            <documentation>Retrieve hierarchical tree of categories.</documentation>
+            <input message="typens:scoreCategoryTreeRequest"/>
+            <output message="typens:scoreCategoryTreeResponse"/>
+        </operation>
+        <operation name="scoreCategoryLevel">
+            <documentation>Retrieve hierarchical tree of categories.</documentation>
+            <input message="typens:scoreCategoryLevelRequest"/>
+            <output message="typens:scoreCategoryLevelResponse"/>
+        </operation>
+        <operation name="scoreCategoryInfo">
+            <documentation>Retrieve hierarchical tree of categories.</documentation>
+            <input message="typens:scoreCategoryInfoRequest"/>
+            <output message="typens:scoreCategoryInfoResponse"/>
+        </operation>
+        <operation name="scoreCategoryCreate">
+            <documentation>Create new category and return its id.</documentation>
+            <input message="typens:scoreCategoryCreateRequest"/>
+            <output message="typens:scoreCategoryCreateResponse"/>
+        </operation>
+        <operation name="scoreCategoryUpdate">
+            <documentation>Update category</documentation>
+            <input message="typens:scoreCategoryUpdateRequest"/>
+            <output message="typens:scoreCategoryUpdateResponse"/>
+        </operation>
+        <operation name="scoreCategoryMove">
+            <documentation>Move category in tree</documentation>
+            <input message="typens:scoreCategoryMoveRequest"/>
+            <output message="typens:scoreCategoryMoveResponse"/>
+        </operation>
+        <operation name="scoreCategoryDelete">
+            <documentation>Delete category</documentation>
+            <input message="typens:scoreCategoryDeleteRequest"/>
+            <output message="typens:scoreCategoryDeleteResponse"/>
+        </operation>
+        <operation name="scoreCategoryAssignedOggettos">
+            <documentation>Retrieve list of assigned oggettos</documentation>
+            <input message="typens:scoreCategoryAssignedOggettosRequest"/>
+            <output message="typens:scoreCategoryAssignedOggettosResponse"/>
+        </operation>
+        <operation name="scoreCategoryAssignOggetto">
+            <documentation>Assign oggetto to category</documentation>
+            <input message="typens:scoreCategoryAssignOggettoRequest"/>
+            <output message="typens:scoreCategoryAssignOggettoResponse"/>
+        </operation>
+        <operation name="scoreCategoryUpdateOggetto">
+            <documentation>Update assigned oggetto</documentation>
+            <input message="typens:scoreCategoryUpdateOggettoRequest"/>
+            <output message="typens:scoreCategoryUpdateOggettoResponse"/>
+        </operation>
+        <operation name="scoreCategoryRemoveOggetto">
+            <documentation>Remove oggetto assignment from category</documentation>
+            <input message="typens:scoreCategoryRemoveOggettoRequest"/>
+            <output message="typens:scoreCategoryRemoveOggettoResponse"/>
+        </operation>
+        <operation name="scoreCategoryAttributeCurrentStore">
+            <documentation>Set/Get current store view</documentation>
+            <input message="typens:scoreCategoryAttributeCurrentStoreRequest"/>
+            <output message="typens:scoreCategoryAttributeCurrentStoreResponse"/>
+        </operation>
+        <operation name="scoreCategoryAttributeList">
+            <documentation>Retrieve category attributes</documentation>
+            <input message="typens:scoreCategoryAttributeListRequest"/>
+            <output message="typens:scoreCategoryAttributeListResponse"/>
+        </operation>
+        <operation name="scoreCategoryAttributeOptions">
+            <documentation>Retrieve attribute options</documentation>
+            <input message="typens:scoreCategoryAttributeOptionsRequest"/>
+            <output message="typens:scoreCategoryAttributeOptionsResponse"/>
+        </operation>
+        <operation name="scoreOggettoCurrentStore">
+            <documentation>Set/Get current store view</documentation>
+            <input message="typens:scoreOggettoCurrentStoreRequest"/>
+            <output message="typens:scoreOggettoCurrentStoreResponse"/>
+        </operation>
+        <operation name="scoreOggettoList">
+            <documentation>Retrieve oggettos list by filters</documentation>
+            <input message="typens:scoreOggettoListRequest"/>
+            <output message="typens:scoreOggettoListResponse"/>
+        </operation>
+        <operation name="scoreOggettoInfo">
+            <documentation>Retrieve oggetto</documentation>
+            <input message="typens:scoreOggettoInfoRequest"/>
+            <output message="typens:scoreOggettoInfoResponse"/>
+        </operation>
+        <operation name="scoreOggettoCreate">
+            <documentation>Create new oggetto and return oggetto id</documentation>
+            <input message="typens:scoreOggettoCreateRequest"/>
+            <output message="typens:scoreOggettoCreateResponse"/>
+        </operation>
+        <operation name="scoreOggettoUpdate">
+            <documentation>Update oggetto</documentation>
+            <input message="typens:scoreOggettoUpdateRequest"/>
+            <output message="typens:scoreOggettoUpdateResponse"/>
+        </operation>
+        <operation name="scoreOggettoMultiUpdate">
+            <documentation>Oggetto multi update</documentation>
+            <input message="typens:scoreOggettoMultiUpdateRequest"/>
+            <output message="typens:scoreOggettoMultiUpdateResponse"/>
+        </operation>
+        <operation name="scoreOggettoSetSpecialPrice">
+            <documentation>Update oggetto special price</documentation>
+            <input message="typens:scoreOggettoSetSpecialPriceRequest"/>
+            <output message="typens:scoreOggettoSetSpecialPriceResponse"/>
+        </operation>
+        <operation name="scoreOggettoGetSpecialPrice">
+            <documentation>Get oggetto special price data</documentation>
+            <input message="typens:scoreOggettoGetSpecialPriceRequest"/>
+            <output message="typens:scoreOggettoGetSpecialPriceResponse"/>
+        </operation>
+        <operation name="scoreOggettoDelete">
+            <documentation>Delete oggetto</documentation>
+            <input message="typens:scoreOggettoDeleteRequest"/>
+            <output message="typens:scoreOggettoDeleteResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeCurrentStore">
+            <documentation>Set/Get current store view</documentation>
+            <input message="typens:scoreOggettoAttributeCurrentStoreRequest"/>
+            <output message="typens:scoreOggettoAttributeCurrentStoreResponse"/>
+        </operation>
+        <operation name="scoreOggettoListOfAdditionalAttributes">
+            <documentation>Get list of additional attributes which are not in default create/update list</documentation>
+            <input message="typens:scoreOggettoListOfAdditionalAttributesRequest"/>
+            <output message="typens:scoreOggettoListOfAdditionalAttributesResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeList">
+            <documentation>Retrieve attribute list</documentation>
+            <input message="typens:scoreOggettoAttributeListRequest"/>
+            <output message="typens:scoreOggettoAttributeListResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeOptions">
+            <documentation>Retrieve attribute options</documentation>
+            <input message="typens:scoreOggettoAttributeOptionsRequest"/>
+            <output message="typens:scoreOggettoAttributeOptionsResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeSetCreate">
+            <documentation>Create oggetto attribute set based on another set</documentation>
+            <input message="typens:scoreOggettoAttributeSetCreateRequest"/>
+            <output message="typens:scoreOggettoAttributeSetCreateResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeSetRemove">
+            <documentation>Remove oggetto attribute set</documentation>
+            <input message="typens:scoreOggettoAttributeSetRemoveRequest"/>
+            <output message="typens:scoreOggettoAttributeSetRemoveResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeSetList">
+            <documentation>Retrieve oggetto attribute sets</documentation>
+            <input message="typens:scoreOggettoAttributeSetListRequest"/>
+            <output message="typens:scoreOggettoAttributeSetListResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeSetAttributeAdd">
+            <documentation>Add attribute into attribute set</documentation>
+            <input message="typens:scoreOggettoAttributeSetAttributeAddRequest"/>
+            <output message="typens:scoreOggettoAttributeSetAttributeAddResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeSetAttributeRemove">
+            <documentation>Remove attribute from attribute set</documentation>
+            <input message="typens:scoreOggettoAttributeSetAttributeRemoveRequest"/>
+            <output message="typens:scoreOggettoAttributeSetAttributeRemoveResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeSetGroupAdd">
+            <documentation>Create group within existing attribute set</documentation>
+            <input message="typens:scoreOggettoAttributeSetGroupAddRequest"/>
+            <output message="typens:scoreOggettoAttributeSetGroupAddResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeSetGroupRename">
+            <documentation>Rename existing group</documentation>
+            <input message="typens:scoreOggettoAttributeSetGroupRenameRequest"/>
+            <output message="typens:scoreOggettoAttributeSetGroupRenameResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeSetGroupRemove">
+            <documentation>Remove group from attribute set</documentation>
+            <input message="typens:scoreOggettoAttributeSetGroupRemoveRequest"/>
+            <output message="typens:scoreOggettoAttributeSetGroupRemoveResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeTypes">
+            <documentation>Get list of possible attribute types</documentation>
+            <input message="typens:scoreOggettoAttributeTypesRequest"/>
+            <output message="typens:scoreOggettoAttributeTypesResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeCreate">
+            <documentation>Create new attribute</documentation>
+            <input message="typens:scoreOggettoAttributeCreateRequest"/>
+            <output message="typens:scoreOggettoAttributeCreateResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeRemove">
+            <documentation>Delete attribute</documentation>
+            <input message="typens:scoreOggettoAttributeRemoveRequest"/>
+            <output message="typens:scoreOggettoAttributeRemoveResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeInfo">
+            <documentation>Get full information about attribute with list of options</documentation>
+            <input message="typens:scoreOggettoAttributeInfoRequest"/>
+            <output message="typens:scoreOggettoAttributeInfoResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeUpdate">
+            <documentation>Update attribute</documentation>
+            <input message="typens:scoreOggettoAttributeUpdateRequest"/>
+            <output message="typens:scoreOggettoAttributeUpdateResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeAddOption">
+            <documentation>Add option to attribute</documentation>
+            <input message="typens:scoreOggettoAttributeAddOptionRequest"/>
+            <output message="typens:scoreOggettoAttributeAddOptionResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeRemoveOption">
+            <documentation>Remove option from attribute</documentation>
+            <input message="typens:scoreOggettoAttributeRemoveOptionRequest"/>
+            <output message="typens:scoreOggettoAttributeRemoveOptionResponse"/>
+        </operation>
+        <operation name="scoreOggettoTypeList">
+            <documentation>Retrieve oggetto types</documentation>
+            <input message="typens:scoreOggettoTypeListRequest"/>
+            <output message="typens:scoreOggettoTypeListResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeTierPriceInfo">
+            <documentation>Retrieve oggetto tier prices</documentation>
+            <input message="typens:scoreOggettoAttributeTierPriceInfoRequest"/>
+            <output message="typens:scoreOggettoAttributeTierPriceInfoResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeTierPriceUpdate">
+            <documentation>Update oggetto tier prices</documentation>
+            <input message="typens:scoreOggettoAttributeTierPriceUpdateRequest"/>
+            <output message="typens:scoreOggettoAttributeTierPriceUpdateResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaCurrentStore">
+            <documentation>Set/Get current store view</documentation>
+            <input message="typens:scoreOggettoAttributeMediaCurrentStoreRequest"/>
+            <output message="typens:scoreOggettoAttributeMediaCurrentStoreResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaList">
+            <documentation>Retrieve oggetto image list</documentation>
+            <input message="typens:scoreOggettoAttributeMediaListRequest"/>
+            <output message="typens:scoreOggettoAttributeMediaListResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaInfo">
+            <documentation>Retrieve oggetto image data</documentation>
+            <input message="typens:scoreOggettoAttributeMediaInfoRequest"/>
+            <output message="typens:scoreOggettoAttributeMediaInfoResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaTypes">
+            <documentation>Retrieve oggetto image types</documentation>
+            <input message="typens:scoreOggettoAttributeMediaTypesRequest"/>
+            <output message="typens:scoreOggettoAttributeMediaTypesResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaCreate">
+            <documentation>Upload new oggetto image</documentation>
+            <input message="typens:scoreOggettoAttributeMediaCreateRequest"/>
+            <output message="typens:scoreOggettoAttributeMediaCreateResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaUpdate">
+            <documentation>Update oggetto image</documentation>
+            <input message="typens:scoreOggettoAttributeMediaUpdateRequest"/>
+            <output message="typens:scoreOggettoAttributeMediaUpdateResponse"/>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaRemove">
+            <documentation>Remove oggetto image</documentation>
+            <input message="typens:scoreOggettoAttributeMediaRemoveRequest"/>
+            <output message="typens:scoreOggettoAttributeMediaRemoveResponse"/>
+        </operation>
+        <operation name="scoreOggettoLinkList">
+            <documentation>Retrieve linked oggettos</documentation>
+            <input message="typens:scoreOggettoLinkListRequest"/>
+            <output message="typens:scoreOggettoLinkListResponse"/>
+        </operation>
+        <operation name="scoreOggettoLinkAssign">
+            <documentation>Assign oggetto link</documentation>
+            <input message="typens:scoreOggettoLinkAssignRequest"/>
+            <output message="typens:scoreOggettoLinkAssignResponse"/>
+        </operation>
+        <operation name="scoreOggettoLinkUpdate">
+            <documentation>Update oggetto link</documentation>
+            <input message="typens:scoreOggettoLinkUpdateRequest"/>
+            <output message="typens:scoreOggettoLinkUpdateResponse"/>
+        </operation>
+        <operation name="scoreOggettoLinkRemove">
+            <documentation>Remove oggetto link</documentation>
+            <input message="typens:scoreOggettoLinkRemoveRequest"/>
+            <output message="typens:scoreOggettoLinkRemoveResponse"/>
+        </operation>
+        <operation name="scoreOggettoLinkTypes">
+            <documentation>Retrieve oggetto link types</documentation>
+            <input message="typens:scoreOggettoLinkTypesRequest"/>
+            <output message="typens:scoreOggettoLinkTypesResponse"/>
+        </operation>
+        <operation name="scoreOggettoLinkAttributes">
+            <documentation>Retrieve oggetto link type attributes</documentation>
+            <input message="typens:scoreOggettoLinkAttributesRequest"/>
+            <output message="typens:scoreOggettoLinkAttributesResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionAdd">
+            <documentation>Add new custom option into oggetto</documentation>
+            <input message="typens:scoreOggettoCustomOptionAddRequest"/>
+            <output message="typens:scoreOggettoCustomOptionAddResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionUpdate">
+            <documentation>Update oggetto custom option</documentation>
+            <input message="typens:scoreOggettoCustomOptionUpdateRequest"/>
+            <output message="typens:scoreOggettoCustomOptionUpdateResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionTypes">
+            <documentation>Get list of available custom option types</documentation>
+            <input message="typens:scoreOggettoCustomOptionTypesRequest"/>
+            <output message="typens:scoreOggettoCustomOptionTypesResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionInfo">
+            <documentation>Get full information about custom option in oggetto</documentation>
+            <input message="typens:scoreOggettoCustomOptionInfoRequest"/>
+            <output message="typens:scoreOggettoCustomOptionInfoResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionList">
+            <documentation>Retrieve list of oggetto custom options</documentation>
+            <input message="typens:scoreOggettoCustomOptionListRequest"/>
+            <output message="typens:scoreOggettoCustomOptionListResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionRemove">
+            <documentation>Remove custom option</documentation>
+            <input message="typens:scoreOggettoCustomOptionRemoveRequest"/>
+            <output message="typens:scoreOggettoCustomOptionRemoveResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionValueInfo">
+            <documentation>Retrieve custom option value info</documentation>
+            <input message="typens:scoreOggettoCustomOptionValueInfoRequest"/>
+            <output message="typens:scoreOggettoCustomOptionValueInfoResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionValueList">
+            <documentation>Retrieve custom option values list</documentation>
+            <input message="typens:scoreOggettoCustomOptionValueListRequest"/>
+            <output message="typens:scoreOggettoCustomOptionValueListResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionValueAdd">
+            <documentation>Add new custom option values</documentation>
+            <input message="typens:scoreOggettoCustomOptionValueAddRequest"/>
+            <output message="typens:scoreOggettoCustomOptionValueAddResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionValueUpdate">
+            <documentation>Update custom option value</documentation>
+            <input message="typens:scoreOggettoCustomOptionValueUpdateRequest"/>
+            <output message="typens:scoreOggettoCustomOptionValueUpdateResponse"/>
+        </operation>
+        <operation name="scoreOggettoCustomOptionValueRemove">
+            <documentation>Remove value from custom option</documentation>
+            <input message="typens:scoreOggettoCustomOptionValueRemoveRequest"/>
+            <output message="typens:scoreOggettoCustomOptionValueRemoveResponse"/>
+        </operation>
+    </portType>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="scoreCategoryCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryTree">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryLevel">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryMove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryDelete">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryAssignedOggettos">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryAssignOggetto">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryUpdateOggetto">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryRemoveOggetto">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoListOfAdditionalAttributes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoMultiUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoSetSpecialPrice">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoGetSpecialPrice">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoDelete">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeSetCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeOptions">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeSetRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeSetList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeSetAttributeAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeSetAttributeRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeSetGroupAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeSetGroupRename">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeSetGroupRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeTypes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryAttributeCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaCurrentStore">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeAddOption">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeRemoveOption">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoTypeList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeTierPriceInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeTierPriceUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryAttributeList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreCategoryAttributeOptions">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaTypes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoAttributeMediaRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoLinkList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoLinkAssign">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoLinkUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoLinkRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoLinkTypes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoLinkAttributes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionTypes">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionValueInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionValueList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionValueAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionValueUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionValueRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="scoreOggettoCustomOptionRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="{{var wsdl.name}}Service">
+        <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+            <soap:address location="{{var wsdl.url}}"/>
+        </port>
+    </service>
+</definitions>

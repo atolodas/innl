@@ -1,0 +1,141 @@
+<?php
+/**
+ * Copy Custom Options.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Team
+ * that is bundled with this package of Medma Infomatix Pvt. Ltd.
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * Medma Support does not guarantee correct work of this package
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * =================================================================
+**/
+?>
+<?php
+$withOptions	=	$this->_getCollectionWithOptions();
+$withOutCoptions 	=	$this->_getCollectionWithoutOptions();
+?>
+<div class="main-col-copy-options">
+<form name="custom_options_form" id="custom_options_form" method="post" action="<?php echo $this->getCopyUrl()?>">
+<input id="form_key" name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+<input id="allOptions" name="allOptions" type="hidden" value="<?php echo $this->getcopyAllOptionsUrl() ?>" />
+<input id="redirectState" name="redirectState" type="hidden" value="<?php echo $this->redirectState() ?>" />
+<div class="content-header">
+<table cellspacing="0">
+    <tr>
+        <td style="width:50%;">
+        	<h3 class="icon-head head-products">
+        		<?php echo $this->__('Copy Custom Options to Products');?>
+        	</h3>
+        </td>
+        <td class="a-right">
+		<p>
+			<button  title="Copy Custom Options" type="button" onclick="getSelectedProductOptions()" class="scalable " style=""><span><span><span><?php echo $this->__('Copy Custom Options to Selected Products');?></span></span></span></button>
+
+			</p>        
+	</td>
+    </tr>
+</table>
+</div>
+
+<div class="box-left">
+    <div class="entry-edit">
+                <div class="entry-edit-head">
+                    <strong><?php echo $this->__('Copy Custom Options From');?>
+           					<?php echo $this->__('(copy all the custom options)');?></strong>
+                </div>
+        <div class="fieldset copy-options">
+		<table class="form-list" cellspacing="0">
+      <tbody>
+      <?php if(count($withOptions->getData())<=0):?>
+      	<tr>
+					<td colspan = "3" class="value"><?php echo $this->__('There are no products with custom options.')?></td>							
+					</tr>
+			<?php else : $i=0;?>
+			<?php foreach($this->_getCollectionWithOptions() as $_product): ?>
+					<?php $_product->load(); ?>
+					<?php if(count($_product->getOptions())): ?>
+					<tr>
+					<td class="value"><?php echo $_product->getName().'&nbsp;('.$_product->getSku().')';?></td>
+						<!-- display all custom options of products -->
+						<td class="value grid">
+									<table cellspacing="0" class="data border" id="group_prices_table">
+                		<colgroup>
+										<col>
+										<col>
+										<col width="1">
+										</colgroup><thead>
+												<tr class="headings">
+												    <th><?php echo $this->__('Action'); ?></th>												    
+												    <th class="last"><?php echo $this->__('Options'); ?></th>
+												</tr>
+										</thead>
+										<tbody>
+												<?php 
+												 foreach ($_product->getOptions() as $o):?>
+													<tr>
+														 <td ><input class="option_<?php echo $i?>" type="checkbox" name="options[<?php echo $_product->getId()?>][]" value="<?php echo $o->getId()?>"></td>
+												    <td colspan="4" class="a-left"><?php echo $o->getTitle();?></td>										   
+												</tr>
+												<?php endforeach; ?>
+										</tbody>
+										<tfoot>
+												<tr>
+												    <td></td>
+												    <td colspan="4" class="a-right">
+																<input type="hidden" name="option_<?php echo $i?>" id="option_<?php echo $i?>" value="0">
+																<button title="Select Options" onclick="selectAllCheckbox('option_<?php echo $i?>')" id="selectAll_<?php echo $i ?>" type="button" class="scalable">
+																		<span><span><span><?php echo $this->__('Select / Deselect')?></span></span></span>	
+																</button>
+														</td>
+												</tr>
+										</tfoot>
+								</table>
+						</td> 
+						<!-- display of custom options of products ends-->			
+					</tr>
+					<?php $i++; endif; ?>
+			<?php endforeach; ?>
+			<?php endif; ?>
+		</tbody>
+		</table>		
+        </div>
+    </div>
+</div>
+<div class="box-right">
+    <div class="entry-edit">
+                <div class="entry-edit-head">
+                     <strong><?php echo $this->__('Copy Custom Options To');?>
+            					<?php echo $this->__('(copy all the custom options)');?></strong>
+                </div>
+        <div class="fieldset copy-options">
+        <table class="form-list" cellspacing="0">
+        <tbody>
+        <?php if(count($withOutCoptions->getData())<=0):?>
+      	<tr>
+					<td colspan = "3" class="value"><?php echo $this->__('All Products have already custom options.')?></td>							
+					</tr>
+				<?php else :?>
+				<?php foreach($this->_getCollectionWithoutOptions() as $_product): ?>
+						<tr>
+						<td class="value"><input class="copyTo" type="checkbox" name="copyto[]" value="<?php echo $_product->getEntityId()?>"></td>
+						<td class="value"><?php echo $_product->getName().'&nbsp;('.$_product->getSku().')';?></td> 			
+						</tr>
+				<?php endforeach; ?>
+				<?php endif; ?>
+		</tbody>
+		</table> 
+        </div>
+    </div>
+</div>	
+</form>
+</div>
+
+<form name="custom_options_form_request" id="custom_options_form_request" method="post" action="<?php echo $this->getcopyAllOptionsUrl() ?>">
+<input id="form_key" name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+<input id="productoptionsval" name="productoptionsval" type="hidden" value="" />
+</form

@@ -1,0 +1,11 @@
+<div class="page-title well">
+<?php if( sizeof($this->getScoretags()) > 0 ): ?>
+    <ul class="tags-list unstyled">
+        <?php foreach ($this->getScoretags() as $_tag): ?>
+            <li><a href="<?php echo $_tag->getScoretaggedOggettosUrl() ?>" class="bold black" style="font-size:<?php echo $_tag->getRatio()*70+150 ?>%; margin-left: 5px;"><?php echo $this->htmlEscape($_tag->getName()) ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <p class="note-msg"><?php echo $this->__('There are no tags available.') ?></p>
+<?php endif; ?>
+</div>

@@ -1,0 +1,4 @@
+<?php if(isset($_GET['url'])) {
+	echo preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "",file_get_contents($_GET['url']));	
+
+}

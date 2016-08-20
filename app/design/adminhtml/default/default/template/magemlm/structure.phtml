@@ -1,0 +1,84 @@
+<?php $stores = Mage::getModel('core/store') -> getCollection() -> toOptionHash(); ?>
+
+<script>
+	jQuery(document).ready(function() {
+		jQuery("#org").jOrgChart({
+			chartElement : '#chart',
+			dragAndDrop : false
+		});
+	});
+</script>
+
+<?php
+
+    function displayMLMStruc ($referralId) {
+        $collection = Mage::getModel('magemlm/customer')->getCollection()->addFieldToFilter('referrer_id', array('eq' => $referralId));
+
+        if ($collection->count() > 0) {
+            echo '
+                    <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td colspan="'.($collection->count() * 2).'" style="text-align: center; width: 80px;" class="node-cell">
+                            <div class="node">
+                                <div class="userName"><span>' . Mage::helper('magemlm')->getCustomerName($referralId) . '</span></div>
+                                ' . Mage::helper('magemlm')->getCustomerImage($referralId) . '
+                            </div>
+                        </td>
+                    </tr>';
+            echo '
+                    <tr>
+                        <td colspan="'.($collection->count()*2).'">
+                            <div class="line ChartDown">
+                            </div>
+                        </td>
+                    </tr>';
+
+            echo '<tr>';
+            $i = 0;
+            foreach ($collection as $customer) {
+                if ($collection->count() == 1) {
+                    echo '<td class="ChartLeft">&nbsp;</td>
+                                  <td class="ChartRight">&nbsp;</td>';
+                } else {
+                    if ($i == 0) {
+                        echo '<td class="ChartLeft" >&nbsp;</td>
+                                      <td class="ChartRight ChartTop">&nbsp;</td>';
+                    } else if ($i == ($collection->count() - 1)){
+                        echo '<td class="ChartLeft ChartTop">&nbsp;</td>
+                                      <td class="ChartRight">&nbsp;</td>';
+                    } else {
+                        echo '<td class="ChartLeft ChartTop">&nbsp;</td>
+                                      <td class="ChartRight ChartTop">&nbsp;</td>';
+                    }
+                    $i++;
+                }
+            }
+            echo '</tr>';
+            echo '<tr>';
+            foreach ($collection as $customer) {
+                echo '<td colspan="2">';
+                displayMLMStruc($customer -> getCustomerId());
+                echo '</td>';
+            }
+            echo '</tr>';
+            echo '</table>';
+        } else {
+            echo '
+                    <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td colspan="'.($collection->count() * 2).'" style="text-align: center; width: 80px;" class="node-cell">
+                            <div class="node">
+                                <div class="userName"><span>' . Mage::helper('magemlm')->getCustomerName($referralId) . '</span></div>
+                                ' . Mage::helper('magemlm')->getCustomerImage($referralId) . '
+                            </div>
+                        </td>
+                    </tr>
+                    </table>';
+        }
+
+    }
+?>
+
+<div class="mageMlm">
+    <?php displayMLMStruc('store_1'); ?>
+</div>

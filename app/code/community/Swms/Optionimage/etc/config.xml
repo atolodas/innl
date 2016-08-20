@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Swms
+ * @package    Swms_Optionimage
+ * @author     SWMS Systemtechnik Ingenieurgesellschaft mbH
+ * @copyright  Copyright (c) 2011 SWMS Systemtechnik Ingenieurgesellschaft mbH (http://www.swms.de)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+    <modules>
+        <Swms_Optionimage>
+            <version>0.3.5</version>
+        </Swms_Optionimage>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <optionimage>
+                    <file>optionimage.xml</file>
+                </optionimage>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+    </admin>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Swms_Optionimage>
+                    <files>
+                        <default>Swms_Optionimage.csv</default>
+                    </files>
+                </Swms_Optionimage>
+            </modules>
+        </translate>
+    </adminhtml>
+    <global>
+        <models>
+            <optionimage>
+                <class>Swms_Optionimage_Model</class>
+            </optionimage>
+        </models>
+        <blocks>
+            <optionimage>
+                <class>Swms_Optionimage_Block</class>
+            </optionimage>
+            <catalog>
+                <rewrite>
+                    <product_view_options_type_select>Swms_Optionimage_Block_Product_View_Options_Type_Select</product_view_options_type_select>
+                </rewrite>
+            </catalog>
+            <core>
+                <rewrite>
+                    <html_select>Swms_Optionimage_Block_Html_Select</html_select>
+                </rewrite>			
+            </core>
+        </blocks>
+        <helpers>
+            <optionimage>
+                <class>Swms_Optionimage_Helper</class>
+            </optionimage>
+        </helpers>
+    </global>
+   <default>
+        <catalog>
+            <optionimage>
+                <isactiv>0</isactiv>
+                <displaytextfirst>0</displaytextfirst>
+                <displaytext>1</displaytext>
+                <displayorder>image</displayorder>
+                <islowercase>0</islowercase>
+                <replacespace>0</replacespace>
+                <replacecharacter>ß=ss,ä=ae,ö=oe,ü=ue,Ä=Ae,Ö=Oe,Ü=Ue,&amp;=_</replacecharacter>
+                <urlpath>optionimage</urlpath>
+                <subfolders>root</subfolders>
+                <types>gif</types>
+                <use_defaultsize>1</use_defaultsize>
+                <resizeimage>1</resizeimage>
+                <use_productimagecache>0</use_productimagecache>
+                <height>16</height>
+                <width>16</width>
+                <can_load_jquery_js>0</can_load_jquery_js>
+            </optionimage>
+        </catalog>
+    </default>
+</config>

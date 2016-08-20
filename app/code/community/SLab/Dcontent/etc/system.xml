@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <blocks>
+          	<label>Product Blocks</label>
+            <tab>additional</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>900</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <image_size translate="label" module="catalog">
+                    <label>Image Sizes</label>
+                    <tab>custom</tab>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <big translate="label">
+                            <label>Big Promo Image size</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </big>
+                        <medium translate="label">
+                            <label>Medium Promo Image size</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </medium>
+                        <small translate="label">
+                            <label>Small Promo Image size</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </small>
+                    </fields>
+                </image_size>
+                <image_position translate="label" module="catalog">
+                    <label>Image Positions</label>
+                    <tab>custom</tab>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <big_top translate="label">
+                            <label>Big Promo Image Top position</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </big_top>
+                        <big_left translate="label">
+                            <label>Big Promo Image Left position</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </big_left>
+                        <medium_top translate="label">
+                            <label>Medium Promo Image Top Position</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </medium_top>
+                        <medium_left translate="label">
+                            <label>Medium Promo Image Left Position</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </medium_left>
+                        <small_top translate="label">
+                            <label>Small Promo Image Top Position</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </small_top>
+                        <small_left translate="label">
+                            <label>Small Promo Image Left Position</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </small_left>
+                    </fields>
+                </image_position>
+            </groups>
+        </blocks>
+   </sections>
+</config>

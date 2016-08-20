@@ -1,0 +1,25 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<div class="row-fluid">
+	<div class="col-md-12">
+		        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links')->toHtml() ?>
+	</div>
+	<div class="col-md-12">
+		<span><?php echo $this->getCopyright() ?></span>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="col-md-12">
+	        <?php echo $this->getLayout()->createBlock('page/html')->getAbsoluteFooter()?>
+	</div>
+</div>

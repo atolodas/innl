@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<widgets>
+    <dcontent_list type="dcontent/dcontent" translate="name description" module="dcontent">
+        <name>Product list from Product Blocks module</name>
+        <description>Product list from Product Blocks module</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <block_id translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <label>Id of block</label>
+                <type>select</type>
+                <source_model>dcontent/dcontent</source_model>
+            </block_id>
+            <template_id>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Id of Template</label>
+                <type>select</type>
+                <source_model>dcontent/templates</source_model>
+             </template_id>
+            <categories  translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>Categories</label>
+                <type>multiselect</type>
+                <source_model>dcontent/category</source_model>
+                <sort_order>15</sort_order>
+            </categories>
+            <static  translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>Static Blocks</label>
+                <type>multiselect</type>
+                <source_model>cms/mysql4_block_collection</source_model>
+                <sort_order>20</sort_order>
+            </static>
+        </parameters>
+    </dcontent_list>
+    <dcontent_categories type="dcontent/categories" translate="name description" module="dcontent">
+        <name>Product lists with separation per category from Product Blocks module</name>
+        <description>Product lists with separation per category from Product Blocks module</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <template_id>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Id of Template</label>
+                <type>select</type>
+                <source_model>dcontent/templates</source_model>
+            </template_id>
+            <categories  translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>Categories</label>
+                <type>multiselect</type>
+                <source_model>dcontent/category</source_model>
+                <sort_order>15</sort_order>
+            </categories>
+        </parameters>
+    </dcontent_categories>
+    <dcontent_oggettos_list type="dcontent/oggettos" translate="name description" module="dcontent">
+        <name>Oggettos list</name>
+        <description>Oggettos list</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <block_id translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <label>Id of block</label>
+                <type>select</type>
+                <source_model>dcontent/oggettos</source_model>
+            </block_id>
+            <template_id>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Id of Template</label>
+                <type>select</type>
+                <source_model>dcontent/templates</source_model>
+             </template_id>
+        </parameters>
+    </dcontent_oggettos_list>
+</widgets>

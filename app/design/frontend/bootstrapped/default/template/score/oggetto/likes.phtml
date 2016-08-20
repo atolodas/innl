@@ -1,0 +1,20 @@
+<?php if(Mage::helper( 'customer' )->isLoggedIn()) { 
+
+	$likes = explode('|', $this->getLikes());
+	$cid = Mage::getSingleton('customer/session')->getCustomerId();
+	?> 
+	<div id="likesind<?php echo $this->getOid()?>" class="f25 pbottom10 centered np inline">
+
+	<i class="fa pink fa-heart  pointer inlikes" onclick="jQuery.ajax('<?php echo $this->getUrl('score/oggetto/applyCustomer', array('id' => $this->getOid(),'attribute_code'=>'likes')) ?>isAjax/1/'); jQuery(this).hide(); jQuery(this).parent().find('.outlikes').show(); jQuery('#likescounter<?php echo $this->getOid() ?>').html(jQuery('#likescounter<?php echo $this->getOid()?>').html()*1-1)"  <?php if(!in_array($cid,$likes)) { ?>  style="display:none" <?php } ?> >
+	</i>
+
+	<i class="fa grey fa-heart pointer outlikes" onclick="jQuery.ajax('<?php echo $this->getUrl('score/oggetto/applyCustomer', array('id' => $this->getOid(),'attribute_code'=>'likes')) ?>isAjax/1/'); jQuery(this).hide(); jQuery(this).parent().find('.inlikes').show(); jQuery('#likescounter<?php echo $this->getOid() ?>').html(jQuery('#likescounter<?php echo $this->getOid()?>').html()*1+1)" <?php if(in_array($cid,$likes)) { ?>  style="display:none" <?php } ?> >
+	</i>
+
+	<?php 
+	$counter = $this->getLikesCounter();
+	if(!$counter) { $counter = 0; } ?> 
+	<span class="f15 centered inline" id="likescounter<?php echo $this->getOid()?>"><?php echo $counter ?></span>
+	</div>
+<?php } ?>
+

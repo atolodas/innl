@@ -1,0 +1,42 @@
+<!--
+/**
+ * Copy Custom Options.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Team
+ * that is bundled with this package of Medma Infomatix Pvt. Ltd.
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * Medma Support does not guarantee correct work of this package
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * =================================================================
+**/ -->
+<layout version="0.1.0">
+		<!-- add all the css and js on the option pages -->
+		<medma_copyoptions>
+			<reference name="head">
+    						<action method="addItem"><type>skin_js</type><name>copyoptions/js/jquery-1.4.4.js</name></action>			
+               	<action method="addItem"><type>skin_css</type><name>copyoptions/css/jquery-ui-1.8.12.custom.css</name></action>
+               	<action method="addItem"><type>skin_css</type><name>copyoptions/css/jquery.checkboxtree.css</name></action>
+								<action method="addItem"><type>skin_css</type><name>copyoptions/css/customoptions.css</name></action>
+								<action method="addItem"><type>skin_js</type><name>copyoptions/js/jquery-ui-1.8.12.custom.min.js</name></action>
+								<action method="addItem"><type>skin_js</type><name>copyoptions/js/jquery.checkboxtree.js</name></action>
+								<action method="addItem"><type>skin_js</type><name>copyoptions/js/customoptions.js</name></action>
+    		</reference>
+		</medma_copyoptions>
+    <copyoptions_adminhtml_index_copytoproduct>  
+				<update handle="medma_copyoptions" />   		
+        <reference name="content">
+            <block type="copyoptions/adminhtml_copyoptions" template="copyoptions/copyproduct.phtml" name="copyproduct_options" alias="copyproduct_options"/>
+        </reference>
+    </copyoptions_adminhtml_index_copytoproduct>	
+		<copyoptions_adminhtml_index_deletefromproduct>
+				<update handle="medma_copyoptions" />      		
+        <reference name="content">
+            <block type="copyoptions/adminhtml_copyoptions" template="copyoptions/deleteproduct.phtml" name="deleteproduct_options" alias="deleteproduct_options"/>
+        </reference>
+    </copyoptions_adminhtml_index_deletefromproduct>		
+</layout>

@@ -1,0 +1,113 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+/* @var $this Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Tier */
+?>
+
+<?php 
+$presentations = Mage::getModel('neklo_abtesting/system_config_source_variant')->toOptionArray();
+$_htmlId      = $this->getElement()->getHtmlId();
+$_htmlClass   = $this->getElement()->getClass(); 
+$_htmlName    = $this->getElement()->getName(); 
+$_priceValueValidation = $this->getPriceValidation('validate-greater-than-zero'); 
+?>
+<tr>
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td colspan="10" class="grid tier">
+    <table cellspacing="0" class="data border" id="tiers_table">
+        <col width="200" />
+        <col width="100" />
+        <col width="50" />
+        <thead>
+            <tr class="headings">
+                <th><?php echo Mage::helper('catalog')->__('Presentation') ?></th>
+                <th><?php echo Mage::helper('catalog')->__('Сhance') ?></th>
+                <th class="last"><?php echo Mage::helper('catalog')->__('Action') ?></th>
+            </tr>
+        </thead>
+        <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+        </tfoot>
+    </table>
+
+<script type="text/javascript">
+//<![CDATA[
+var presentationRowTemplate = '<tr>'
+    + '<td><select class="<?php echo $_htmlClass ?> custpresentation required-entry" name="<?php echo $_htmlName ?>[{{index}}][presentation_id]" id="presentation_row_{{index}}_presentation">'
+    <?php foreach ($presentations as $presentation): ?>
+    + '<option value="<?php echo $presentation["value"] ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($presentation["label"])) ?></option>'
+    <?php endforeach ?>
+    + '</select></td>'
+    + '<td class="nobr"><input class="<?php echo $_htmlClass ?> chance qty required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[{{index}}][chance]" value="{{chance}}" id="presentation_row_{{index}}_chance" />'
+    + '<small>&nbsp;&nbsp; 1-100%</small></td>'
+    + '<td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][delete]" class="delete" value="" id="presentation_row_{{index}}_delete" />'
+    + '<button title="<?php echo Mage::helper('catalog')->__("Delete Tier") ?>" type="button" class="scalable delete icon-btn delete-product-option" id="presentation_row_{{index}}_delete_button" onclick="return presentationsControl.deleteItem(event);">'
+    + '<span><span><span><?php echo Mage::helper('catalog')->__("Delete") ?></span></span></span></button></td>'
+    + '</tr>';
+
+var presentationsControl = {
+    template: new Template(presentationRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+    itemsCount: 0,
+    addItem : function () {
+        var data = {
+            chance: '25',
+            index: this.itemsCount++
+        };
+
+        data.presentation_id      = arguments[0];
+        data.chance        = arguments[1];
+
+        Element.insert($('<?php echo $_htmlId ?>_container'), {
+            bottom : this.template.evaluate(data)
+        });
+
+        $('presentation_row_' + data.index + '_presentation').value = data.presentation_id;
+
+        $('<?php echo $_htmlId ?>_container').select('input', 'select').each(function(el){ Event.observe(el, 'change', el.setHasChanges.bind(el)); });
+    },
+    disableElement: function(el) {
+        el.disabled = true;
+        el.addClassName('disabled');
+    },
+    deleteItem: function(event) {
+        var tr = Event.findElement(event, 'tr');
+        if (tr) {
+            Element.select(tr, '.delete').each(function(elem){elem.value='1'});
+            Element.select(tr, ['input', 'select']).each(function(elem){elem.hide()});
+            Element.hide(tr);
+            Element.addClassName(tr, 'no-display template');
+        }
+        return false;
+    }
+};
+<?php foreach ($this->getPresentations() as $_item): ?>
+presentationsControl.addItem('<?php echo $_item["presentation_id"] ?>', '<?php echo $_item["chance"] ?>');
+<?php endforeach; ?>
+//]]>
+</script>
+</td></tr>

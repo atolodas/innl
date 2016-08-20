@@ -1,0 +1,225 @@
+<form id="edit_form" class="ajaxForm" action="<?php echo  Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/saveConfig' ?>" method="post" >
+	<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+	
+<div class="col-md-12">
+	<h4 class="section-header"><?php echo $this->__('Configuration') ?>
+	<div class="form-buttons pull-right mbottom5">
+		<button type="submit" class="btn btn-large btn-info f15" title="<?php echo $this->__('Save') ?>"><?php echo $this->__('Save') ?></button>
+    </div>
+	</h4>
+	<hr />
+</div>
+
+<?php 
+$section = Mage::app()->getRequest()->getActionName();
+$storeId = Mage::app()->getStore()->getId();
+switch ($section) {
+	case 'general':
+		$attributes = array(
+            array('value'=>Mage::getStoreConfig('general/store_information/name'), 'code'=> 'name', 'label' => 'Your startup name' , 'input' => 'text','required'=>1),
+            array('value'=>Mage::getStoreConfig('general/store_information/phone'), 'code'=> 'phone', 'label' => 'Contact Telephone' , 'input' => 'text'),
+            array('value'=>Mage::getStoreConfig('general/locale/timezone'),'code'=> 'timezone', 'label' => 'Timezone', 'input' => 'select', 'options' => Mage::getModel('adminhtml/system_config_source_locale_timezone')->toOptionArray(),'required'=>1),
+            array('value'=>Mage::getStoreConfig('general/locale/code'),'code'=> 'locale', 'label' => 'Locale', 'input' => 'select', 'options' => Mage::getModel('adminhtml/system_config_source_locale')->toOptionArray(),'required'=>1),
+        );
+		break;
+    case 'analytics': 
+$attributes = array(
+            array('value'=>Mage::getStoreConfig('google/analytics/account'), 'code'=> 'analytics', 'label' => 'Google Analytics Account Number (ex. UA-38050188-1)' , 'input' => 'text','required'=>1)
+            );
+    break;
+	case 'web':
+
+		$pagesObject = $this->getPages();
+		$pages = array();
+		foreach ($pagesObject as $page) {
+			$pages[] = array('value' => $page->getIdentifier(), 'label'=>$page->getTitle());
+		}
+
+		$attributes = array(
+			    array('value'=>Mage::getStoreConfig('web/unsecure/base_url'), 'code'=> 'url', 'label' => 'Base URL' , 'input' => 'label',
+			    	'post' =>'Current URL of your project can not be changed on FREE plan. On paid plans you can link any URL you own to your site. <a href="mailto:innativelife@gmail.com" class="red">Contact us</a> to learn more.'),
+        
+        	array('value'=>Mage::getStoreConfig('web/default/cms_home_page'),'code'=> 'cms_home_page', 'label' => 'CMS Home Page', 'input' => 'select', 'options' => $pages,'required'=>1),
+            
+            array('value'=>Mage::getStoreConfig('web/default/cms_no_route'),'code'=> 'cms_no_route', 'label' => 'CMS No Route Page', 'input' => 'select', 'options' => $pages,'required'=>1),
+            
+            array('value'=>Mage::getStoreConfig('web/default/cms_no_cookies'),'code'=> 'cms_no_cookies', 'label' => 'CMS No Cookies Page', 'input' => 'select', 'options' => $pages,'required'=>1),
+            
+        );
+		break;
+		case 'design':
+ 		 $attributes = array(
+        array('value'=> Mage::getStoreConfig('design/head/default_title'), 'code'=> 'title', 'label' => 'Default Title' , 'input' => 'text', 'note' => 'Will be used for SEO','required'=>1),
+        array('value'=> Mage::getStoreConfig('design/head/default_description'),'code'=> 'seo_description', 'label' => 'Description', 'input' => 'textarea', 'note' => 'Will be used for SEO','required'=>1),
+        array('value'=> Mage::getStoreConfig('design/head/default_keywords'),'code'=> 'seo_keywords', 'label' => 'Keywords', 'input' => 'textarea', 'note' => 'Coma separated. Will be used for SEO','required'=>1),
+        array('value'=> Mage::getStoreConfig('design/head/includes'), 'code'=> 'design_head_includes', 'label' => 'Head Miscellaneous HTML/Scripts' , 'input' => 'textarea', 'note' => 'This will be included before head closing tag in page HTML.'),
+        array('value'=>Mage::getStoreConfig('design/header/logo_alt'),'code'=> 'logo_alt', 'label' => 'Your Logo (Html)' , 'input' => 'editor'), //'note' => 'Will be used instead of Logo image if not empty'),
+        array('value'=>Mage::getStoreConfig('design/footer/copyright'),'code'=> 'copyright', 'label' => 'Copyright (for footer)' , 'input' => 'editor'),
+        // array('value'=> Mage::getStoreConfig('constructor/frontend/header_bg_color'), 'code'=> 'header_bg_color', 'label' => 'Header/Footer Background Color' , 'input' => 'colorpicker'),
+        // array('value'=> Mage::getStoreConfig('constructor/frontend/header_text_color'), 'code'=> 'header_text_color', 'label' => 'Header/Footer text color' , 'input' => 'colorpicker'),
+        array('value'=> Mage::getStoreConfig('design/footer/absolute_footer'), 'code'=> 'design_footer_includes', 'label' => 'Footer Miscellaneous HTML/Scripts' , 'input' => 'textarea', 'note' => 'This will be displayed just before body closing tag.'),
+        );
+		break;
+	default:
+		$attributes = array();
+		break;
+}
+        $post = Mage::getSingleton('customer/session')->getFormData();
+        ?>
+        <ul>
+        <?php
+        $scripts = 0;
+        foreach ($attributes as $attribute) {
+            ?>
+            <li class="row-fluid  mtop20">
+        <span class=" mbottom10 clearer row-fluid">
+          <label class="desc inline col-md-3" style="margin-bottom: 10px !important;">
+              <?php echo $this->__($attribute['label']) ?>
+          </label>
+          <span id="<?php echo $attribute['code']?>-block" class="col-md-9">
+	        <?php
+            $code = $attribute['code'];
+
+
+            switch ($attribute['input']) {
+            	 case 'label':
+                        ?>
+              <div class="input-append input-prepend">
+                  <?php if(isset($attribute['pre'])) { ?>
+                  <span class="col-md-12 pbottom5 f15"><?php echo $this->__($attribute['pre']) ?></span>
+                            <?php } ?>
+                  <span><strong><?php echo $attribute['value'] ?></strong></span>
+                  <?php if(isset($attribute['post'])) { ?>
+                      <span class="col-md-12 pbottom5 f15"><?php echo $this->__($attribute['post']) ?></span>
+                  <?php } ?>
+                  </div>
+                    <?php
+                    
+                    break;
+                case 'text':
+                        ?>
+              <div class="input-append input-prepend">
+                  <?php if(isset($attribute['pre'])) { ?>
+                  <span class="col-md-12 pbottom5 f15"><?php echo $this->__($attribute['pre']) ?></span>
+                            <?php } ?>
+                        <input name="<?php echo $attribute['code'] ?>"
+                               id="<?php echo $attribute['code'] ?>" type="text"
+                               class="input-text <?php echo (isset($attribute['required']))?'required-entry':'' ?> pull-left <?php echo (isset($attribute['class']))?$attribute['class']:'' ?>"
+                               value="<?php echo $attribute['value'] ?>" maxlength="255"  />
+                  <?php if(isset($attribute['post'])) { ?>
+                      <span class="col-md-12 pbottom5 f15"><?php echo $this->__($attribute['post']) ?></span>
+                  <?php } ?>
+                  </div>
+                    <?php
+                    
+                    break;
+
+                     case 'colorpicker':
+                        ?>
+                  <div class="input-append input-prepend">
+                       <div class="input-group demo2">
+                        <input name="<?php echo $attribute['code'] ?>"
+                               id="<?php echo $attribute['code'] ?>" type="text"
+                               class="input-text <?php echo (isset($attribute['required']))?'required-entry':'' ?> pull-left <?php echo (isset($attribute['class']))?$attribute['class']:'' ?>"
+                               value="<?php echo $attribute['value'] ?>" maxlength="7"   class="form-control" />
+                              </div>
+                  </div>
+                  <?php if(!$scripts) { ?> 
+                   <link href="http://mjolnic.com/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+                     <script src="http://mjolnic.com/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
+                    <?php  $scripts = 1;
+                      } ?>
+                  <script type="text/javascript">
+                     jQuery("#<?php echo $attribute['code'] ?>").colorpicker();
+                  </script>
+                  <?php 
+                    
+                    break;
+
+                case 'editor':
+                    ?>
+                    <textarea name="<?php echo $attribute['code'] ?>"
+                              id="<?php echo $attribute['code'] ?>" rows="5" style="width:100%"
+                              class="nml input-text <?php echo (isset($attribute['required']))?'required-entry':'' ?>"><?php echo (isset($attribute['value'])?$attribute['value']:'') ?></textarea>
+                               <link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/css/style.css' ?>" />
+                        <link rel="stylesheet" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/css/redactor.css' ?>" />
+                        <script src="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/redactor.js' ?>"></script>
+                        <script type="text/javascript">
+                            var json = [
+                                <?php foreach($this->getImages() as $image) {
+                                echo '{ "thumb": "'.Mage::getBaseUrl("media"). DS . "wysiwyg" . DS . Mage::registry("scode") . DS.$image .'", "image": "'.Mage::getBaseUrl("media"). DS . "wysiwyg" . DS . Mage::registry("scode") . DS.$image.'", "title": "'.$image.'" },';
+                                 } ?>
+                                ];
+                                jQuery('#<?php echo $attribute['code'] ?>').redactor({ 
+                                    imageUpload: '<?php echo $this->getUrl("constructor/admin/imageUpload")?>',
+                                    imageGetJson:    json,
+                                });
+                        </script>
+                    <?php break;
+                case 'textarea':
+                    ?>
+                    <textarea name="<?php echo $attribute['code'] ?>"
+                              id="<?php echo $attribute['code'] ?>" rows="5" style="width:100%"
+                              class="nml input-text <?php echo (isset($attribute['required']))?'required-entry':'' ?>"><?php echo (isset($attribute['value'])?$attribute['value']:'') ?></textarea>
+                    <?php break;
+                case 'select':
+                case 'boolean':
+                case 'multiselect':
+
+                    $options = $attribute['options'];
+                ?>
+
+                    <select
+                        id="<?php echo $attribute['code'] ?>" <?php if ($attribute['input'] == 'multiselect') {
+                        echo 'multiple="true" size="5"';
+                    } ?>
+                        name="<?php echo $attribute['code'] ?><?php if ($attribute['input'] == 'multiselect') {
+                            echo '[]';
+                        } ?>" type="text" style="width:100%" class="nml <?php echo (isset($attribute['requited']))?'validate-select':'' ?>"
+                        value="" maxlength="255">
+                        <?php if (count($options)) { ?>
+                            <?php foreach ($options as $key => $value) {
+                                if($attribute['code']=='locale' && !in_array($value['value'],array('ru_RU','en_GB'))) {
+                                    continue;
+                                } else {
+                                    $value['label'] = ucfirst(preg_replace('/\(.*\)/','',$value['label']));
+                                }
+
+                                ?>
+                                <option value="<?php echo $value['value'] ?>" <?php echo (($attribute['value'] == $value['value'])?'selected':'') ?>><?php echo  $this->__($value['label']) ?></option>
+                            <?php
+                            }
+                        }  ?>
+                    </select>
+                    <?php
+                    break;
+                case 'media_image':
+                case 'image':
+                	  ?>
+                    <img src="<?php echo $this->getImageUrl($attribute['value'],$attribute['code']); ?>" />
+                    <input name="<?php echo $attribute['code'] ?>"
+                           id="<?php echo $attribute['code'] ?>" type="file"
+                           class="nml absolute" style="z-index:-2;opacity: 0"
+                           value="" maxlength="255"   />
+                    <button class="btn-large btn-danger" type="button" onclick="jQuery('#<?php echo $attribute['code']  ?>').trigger('click')">
+                        <?php echo $this->__('Change '.$attribute['label']); ?>
+                    </button>
+
+                    <?php
+                    break;
+                default:
+                    break;
+            } ?>
+        <?php if(isset($attribute['note'])) { ?>
+              <span class="note pull-left col-md-7 nm npt npb noborder" ><?php echo $this->__($attribute['note']) ?></span>
+              <?php } ?>
+          </span>
+        </span>
+        </li>
+      <?php } ?>
+     
+        </ul>
+</form>
+<script type="text/javascript">
+	var form = new VarienForm('edit_form', true);
+</script>

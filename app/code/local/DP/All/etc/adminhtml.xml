@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config>
+    <layout>
+        <updates>
+            <dpall module="DP_All">
+                <file>dp_all.xml</file>
+            </dpall>
+        </updates>
+    </layout>
+
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <dpall>
+                                        <title>DP - All</title>
+                                    </dpall>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <events>
+        <controller_action_predispatch>
+            <observers>
+                <dpall_exts>
+                    <type>singleton</type>
+                    <class>dpall/feed_extensions</class>
+                    <method>check</method>
+                </dpall_exts>
+                <dpall_upds>
+                    <type>singleton</type>
+                    <class>dpall/feed_updates</class>
+                    <method>check</method>
+                </dpall_upds>
+            </observers>
+        </controller_action_predispatch>
+    </events>
+    <menu>
+        <dp_all module="dpall">
+            <title>DP Modules</title>
+            <sort_order>111</sort_order>
+        </dp_all>
+    </menu>
+</config>

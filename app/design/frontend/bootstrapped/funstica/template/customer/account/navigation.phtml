@@ -1,0 +1,28 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<div class="nav-container  p20">
+        <ul class="nml">
+            <?php $_links = $this->getLinks(); ?>
+            <?php $_index = 1; ?>
+            <?php $_count = count($_links); ?>
+            <?php foreach ($_links as $_link): ?>
+                <?php $_last = ($_index++ >= $_count); ?>
+                <?php if ($this->isActive($_link)): ?>
+                    <li style="border-bottom: 1px solid #fff" class="pbottom10 ptop10 active<?php echo ($_last ? ' last' : '') ?>">
+                        <a class="white f20 bold" style="color: rgb(255,204,51) !important;"
+                         href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
+                <?php else: ?>
+                    <li<?php echo ($_last ? ' class="last mbottom10 ptop10 pbottom10" ' : ' class=" ptop10 pbottom10"') ?> style="border-bottom: 1px solid #fff"><a class="white f20 bold" href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+</div>

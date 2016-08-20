@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <TM_EasyFlags>
+            <version>1.0.0</version>
+        </TM_EasyFlags>
+    </modules>
+    <global>
+        <helpers>
+            <easyflags>
+                <class>TM_EasyFlags_Helper</class>
+            </easyflags>
+        </helpers>
+    </global>		
+    <frontend>
+        <layout>
+            <updates>
+                <easyflags>
+                    <file>easyflags.xml</file>
+                </easyflags>
+            </updates>
+        </layout>
+    </frontend>
+	<adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <easy_flags translate="title" module="easyflags">
+                                            <title>Easy Flags Section</title>
+                                            <sort_order>50</sort_order>
+                                        </easy_flags>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>

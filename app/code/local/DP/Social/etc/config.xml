@@ -1,0 +1,47 @@
+<config>    
+    <modules>
+        <DP_Social>
+            <version>0.1.0</version>
+        </DP_Social>
+    </modules>
+	<global>
+		<helpers>
+            <social>
+                <class>DP_Social_Helper</class>
+            </social>
+		</helpers>
+	</global>
+	<frontend>
+		<layout>
+            <updates>
+                <social>
+                    <file>social.xml</file>
+                </social>
+            </updates>
+       </layout>
+    </frontend>
+	<adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>	 
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<DP_Social>
+											<title>Social Module</title>
+										</DP_Social>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</adminhtml>
+</config>

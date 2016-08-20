@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+	<!--<layout version="0.1.0">
+		<block type="core/text_list" name="left" as="left" translate="label">
+			<label>Left Column</label>
+			<block type="tag/popular" name="tags_popular" template="tag/popular.phtml" />
+		</block>
+	</layout>  -->

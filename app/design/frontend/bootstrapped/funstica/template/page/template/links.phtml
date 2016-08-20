@@ -1,0 +1,74 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<?php
+/**
+ * @see Mage_Page_Block_Template_Links
+ */
+?>
+<?php $_links = $this->getLinks(); ?>
+
+
+
+
+<?php if(count($_links)>0):  ?>
+<div class="pull-right p5">
+    <ul class="links nav mtop10">
+        <?php /*  if(Mage::helper('score')->isDmEnabled()) { ?>
+
+        <li class="dropdown">
+            <a style="height: 35px" href="javascript:void(0)" title="<?php echo $this->__('Direct messages') ?>" data-toggle="dropdown" href="<?php echo Mage::getBaseUrl() ?>dm/" class="dropdown-toggle white f25 ptop5"><i class="fa fa-envelope"></i></a>
+            <ul class="dropdown-menu p10">
+                <?php 
+                $messages = Mage::helper('score')->getDirectMessages();
+                if(count($messages)) { 
+                    foreach ($messages as $message) { ?>
+                    <li><a>Message</a></li>
+
+                    <?php } ?> 
+                <?php } else { ?> 
+                   <li><?php echo $this->__('No messages so far') ?></li>
+                <?php } ?>   
+            </ul>
+        </li>
+<?php } */ ?>
+
+        
+
+                <?php
+                $already = array();
+                foreach($_links as $_link): ?> 
+                <li <?php echo $_link->getLiParams() ?>>
+                   <?php
+                    if(in_array($_link->getLabel(),$already)) continue;
+                    $already[] = $_link->getLabel();
+                    ?>
+                    <?php if ($_link instanceof Mage_Core_Block_Abstract):?>
+                        <?php echo $_link->toHtml() ?>
+                    <?php else: ?>
+                        <?php echo $_link->getBeforeText() ?>
+                        <a class="mright10 p5" href="<?php echo $_link->getUrl() ?>" title="<?php echo $_link->getTitle() ?>" <?php echo $_link->getAParams() ?>>
+                            <?php echo $_link->getLabel() ?>
+                        </a>
+                        <?php echo $_link->getAfterText() ?>
+                    <?php endif;?>
+                </li>
+                <?php endforeach; ?>
+               
+
+    </ul>
+</div>
+<?php endif; ?>
+<?php /* 
+<!-- popup cart page -->
+<div id="popupcart">    
+    <?php echo $this->getLayout()->createBlock('checkout/cart_sidebar')->setTemplate('checkout/cart/sidebar.phtml')->toHtml(); ?>
+</div> */ ?>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="after_body_start">
+            <block type="seo/seo" name="seo_tag" as="seo_tag" template="seo/tag.phtml" />
+        </reference>
+    </default>
+</layout>

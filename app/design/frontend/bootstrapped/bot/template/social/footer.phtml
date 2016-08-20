@@ -1,0 +1,30 @@
+<div class="soc-links">
+    <ul>
+
+<?php  if(Mage::getStoreConfig('DP_Social/footer/pinterest_enabled') == 1){  ?>
+      <li><a class="pinterest_footer social-link pinterest" href="http://www.pinterest.com/<?php echo  Mage::getStoreConfig('DP_Social/social_ids/pinterest_id') ?>">&nbsp;</a></li>
+<?php }?>
+
+<?php if(Mage::getStoreConfig('DP_Social/footer/linkedin_enabled') == 1){  ?>
+      <li><a class="linkedin_footer social-link linkedin" href="http://www.linkedin.com/<?php echo  Mage::getStoreConfig('DP_Social/social_ids/linkedin_id') ?>">&nbsp;</a></li>
+<?php } ?>
+
+<?php if(Mage::getStoreConfig('DP_Social/footer/facebook_enabled') == 1){  ?>
+<li><a class="facebook_footer social-link facebook" href="http://www.facebook.com/<?php echo  Mage::getStoreConfig('DP_Social/social_ids/facebook_id') ?>">&nbsp;</a></li>
+<?php }?>
+ 
+<?php if(Mage::getStoreConfig('DP_Social/footer/twitter_enabled') == 1){  ?>
+<li><a class="social-link twitter twitter_footer" href="http://www.twitter.com/<?php echo  Mage::getStoreConfig('DP_Social/social_ids/twitter_id') ?>">&nbsp;</a></li>
+<?php }?>
+
+<?php if(Mage::getStoreConfig('DP_Social/footer/youtube_enabled') == 1){  ?>
+<li><a class="social-link youtube youtube_footer" href="http://www.youtube.com/user/<?php echo  Mage::getStoreConfig('DP_Social/social_ids/youtube_id')  ?>">&nbsp;</a></li>
+<?php }?>
+
+<?php if(Mage::getStoreConfig('DP_Social/footer/sharethis_enabled') == 1){  ?>
+    <li><a class='st_sharethis_large' displayText='ShareThis'>&nbsp;</a></li>
+<?php }?>
+
+    </ul>
+</div>
+

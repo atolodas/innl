@@ -1,0 +1,4 @@
+<?php $_helper = $this->helper('score/output'); ?>
+<?php $_oggetto = $this->getOggetto();
+echo "<h3 class='well'> Edit ".Mage::helper('score/oggetto')->getSetName($_oggetto)." {$_oggetto->getName()} </h3>";
+echo Mage::app()->getLayout()->getBlockSingleton("score/oggetto_create")->setTemplate("score/oggetto/create_advanced.phtml")->toHtml();

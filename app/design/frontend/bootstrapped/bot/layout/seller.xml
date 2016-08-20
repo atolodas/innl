@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<default>
+	</default>
+	<customer_account>
+		<reference name="customer_account_navigation">
+			<action method="addLink" translate="label" module="seller"><name>products</name><path>seller/products/</path><label>My Products</label></action>
+		</reference>
+	</customer_account>
+
+	<seller_products_index>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addCss"><stylesheet>css/grid.css</stylesheet></action>
+			<action method="addJs"><script>grid.js</script></action>
+			<action method="addJs"><script>mage/adminhtml/grid_front.js</script></action>
+			<action method="addJs"><script>mage/adminhtml/hash_front.js</script></action>
+			<action method="addJs"><script>mage/adminhtml/events.js</script></action>
+
+		</reference>
+		<update handle="customer_account"/>
+		<reference name="content">
+			<block type="core/template" name="products" template="seller/products.phtml">
+				<block type="seller/products" name="product.grid" />
+				<block type="seller/products_import" name="product.import" template="seller/products/import.phtml" />
+			</block>
+		</reference>
+	</seller_products_index>
+
+
+	<seller_products_edit>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<update handle="customer_account"/>
+		<reference name="content">
+			<block type="seller/products_edit" name="edit_form" as="edit_form" template="seller/products/edit.phtml" />
+		</reference>
+	</seller_products_edit>
+
+	<seller_products_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="seller/products" name="product.grid"/>
+		</block>
+	</seller_products_grid>
+</layout>

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <default>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/magemlm.css</name></action>
+        </reference>
+
+        <reference name="header">
+        	<block type="directory/currency" name="custom_currency_selector" template="magemlm/currency.phtml"/>
+        </reference>
+    </default>
+
+	<customer_account>
+		<reference name="customer_account_navigation">
+			<!--<action method="addLink" translate="label" module="magemlm">
+				<name>magemlm_structure</name>
+				<path>inl/customer/view</path>
+				<label>My Projects</label>
+			</action>
+			<action method="addLink" translate="label" module="magemlm">
+				<name>magemlm_settings</name>
+				<path>inl/customer/config</path>
+				<label>Additional settings</label>
+			</action>
+			<action method="addLink" translate="label" module="magemlm">
+				<name>magemlm_commissions</name>
+				<path>magemlm/customer/rewards</path>
+				<label>Rewards</label>
+			</action-->
+			<!--action method="addLink" translate="label" module="magemlm">
+				<name>magemlm_compensation_plan</name>
+				<path>magemlm/customer/plan</path>
+				<label>Unilevel Compensation Plan</label>
+			</action-->
+		</reference>
+	</customer_account>
+
+	<magemlm_customer_view>
+		<update handle="customer_account"/>
+		<reference name="content">
+			<block type="magemlm/customer_structure"      name="view.magemlm.structure"  as="magemlm.structure" />
+			<!-- <block type="magemlm/customer_structure_menu" name="magemlm.structure.menu"  as="structure.menu" /> --><!-- disable menu -->
+		</reference>
+
+		<!-- <reference name="root">
+        	<action method="setTemplate"><template>magemlm/structure/page/structure.phtml</template></action>
+    	</reference> -->
+	</magemlm_customer_view>
+
+	<magemlm_customer_config>
+		<update handle="customer_account"/>
+		<reference name="content">
+			<block type="magemlm/customer_profile" name="view.magemlm.profile" />
+		</reference>
+	</magemlm_customer_config>
+
+	<magemlm_customer_commissions>
+		<update handle="customer_account"/>
+		<reference name="content">
+			<block type="magemlm/customer_commissions" name="view.magemlm.commissions" />
+		</reference>
+	</magemlm_customer_commissions>
+
+	<magemlm_customer_rewards>
+		<update handle="customer_account"/>
+		<reference name="content">
+			<block type="magemlm/customer_commissions" name="view.magemlm.commissions" />
+		</reference>
+	</magemlm_customer_rewards>
+
+	<magemlm_customer_plan>
+		<update handle="customer_account"/>
+		<reference name="content">
+			<block type="magemlm/customer_plan" name="view.magemlm.plan" />
+		</reference>
+	</magemlm_customer_plan>
+
+<magemlm_customer_search>
+		<reference name="content">
+			<block type="magemlm/customer_search" name="view.magemlm.plan" />
+		</reference>
+	</magemlm_customer_search>
+
+  <magemlm_customer_meet>
+		<reference name="content">
+			<block type="magemlm/customer_meet" name="view.magemlm.plan" />
+		</reference>
+	</magemlm_customer_meet>
+</layout>

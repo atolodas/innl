@@ -1,0 +1,74 @@
+<?php
+/*////////////////////////////////////////////////////////////////////////////////
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\   Social Login    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ /////////////////////////////////////////////////////////////////////////////////
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ NOTICE OF LICENSE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ ///////                                                                   ///////
+ \\\\\\\ This source file is subject to the Open Software License (OSL 3.0)\\\\\\\
+ ///////   that is bundled with this package in the file LICENSE.txt.      ///////
+ \\\\\\\   It is also available through the world-wide-web at this URL:    \\\\\\\
+ ///////          http://opensource.org/licenses/osl-3.0.php               ///////
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ ///////                      * @category   EH                            ///////
+ \\\\\\\                      * @package    EH_SocialLogin                \\\\\\\
+ ///////    * @author     Suneet Kumar <suneet64@gmail.com>               ///////
+ \\\\\\\                                                                   \\\\\\\
+ /////////////////////////////////////////////////////////////////////////////////
+ \\\\\\* @copyright  Copyright 2013 © www.extensionhut.com All right reserved\\\\\
+ /////////////////////////////////////////////////////////////////////////////////
+ */
+?>
+<?php
+$currentUrl = Mage::helper('core/url')->getCurrentUrl();
+$block = new EH_SocialLogin_Block_Button();
+if (Mage::getStoreConfig('ehut_sociallogin/general/showonloginpage') == 'inloginbox') {
+    $pos = strpos($currentUrl,'customer/account/login');
+    if($pos !== false) {
+        if ($this->checkEnable() == true):?>
+            <a onclick="showEhutSocialPopup('<?php echo $this->_getButtonUrl(); ?>', <?php echo $this->getWidth(); ?>, <?php echo $this->getHeight(); ?>);">
+                <div class="<?php echo $this->getClass(); ?> ehut-icon-social"
+                     title="<?php echo $this->__('Connect with ') . $this->__($this->getTitle()); ?>"></div>
+            </a>
+        <?php endif;
+    } else {
+        if ($this->checkEnable() == true):
+                if($this->getClass()=='fa-vk') {
+?>
+             <a href="https://oauth.vk.com/authorize?v=5.31&client_id=4904908&redirect_uri=<?php echo Mage::getBaseUrl() ?>ehut_sociallogin/vk/connect/&scope=email">
+                 <button type="button" class="fa fa-2x noborder nobg  fa-vk ehut-icon-social w25 h25 black "></button>
+             </a>
+
+        <?php
+                } else {
+            ?>
+            <a class="btn btn-block btn-social  ehut-icon-social btn-lg btn-<?php echo strtolower($this->__($this->getTitle())) ?>" onclick="showEhutSocialPopup('<?php echo $this->_getButtonUrl(); ?>', <?php echo $this->getWidth(); ?>, <?php echo $this->getHeight(); ?>);">
+                <i class="fa fa-<?php echo strtolower($this->__($this->getTitle())) ?>"></i>
+                <?php echo $this->__('Sign in ') . $this->__($this->getTitle()); ?>
+            </a>
+
+        <?php
+                }
+                endif;
+    }
+
+} else {
+    if ($this->checkEnable() == true):
+          if($this->getClass()=='fa-vk') {
+?>
+
+        <a class="btn btn-social btn-vk" href="https://oauth.vk.com/authorize?v=5.31&client_id=4904908&redirect_uri=<?php echo Mage::getBaseUrl() ?>ehut_sociallogin/vk/connect/&scope=email">
+            <i class="fa fa-vk"></i>
+            <?php echo $this->__('Sign in with ') . $this->__($this->getTitle()); ?>
+        </a>
+        <?php
+                } else {
+            ?>
+            <a class="btn btn-social btn-<?php echo strtolower($this->__($this->getTitle())) ?>" href="javascript:void(0)" onclick="showEhutSocialPopup('<?php echo $this->_getButtonUrl(); ?>', <?php echo $this->getWidth(); ?>, <?php echo $this->getHeight(); ?>);">
+                <i class="fa fa-<?php echo strtolower($this->__($this->getTitle())) ?>"></i>
+                <?php echo $this->__('Sign in with ') . $this->__($this->getTitle()); ?>
+            </a>
+            <?php
+            }
+            endif;
+}
+?>

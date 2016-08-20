@@ -1,0 +1,314 @@
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/editor.css') ?>">
+<?php
+echo $this->getChildHtml('google_analytics');
+/* $pageId = $this->getRequest()->getParam('page_id', $this->getRequest()->getParam('id', false));
+if(Mage::helper('constructor')->isAdmin() && $pageId):
+	 $content = Mage::getModel("cms/page")->load($pageId)->getContent();
+?>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('const/ptm.css') ?>">
+<script src="<?php echo $this->getSkinUrl('const/jquery-ui.min.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('const/ptm.js') ?>"></script>
+<?php endif; */ ?>
+<style type="text/css">.ui-dialog { z-index: 10000 !important; } .white { color: #fff !important; }</style>
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/css/style.css' ?>" />
+<link rel="stylesheet" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/css/redactor.css' ?>" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/app.css') ?>" />
+
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/grid.css') ?>" />
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/grid.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/grid_front.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/hash_front.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/events.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl() ?>js/prototype/windows/themes/default.css">
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/prototype/window.js"></script>
+
+
+<?php
+$widgets = $this->getWidgets();
+$widgetsHtml = '';
+
+foreach ($widgets as $w) {
+  $description = $w['description'];
+  $code = addslashes($w['code']);
+  $widgetsHtml .= "<span class='col-md-12 mbottom10'><a href='javascript:void(0)' onclick=\"jQuery('#widgetData').html('{$description}');jQuery('#redactor_insert_widget_area').val('{$code}');\">{$w['name']}  </a></span>";
+}
+
+?>
+
+     <script type="text/javascript">
+<?php if(Mage::registry('slang')=='ru') { ?>
+var RLANG = {
+  html: 'HTML',
+  video: 'Добавить Видео...',
+  image: 'Добавить Изображение...',
+  table: 'Таблица',
+  link: 'Ссылка',
+  link_insert: 'Добавить Ссылку...',
+  unlink: 'Убрать ссылку',
+  formatting: 'Форматирование',
+  paragraph: 'Параграф',
+  quote: 'Цитата',
+  code: 'Код',
+  url: 'URL',
+  header1: 'Заголовок 1',
+  header2: 'Заголовок 2',
+  header3: 'Заголовок 3',
+  header4: 'Заголовок 4',
+  bold:  'Жирный',
+  italic: 'Курсив',
+  fontcolor: 'Цвет шрифта',
+  backcolor: 'Цвет фона',
+  unorderedlist: 'Ненумированый список',
+  orderedlist: 'Нумированый список',
+  outdent: 'Outdent',
+  indent: 'Indent',
+  cancel: 'Отменить',
+  insert: 'Вставить',
+  save: 'Сохранить',
+  _delete: 'Удалить',
+  insert_table: 'Добавить таблицу...',
+  insert_row_above: 'Добавить строку ниже',
+  insert_row_below: 'Добавить строку выше',
+  insert_column_left: 'Добавить колонку слева',
+  insert_column_right: 'Добавить колонку справа',
+  delete_column: 'Удалить колонку',
+  delete_row: 'Удалить строку',
+  delete_table: 'Удалить таблицу',
+  rows: 'Строки',
+  columns: 'Колонки',
+  add_head: 'Добавить шапку',
+  delete_head: 'Удалить шапку',
+  title: 'Заголовок',
+  image_position: 'Позиция',
+  none: 'Нет',
+  left: 'Слева',
+  right: 'Справа',
+  image_web_link: 'Ссылка',
+  text: 'Текст',
+  mailto: 'Email',
+  web: 'URL',
+  video_html_code: 'Код видео (Embed Code)',
+  file: 'Добавить файл...',
+  upload: 'Загрузить',
+  download: 'Скачать',
+  choose: 'Выбрать',
+  or_choose: 'или выберите',
+  drop_file_here: 'Перетяните файл сюда',
+  align_left: 'Прижать влево',
+  align_center: 'По центру',
+  align_right: 'Прижать вправо',
+  align_justify: 'Растянуть',
+  horizontalrule: 'Вставить горизонтальную линию',
+  fullscreen: 'На весь экран',
+  deleted: 'Перечёркнутый',
+  anchor: 'Якорь',
+  widgets: 'Виджеты'
+};
+
+
+<?php } else { ?>
+
+var RLANG = {
+  html: 'HTML',
+  video: 'Insert Video...',
+  image: 'Insert Image...',
+  table: 'Table',
+  link: 'Link',
+  link_insert: 'Insert Link ...',
+  unlink: 'Unlink',
+  formatting: 'Formatting',
+  paragraph: 'Paragraph',
+  quote: 'Quote',
+  code: 'Code',
+  url: 'URL',
+  header1: 'Header 1',
+  header2: 'Header 2',
+  header3: 'Header 3',
+  header4: 'Header 4',
+  bold:  'Bold',
+  italic: 'Italic',
+  fontcolor: 'Font Color',
+  backcolor: 'Back Color',
+  unorderedlist: 'Unordered List',
+  orderedlist: 'Ordered List',
+  outdent: 'Outdent',
+  indent: 'Indent',
+  cancel: 'Cancel',
+  insert: 'Insert',
+  save: 'Save',
+  _delete: 'Delete',
+  insert_table: 'Insert Table...',
+  insert_row_above: 'Add Row Above',
+  insert_row_below: 'Add Row Below',
+  insert_column_left: 'Add Column Left',
+  insert_column_right: 'Add Column Right',
+  delete_column: 'Delete Column',
+  delete_row: 'Delete Row',
+  delete_table: 'Delete Table',
+  rows: 'Rows',
+  columns: 'Columns',
+  add_head: 'Add Head',
+  delete_head: 'Delete Head',
+  title: 'Title',
+  image_position: 'Position',
+  none: 'None',
+  left: 'Left',
+  right: 'Right',
+  image_web_link: 'Image Web Link',
+  text: 'Text',
+  mailto: 'Email',
+  web: 'URL',
+  video_html_code: 'Video Embed Code',
+  file: 'Insert File...',
+  upload: 'Upload',
+  download: 'Download',
+  choose: 'Choose',
+  or_choose: 'Or choose',
+  drop_file_here: 'Drop file here',
+  align_left: 'Align Left',
+  align_center: 'Align Center',
+  align_right: 'Align Right',
+  align_justify: 'Justify',
+  horizontalrule: 'Insert Horizontal Rule',
+  fullscreen: 'Fullscreen',
+  deleted: 'Deleted',
+  anchor: 'Anchor',
+  widgets: 'Widgets'
+};
+
+<?php } ?>
+var widgets_list = '<?php echo addslashes($widgetsHtml) ?>';
+var jscss = '<?php echo addslashes(implode('', explode(PHP_EOL,preg_replace('/<script(.*)<\/script>/is', '',Mage::registry('cssjshtml'))))) ?>';
+</script>
+        <script src="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/redactor.js' ?>"></script>
+
+<div style="left: 0; min-height: 100% !important; position: relative; top: 0;" id="main-navbar" class="page-sidebar  col-lg-2 col-md-3 col-sm-3 nm p5">
+  <ul data-slide-speed="200" data-auto-scroll="true" class="page-sidebar-menu">
+   <li>
+    <div class="f15">
+      <?php echo Mage::app()->getStore()->getName() ?>
+      <br/><br/>
+      <i style="color:#bbb" class="fa fa-external-link"></i>
+      <a target="_blank" href="<?php echo Mage::getBaseUrl() ?>">
+          <?php echo Mage::getBaseUrl() ?>
+      </a>
+    </div>
+    <a class="row  header white p5 mbottom10" href="javascript:;">
+     <span class="white title"><?php echo $this->__('Settings')?></span>
+      <span class="selected"></span>
+    </a>
+    <ul style="display:block" id="" class="sub-menu">
+      <li data-section="domain" data-dir="hosting" class="editor-section">
+        <a class="simpleAjax" href="<?php echo $this->getUrl('manage/general') ?>"><i class="fa fa-home"></i> <?php echo $this->__('General') ?></a>
+      </li>
+      <li data-section="domain" data-dir="hosting" class="editor-section">
+        <a class="simpleAjax" href="<?php echo $this->getUrl('manage/web') ?>"><i class="fa fa-cloud"></i> <?php echo $this->__('Domain/Pages') ?></a>
+      </li>
+      <li data-section="domain" data-dir="hosting" class="editor-section">
+        <a class="simpleAjax" href="<?php echo $this->getUrl('manage/design') ?>"><i class="fa fa-trello"></i> <?php echo $this->__('Design') ?></a>
+      </li>
+       <li data-section="domain" data-dir="hosting" class="editor-section">
+        <a class="simpleAjax" href="<?php echo $this->getUrl('manage/analytics') ?>"><i class="fa fa-area-chart"></i> <?php echo $this->__('Analytics') ?></a>
+      </li>
+       <li data-section="usage" data-dir="settings" class="editor-section">
+        <a href="#" class="disabled"><i class="fa fa-dashboard"></i> <?php echo $this->__('Usage'); ?></a>
+      </li>
+       <li data-section="usage" data-dir="settings" class="editor-section">
+        <a href="#" class="disabled"><i class="fa fa-credit-card"></i> <?php echo $this->__('Payments'); ?></a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a class="row  header white p5 mbottom10" href="javascript:;">
+      <span class="white title"><?php echo $this->__('Data') ?></span>
+      <span class="selected"></span>
+    </a>
+    <ul style="display:block" id="admin-sub-menu" class="sub-menu">
+        <li data-section="user" data-dir="data" class="editor-section">
+          <a class="simpleAjax" id="pagesLink" href="<?php echo $this->getUrl('manage/pages') ?>"><i class="fa fa-sitemap"></i> <?php echo $this->__('Pages')?></a>
+        </li>
+         <li data-section="user" data-dir="data" class="editor-section">
+          <a class="simpleAjax" id="pagesLink" href="<?php echo $this->getUrl('manage/blocks') ?>"><i class="fa fa-th-large"></i> <?php echo $this->__('Blocks')?></a>
+        </li>
+        <li data-section="user" data-dir="data" class="editor-section">
+          <a class="simpleAjax" id="pagesLink" href="<?php echo $this->getUrl('manage/forms') ?>" ><i class="fa fa-th-list"></i> <?php echo $this->__('Forms') ?></a>
+        </li>
+        <li data-section="cobject" data-dir="data" class="editor-section">
+          <a class="simpleAjax " href="<?php echo $this->getUrl('manage/objects') ?>" ><i class="fa fa-database"></i> <?php echo $this->__('Custom Objects') ?></a>
+        </li>
+        <li data-section="export-stmply-app-data" data-dir="data" class="editor-section">
+          <a href="#" class="disabled"><i class="fa fa-file-text-o"></i> <?php echo $this->__('Import/Export data') ?></a>
+        </li>
+        <li data-section="export-stmply-app-data" data-dir="data" class="editor-section">
+          <a href="#" class="disabled"><i class="fa fa-file"></i> <?php echo $this->__('File manager') ?></a>
+        </li>
+         <li data-section="export-stmply-app-data" data-dir="data" class="editor-section">
+          <a href="<?php echo $this->getUrl('manage/templates') ?>" class="simpleAjax"><i class="fa fa-newspaper-o"></i> <?php echo $this->__('Templates manager') ?></a>
+        </li>
+        <li data-section="export-stmply-app-data" data-dir="data" class="editor-section">
+          <a href="#" class="disabled"><i class="fa fa-code"></i> <?php echo $this->__('Code manager') ?></a>
+        </li>
+    </ul>
+  </li>
+  <li>
+
+    <a class="row  header white p5 mbottom10" href="javascript:;">
+      <span class="title white"><?php echo $this->__('Users') ?></span>
+      <span class="selected"></span>
+    </a>
+    <ul style="display:block" id="" class="sub-menu">
+      <li data-section="roles" data-dir="users" class="editor-section">
+        <a href="<?php echo $this->getUrl('manage/users') ?>" class="simpleAjax"><i class="fa fa-users"></i> <?php echo $this->__('Users') ?></a>
+      </li>
+      <li data-section="roles" data-dir="users" class="editor-section">
+        <a href="#" class="disabled"><i class="fa fa-lock"></i> <?php echo $this->__('Roles/Permissions') ?></a>
+      </li>
+    </ul>
+  </li>
+  <?php if(Mage::helper('core')->isModuleEnabled('Mage_Catalog')) { ?>
+  <li>
+    <a class="row  header white p5 mbottom10" href="javascript:;">
+      <span class="title white"><?php echo $this->__('Catalog')?></span>
+      <span class="selected"></span>
+    </a>
+    <ul style="display:block" id="" class="sub-menu">
+      <li data-section="components" data-dir="backend" class="editor-section">
+        <a href="<?php echo $this->getUrl('manage/products') ?>" class="simpleAjax"><i class="fa fa-list"></i> <?php echo $this->__('Products')?></a>
+      </li>
+      <li data-section="tasks" data-dir="backend" class="editor-section">
+        <a href="<?php echo $this->getUrl('manage/categories') ?>" class="simpleAjax"><i class="fa fa-list"></i> <?php echo $this->__('Categories')?></a>
+      </li>
+    </ul>
+  </li>
+  <?php } ?>
+  <li>
+    <a class="row  header white p5 mbottom10" href="javascript:;">
+      <span class="title white"><?php echo $this->__('Backend')?></span>
+      <span class="selected"></span>
+    </a>
+    <ul style="display:block" id="" class="sub-menu">
+      <li data-section="components" data-dir="backend" class="editor-section">
+        <a href="#" class="disabled"><i class="fa fa-cogs"></i> <?php echo $this->__('Components')?></a>
+      </li>
+      <li data-section="tasks" data-dir="backend" class="editor-section">
+        <a href="#" class="disabled"><i class="fa fa-bolt"></i> <?php echo $this->__('Tasks')?></a>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <div style="width:100%;text-align:center;font-size:11px;color:#949798;margin-top:40px;"><?php echo date('Y') ?> &copy; inNativeLife</div>
+  </li>
+</ul>
+<script type="text/javascript">
+
+</script>
+</div>
+	<div class="page-content-wrapper col-lg-10 col-md-9 col-sm-9 pbottom20 mbottom20">
+		<div style="min-height:700px !important" id="app-content" class="mleft10 page-content">
+			<div id="section-content" class="col-md-12">
+			</div>
+      <div id="section-inner-content"  class="col-md-12">
+      </div>
+		</div>
+	</div>

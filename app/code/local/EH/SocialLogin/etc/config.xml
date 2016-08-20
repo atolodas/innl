@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+/*////////////////////////////////////////////////////////////////////////////////
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\   Social Login    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ /////////////////////////////////////////////////////////////////////////////////
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ NOTICE OF LICENSE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ ///////                                                                   ///////
+ \\\\\\\ This source file is subject to the Open Software License (OSL 3.0)\\\\\\\
+ ///////   that is bundled with this package in the file LICENSE.txt.      ///////
+ \\\\\\\   It is also available through the world-wide-web at this URL:    \\\\\\\
+ ///////          http://opensource.org/licenses/osl-3.0.php               ///////
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ ///////                      * @category   EH                            ///////
+ \\\\\\\                      * @package    EH_SocialLogin                \\\\\\\
+ ///////    * @author     Suneet Kumar <suneet64@gmail.com>               ///////
+ \\\\\\\                                                                   \\\\\\\
+ /////////////////////////////////////////////////////////////////////////////////
+ \\\\\\* @copyright  Copyright 2013 © www.extensionhut.com All right reserved\\\\\
+ /////////////////////////////////////////////////////////////////////////////////
+ */
+-->
+<config>
+    <modules>
+        <EH_SocialLogin>
+            <version>1.0.1</version>
+        </EH_SocialLogin>
+    </modules>
+
+    <global>
+        <blocks>
+            <ehut_sociallogin>
+                <class>EH_SocialLogin_Block</class>
+            </ehut_sociallogin>
+        </blocks>
+
+        <helpers>
+            <ehut_sociallogin>
+                <class>EH_SocialLogin_Helper</class>
+            </ehut_sociallogin>
+        </helpers>
+
+        <models>
+            <ehut_sociallogin>
+                <class>EH_SocialLogin_Model</class>
+            </ehut_sociallogin>
+        </models>
+
+        <resources>
+            <sociallogin_setup>
+                <setup>
+                    <module>EH_SocialLogin</module>
+                    <class>Mage_Customer_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </sociallogin_setup>
+            <ehut_sociallogin_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </ehut_sociallogin_write>
+            <ehut_sociallogin_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </ehut_sociallogin_read>
+        </resources>
+    </global>
+
+    <frontend>
+        <routers>
+            <ehut_sociallogin>
+                <use>standard</use>
+                <args>
+                    <module>EH_SocialLogin</module>
+                    <frontName>ehut_sociallogin</frontName>
+                </args>
+            </ehut_sociallogin>
+        </routers>
+
+        <layout>
+            <updates>
+                <ehut_sociallogin>
+                    <file>ehut_sociallogin.xml</file>
+                </ehut_sociallogin>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <EH_SocialLogin>
+                    <files>
+                        <default>EH_SocialLogin.csv</default>
+                    </files>
+                </EH_SocialLogin>
+            </modules>
+        </translate>
+    </frontend>
+
+    <default>
+        <ehut_sociallogin>
+            <general><showonloginpage>inloginbox</showonloginpage></general>
+            <general><showoncheckout>1</showoncheckout></general>
+            <facebook><enabled>0</enabled></facebook>
+            <google><enabled>0</enabled></google>
+            <twitter><enabled>0</enabled></twitter>
+            <linkedin><enabled>0</enabled></linkedin>
+            <yahoo><enabled>0</enabled></yahoo>
+        </ehut_sociallogin>
+    </default>
+
+</config>

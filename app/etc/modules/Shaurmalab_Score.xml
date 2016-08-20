@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><config><modules>
+    <Shaurmalab_Score>
+        <active>true</active>
+        <codePool>local</codePool>
+        <depends>
+            <Mage_Eav/>
+            <Mage_Dataflow/>
+            <Mage_Cms/>
+            <Mage_Index/>
+        </depends>
+    </Shaurmalab_Score>
+    <Shaurmalab_ScoreIndex>
+        <active>true</active>
+        <codePool>local</codePool>
+        <depends>
+            <Shaurmalab_Score/>
+            <Mage_Eav/>
+            <Mage_CatalogRule/>
+        </depends>
+    </Shaurmalab_ScoreIndex>
+</modules></config>

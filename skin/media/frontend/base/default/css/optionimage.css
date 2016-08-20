@@ -1,0 +1,28 @@
+.product-options ul.options-list img ,
+.product-options ul.options-list label{
+    margin-right:5px;
+}
+.product-options dd {
+	border-bottom: none;
+}
+.dd .ddChild a span {
+    border: 0 none;
+    /*padding: 0 2px 0 0;*/
+	margin-right:5px;
+    vertical-align: middle;
+}
+.dd .ddChild a img {
+	padding: 0;
+	margin-right:5px;
+}
+.dd .ddTitle span.ddTitleText span{
+	padding: 0;
+    margin-right:5px;
+}
+.dd .ddTitle span.ddTitleText img {
+	padding: 0;
+	margin-right:5px;
+}
+.dd .ddTitle {
+    height: auto;
+}

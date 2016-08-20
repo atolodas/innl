@@ -1,0 +1,46 @@
+<?php 
+$items = $this->getItems();
+$oggetto = Mage::registry('current_oggetto');
+if(!is_object($oggetto)) $oggetto = Mage::registry('oggetto');
+
+if($items->getSize()): 
+$parent = Mage::registry('oggetto');
+?>
+<div class="block block-related">
+<?php if($this->getTitle()) { ?>
+    <div class="block-title">
+        <strong><span><?php echo $this->getTitle() ?></span></strong>
+    </div>
+<?php } ?>
+    <div class="block-content">
+
+        <div class="form-horizontal">
+        <?php foreach($items as $_item): ?>
+        <?php 
+                $template = 'child';
+                    if($this->getTpl()) { $template = $this->getTpl(); }
+                    
+                    if($output = Mage::app()->getLayout()->getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($_item,$template)) {
+					echo $output;
+				} else { ?>
+                <div class="child-item col-md-12 m5">
+                    <div class="col-md-8">
+                         <a href="<?php echo Mage::helper('score/oggetto')->getOggettoUrl($_item) ?>" title="<?php echo $this->htmlEscape($_item->getName()) ?>">
+                            <?php echo $_item->getName() ?>
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <?php if($_item->getCanBuy() || $parent->getCanBuy()) { echo rand(100,1000).' руб.'; } else { echo $this->__('Free'); } ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php if($_item->getCanBuy() || $parent->getCanBuy()) { ?> 
+                            <button class="btn btn-success"><?php echo $this->__('Buy') ?></button>
+                        <?php } ?>
+                    </div>
+                    </div>
+                 <?php } ?>
+        <?php endforeach ?>
+        </div>
+    </div>
+</div>
+<?php endif ?>

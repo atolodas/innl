@@ -1,0 +1,27 @@
+/**
+ * Copy Custom Options.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Team
+ * that is bundled with this package of Medma Infomatix Pvt. Ltd.
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * Medma Support does not guarantee correct work of this package
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * =================================================================
+**/
+.ui-widget-daredevel-checkboxTree li {
+    list-style-type: none;
+    position: relative;
+	left:25px;
+}
+
+.ui-widget-daredevel-checkboxTree li span {
+    cursor: default;
+    position: absolute;
+    top: 1px;
+    left: -16px;
+}

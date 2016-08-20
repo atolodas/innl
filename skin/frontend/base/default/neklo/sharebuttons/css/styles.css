@@ -1,0 +1,260 @@
+@font-face {
+    font-family: 'socialIcons';
+    src: url('../fonts/social-font.eot');
+    src: url('../fonts/social-font.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/social-font.woff') format('woff'),
+    url('../fonts/social-font.ttf') format('truetype'),
+    url('../fonts/social-font.svg#MonoSocialIconsFont') format('svg');
+    src: url('../fonts/social-font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.neklo-share-buttons .social-icon {
+    color: #cccbcb;
+    margin: 0 5px 0 0;
+    text-decoration: none;
+    font-size: 48px;
+    vertical-align: middle;;
+}
+
+.neklo-share-buttons .neklo-sharebuttons-title {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 7px 5px 0 0;
+    font-size: 18px;
+}
+
+.neklo-share-buttons .social-icon:hover {
+    text-shadow: 1px 1px 2px #ffffff, 0 0 3px #cccbcb;
+}
+
+.neklo-share-buttons .social-icon:before {
+    font-family: 'socialIcons';
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+.neklo-share-buttons .facebook-circle:before {
+    content: 'circlefacebook';
+}
+
+.neklo-share-buttons .facebook-circle.color-icon:before {
+    content: 'circlefacebook';
+    color: #547bbc;
+}
+
+.neklo-share-buttons .twitter-circle:before {
+    content: 'circletwitterbird';
+}
+
+.neklo-share-buttons .twitter-circle.color-icon:before {
+    content: 'circletwitterbird';
+    color: #78cbef;
+}
+
+.neklo-share-buttons .pinterest-circle:before {
+    content: 'circlepinterest';
+}
+
+.neklo-share-buttons .pinterest-circle.color-icon:before {
+    content: 'circlepinterest';
+    color: #e95655;
+}
+
+.neklo-share-buttons .google-circle:before {
+    content: 'circlegoogleplus';
+}
+
+.neklo-share-buttons .google-circle.color-icon:before {
+    content: 'circlegoogleplus';
+    color: #4b4b4b;
+}
+
+.neklo-share-buttons .reddit-circle:before {
+    content: 'circlereddit';
+}
+
+.neklo-share-buttons .reddit-circle.color-icon:before {
+    content: 'circlereddit';
+    color: #56acdd;
+}
+
+.neklo-share-buttons .delicious-circle:before {
+    content: 'circledelicious';
+}
+
+.neklo-share-buttons .delicious-circle.color-icon:before {
+    content: 'circledelicious';
+    color: #cccbcb;
+}
+
+.neklo-share-buttons .stumbleupon-circle:before {
+    content: 'circlestumbleupon';
+}
+
+.neklo-share-buttons .stumbleupon-circle.color-icon:before {
+    content: 'circlestumbleupon';
+    color: #9ecc91;
+}
+
+.neklo-share-buttons .digg-circle:before {
+    content: 'circledigg';
+}
+
+.neklo-share-buttons .digg-circle.color-icon:before {
+    content: 'circledigg';
+    color: #282828;
+}
+
+.neklo-share-buttons .facebook-square:before {
+    content: 'roundedfacebook';
+}
+
+.neklo-share-buttons .facebook-square.color-icon:before {
+    content: 'roundedfacebook';
+    color: #547bbc;
+}
+
+.neklo-share-buttons .twitter-square:before {
+    content: 'roundedtwitterbird';
+}
+
+.neklo-share-buttons .twitter-square.color-icon:before {
+    content: 'roundedtwitterbird';
+    color: #78cbef;
+}
+
+.neklo-share-buttons .pinterest-square:before {
+    content: 'roundedpinterest';
+}
+
+.neklo-share-buttons .pinterest-square.color-icon:before {
+    content: 'roundedpinterest';
+    color: #e95655;
+}
+
+.neklo-share-buttons .google-square:before {
+    content: 'roundedgoogleplus';
+}
+
+.neklo-share-buttons .google-square.color-icon:before {
+    content: 'roundedgoogleplus';
+    color: #4b4b4b;
+}
+
+.neklo-share-buttons .reddit-square:before {
+    content: 'roundedreddit';
+}
+
+.neklo-share-buttons .reddit-square.color-icon:before {
+    content: 'roundedreddit';
+    color: #56acdd;
+}
+
+.neklo-share-buttons .delicious-square:before {
+    content: 'roundeddelicious';
+}
+
+.neklo-share-buttons .delicious-square.color-icon:before {
+    content: 'roundeddelicious';
+    color: #cccbcb;
+}
+
+.neklo-share-buttons .stumbleupon-square:before {
+    content: 'roundedstumbleupon';
+}
+
+.neklo-share-buttons .stumbleupon-square.color-icon:before {
+    content: 'roundedstumbleupon';
+    color: #9ecc91;
+}
+
+.neklo-share-buttons .digg-square:before {
+    content: 'roundeddigg';
+}
+
+.neklo-share-buttons .digg-square.color-icon:before {
+    content: 'roundeddigg';
+    color: #282828;
+}
+
+.neklo-share-buttons .facebook-simple:before {
+    content: 'facebook';
+}
+
+.neklo-share-buttons .facebook-simple.color-icon:before {
+    content: 'facebook';
+    color: #547bbc;
+}
+
+.neklo-share-buttons .twitter-simple:before {
+    content: 'twitterbird';
+}
+
+.neklo-share-buttons .twitter-simple.color-icon:before {
+    content: 'twitterbird';
+    color: #78cbef;
+}
+
+.neklo-share-buttons .pinterest-simple:before {
+    content: 'pinterest';
+}
+
+.neklo-share-buttons .pinterest-simple.color-icon:before {
+    content: 'pinterest';
+    color: #e95655;
+}
+
+.neklo-share-buttons .google-simple:before {
+    content: 'googleplus';
+}
+
+.neklo-share-buttons .google-simple.color-icon:before {
+    content: 'googleplus';
+    color: #4b4b4b;
+}
+
+.neklo-share-buttons .reddit-simple:before {
+    content: 'reddit';
+}
+
+.neklo-share-buttons .reddit-simple.color-icon:before {
+    content: 'reddit';
+    color: #56acdd;
+}
+
+.neklo-share-buttons .delicious-simple:before {
+    content: 'delicious';
+}
+
+.neklo-share-buttons .delicious-simple.color-icon:before {
+    content: 'delicious';
+    color: #cccbcb;
+}
+
+.neklo-share-buttons .stumbleupon-simple:before {
+    content: 'stumbleupon';
+}
+
+.neklo-share-buttons .stumbleupon-simple.color-icon:before {
+    content: 'stumbleupon';
+    color: #9ecc91;
+}
+
+.neklo-share-buttons .digg-simple:before {
+    content: 'digg';
+}
+
+.neklo-share-buttons .digg-simple.color-icon:before {
+    content: 'digg';
+    color: #282828;
+}

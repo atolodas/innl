@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ultimate_Events extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Ultimate
+ * @package        Ultimate_Events
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <ultimate_events translate="title" module="ultimate_events">
+                                        <title>Events</title>
+                                    </ultimate_events>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <cms>
+                        <children>
+                           <events translate="title" module="ultimate_events">
+                                <title>Events</title>
+                                <sort_order>0</sort_order>
+                            </events>
+                        </children>
+                    </cms>
+
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <cms>
+            <children>
+                <events translate="title" module="ultimate_events">
+                    <title>Events</title>
+                    <action>adminhtml/events_events</action>
+                    <sort_order>0</sort_order>
+                </events>
+            </children>
+        </cms>
+
+    </menu>
+</config>

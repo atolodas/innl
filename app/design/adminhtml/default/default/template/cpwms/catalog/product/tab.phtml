@@ -1,0 +1,74 @@
+<?php
+?>
+<?php if($this->_getProduct()->getTypeId() == 'configurable'): ?>
+<script type="text/javascript">
+    var BASE = '<?php echo Mage::getBaseUrl(); ?>';
+    var current_product = '<?php echo $this->_getProduct()->getId(); ?>';
+</script>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend">
+            Simple Products Creation
+        </h4>
+    </div>
+    <div class="fieldset fieldset-wide">
+        <div class="hor-scroll">
+            <table class="form-list" cellspacing="0">
+                <tr>
+                    <td class="label">
+                        <label for="cp_product_weight">
+                            Weight
+                        </label>
+                    </td>
+                    <td class="value">
+                        <input id="cp_product_weight" class="input-text" type="text" value="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="simplecreation">
+                            Attributes Table
+                        </label>
+                    </td>
+                    <td class="value">
+                        <?php $sxml = $this->getSimpleXml(); ?>
+                        <?php if($sxml): ?>
+                            <?php $child_skus = $this->getChildCustomSkus(); ?>
+                            <div class="cp_table_wrapper">
+                                <table id="simplecreation" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td class="cp_table_left_top"></td>
+                                        <?php if($sxml->size->count() > 0): ?>
+                                            <?php for($size = 0; $size < $sxml->size->count(); $size++): ?>
+                                                <td class="cp_table_head"><?php echo (string)$sxml->size[$size]['name']; ?></td>
+                                            <?php endfor; ?>
+                                        <?php else: ?>
+                                            <td class="cp_table_head"></td>
+                                        <?php endif; ?>
+                                    </tr>
+                                    <?php for($color = 0; $color < $sxml->color->count(); $color++): ?>
+                                    <tr>
+                                        <td class="cp_table_left"><?php echo (string)$sxml->color[$color]['name']; ?></td>
+                                        <?php if($sxml->size->count() > 0): ?>
+                                            <?php for($size = 0; $size < $sxml->size->count(); $size++): ?>
+                                                <?php $current_sku = (string)$sxml->color[$color]['id'].'_'.(string)$sxml->size[$size]['id']; ?>
+                                                <td><input class="cp_checkbox" type="checkbox" name="<?php echo $current_sku; ?>" <?php if(in_array($current_sku, $child_skus)): ?>checked="checked"<?php endif; ?>></td>
+                                            <?php endfor; ?>
+                                        <?php else: ?>
+                                            <?php $current_sku = (string)$sxml->color[$color]['id']; ?>
+                                            <td><input class="cp_checkbox" type="checkbox" name="<?php echo $current_sku; ?>" <?php if(in_array($current_sku, $child_skus)): ?>checked="checked"<?php endif; ?>></td>
+                                        <?php endif; ?>
+                                    </tr>
+                                    <?php endfor; ?>
+                                </table>
+                            </div>
+                            <br/>
+                            <button class="cp_create_button" type="button" onclick="createAssociatedSimples()"><span>Create</span></button>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<?php endif; ?>

@@ -1,0 +1,30 @@
+<?php  // This is text slider
+$block_data = $this->getBlockData();
+$blocks = $block_data['block'];
+$banners = $block_data['banners'];
+$click_url = $this->getUrl('bannerslider/index/click');
+?>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('magestore/bannerslider/jquery-1.7.min.js') ?>"></script>
+<script src="<?php echo $this->getJsUrl('magestore/bannerslider/jquery.flexslider.js') ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/magestore/bannerslider/flexslider.css') ?>" media="all" />
+<script type="text/javascript">
+
+    jQuery(window).load(function() {
+        jQuery('.flexslider-7-<?php echo $blocks['bannerslider_id'] ?>').flexslider({
+            animation: "<?php echo $blocks['animationB'];?>",
+            slideshowSpeed: <?php echo $blocks['slider_speed'];?>
+            //minItems: 2,
+            //maxItems: <?php echo $this->getMaxItem($blocks['max_item']); ?>
+        });
+    });
+</script>
+<div class="flexslider flexslider-7-<?php echo $blocks['bannerslider_id'] ?>">
+    <ul class="slides"> 
+        <?php foreach ($banners as $banner): ?>
+            <li style="height:500px;overflow:hidden; ">
+               <?php echo $banner['image_alt'];?>
+            </li>
+        <?php endforeach; ?>        
+        <!-- items mirrored twice, total of 12 -->
+    </ul>
+</div>

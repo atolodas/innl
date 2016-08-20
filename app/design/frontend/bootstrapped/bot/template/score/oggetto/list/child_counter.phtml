@@ -1,0 +1,18 @@
+<?php 
+$counter = 0;
+if($this->getLocalise() && $this->getLocalise() != ',,,') { ?>
+<?php if($counter = $this->getItems()->getSize()): ?> 
+	<span class="cntr">
+		<?php echo $counter;?>
+	</span>
+<?php endif; 
+if($counter) echo Mage::helper('dcontent')->localise($this->getLocalise(), $counter);
+} else { 
+if($counter = $this->getItems()->getSize()): 
+echo $counter.' ';
+else:
+$counter = 0;
+echo '0 ';
+endif;
+echo Mage::helper('dcontent')->localise($this->getLocalise(), $counter);
+} ?>

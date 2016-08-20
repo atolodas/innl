@@ -1,0 +1,26 @@
+<?php if(Mage::getStoreConfig("admin/ewall_advancetag2/isdisplay")==1){?>
+<div class="box base-mini mini-product-tags">
+    <div class="head">
+        <h4><?php echo $this->__('Popular Tags'); ?></h4>
+    </div>
+    <div class="content">
+	<?php //if(Mage::getStoreConfig("admin/bysoft_advancetag2/isdisplay")==1){?>
+     <?php echo $this->getFlashTag(2); //1 is for all tags list(big blcok);2 is for small block?>
+     </div>
+    <div class="actions">
+        <a href="<?php echo $this->getUrl('tag/list') ?>"><small><?php echo $this->__('View All Tags') ?></small></a>
+    </div>
+</div>
+
+	 <?php   } else { ?>
+	 
+	<?php //echo($this->getChildHtml('left'));  ?>
+	<?php echo $this->getLayout()->createBlock('tag/popular')->setTemplate('tag/popular.phtml')->toHtml(); ?>
+
+	     <ul style="display:none;">
+        <?php foreach ($this->getTags() as $_tag): ?>
+            <li><a href="<?php echo $_tag->getTaggedProductsUrl() ?>" style="font-size:<?php echo $_tag->getRatio()*70+75 ?>%;"><?php echo $this->htmlEscape($_tag->getName()) ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+	<?php  }?>
+    

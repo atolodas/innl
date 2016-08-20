@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Mage
+ * @package    Mage_CatalogSearch
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+	<tabs>
+        <additional translate="label" module="catalog">
+            <label>Snowcommerce</label>
+            <sort_order>203</sort_order>
+        </additional>
+    </tabs>
+   <sections>
+        <seo>
+          	<label>Seo Module</label>
+            <tab>additional</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>912</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <seo translate="label" module="catalog">
+                    <label>Options</label>
+                    <tab>custom</tab>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>505</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <remove_params translate="label">
+                            <label>Remove Params from url</label>
+                            <frontend_type>textarea</frontend_type>
+                            <cols>20</cols>
+                            <sort_order>112</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>These params will be removed from urls. So for ex. url "site.com?p=2" will have same seo content as "site.com?p=3" if param "p" mentioned here. Separate params by comma.</comment>
+                        </remove_params>
+                    </fields>
+                </seo>
+            </groups>
+        </seo>
+    </sections>
+</config>

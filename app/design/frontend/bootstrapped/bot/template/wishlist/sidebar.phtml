@@ -1,0 +1,47 @@
+<?php if ($this->helper('wishlist')->isAllow()) : ?>
+    <div class="block block-wishlist well">
+        <div class="block-title">
+            <strong><span><?php echo $this->__('My Wishlist <small>(%d)</small>', $this->getItemCount()) ?></span></strong>
+        </div>
+        <div class="block-content">
+            <?php if ($this->hasWishlistItems()): ?>
+            <div class="" id="wishlist-sidebar">
+                <div class="">
+                    <ul class="">
+                        <?php foreach ($this->getWishlistItems() as $_item): ?>
+                        <?php $product = $_item->getProduct(); ?>
+
+                        <li class="item">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a class="product-image" href="<?php echo $this->getProductUrl($_item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail')->resize(50); ?>" alt="<?php echo $this->escapeHtml($product->getName()) ?>" /></a>
+                                </div>
+                                <div class="col-md-9 centered">
+                                    <span><a  href="<?php echo $this->getProductUrl($_item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>"><?php echo $this->escapeHtml($product->getName()) ?></a></span>
+                                    <s class="black"><?php echo Mage::helper('core')->formatCurrency($product->getPrice()) ?></s>
+                                    <?php echo Mage::helper('core')->formatCurrency($product->getSpecialPrice()) ?> 
+                                    <div>
+                                    <?php if ($product->isSaleable() && $product->isVisibleInSiteVisibility()): ?>
+                                        <a href="<?php echo $this->getItemAddToCartUrl($_item) ?>" class=""><?php echo $this->__('Add to Cart') ?></a>
+                                    <?php endif; ?>
+                                    </div>    
+                                    <a class="pull-right"  href="<?php echo $this->getItemRemoveUrl($_item) ?>" title="<?php echo $this->__('Remove This Item') ?>" ><span class="icon-remove-circle f20"></span></a>
+                                </div>
+                          </div>
+                          <hr/>
+                        </li>
+
+              <?php endforeach; ?>
+          </ul>
+      </div>
+  </div>
+  <div class="actions">
+    <a href="<?php echo $this->helper('wishlist')->getListUrl() ?>"><?php echo $this->__('Go to Wishlist') ?></a>
+</div>
+<?php else: ?>
+    <p class="empty"><?php echo $this->__('You have no items in your wishlist.') ?></p>
+<?php endif ?>
+</div>
+</div>
+<?php endif ?>

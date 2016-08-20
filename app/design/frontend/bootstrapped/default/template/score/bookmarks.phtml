@@ -1,0 +1,34 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+/* @var $this Mage_Wishlist_Block_Customer_Wishlist */
+?>
+<div class="my-wishlist p10 inline">
+    <ul class="nm np">
+    <?php if ($this->hasWishlistItems()): ?>
+                <?php foreach ($this->getWishlistItems() as $item): ?>
+                    <li class="item">
+                    <?php
+                        $oggetto = $item->getOggetto();
+                        if($output = Mage::getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($oggetto,'grid')) {
+                              echo $output;
+                         } elseif($output = Mage::getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($oggetto,'list')) {
+                              echo $output;
+                         } ?>
+                </li>
+                <?php 
+                endforeach; ?> 
+                <div class="col-md-4 pull-left inline"><?php echo $this->getToolbarHtml(); ?></div>
+                <?php echo $this->getPagerHtml(); ?>
+          <?php else: ?>
+        <p><?php echo $this->__('You have no items in your bookmarks') ?></p>
+    <?php endif ?>
+    </ul>
+</div>

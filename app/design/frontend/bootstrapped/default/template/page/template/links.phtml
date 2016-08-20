@@ -1,0 +1,104 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<?php
+/**
+ * @see Mage_Page_Block_Template_Links
+ */
+?>
+<?php $_links = $this->getLinks(); ?>
+<div class="pull-right  hidden-tablet">
+<?php echo $this->getChildHtml('store_language') ?>
+</div>
+
+<?php if(Mage::helper('constructor')->isAdmin()) { ?>
+<a title="Admin" href="<?php echo Mage::getBaseUrl() ?>manage/" target="_blank" class="white f25 pull-right m10"><i class="fa fa-cog"></i></a>
+<?php } ?>
+
+
+
+<?php if(count($_links)>0): ?>
+<div class="pull-right">
+    <ul class="links nav ptop5">
+        <?php /* if(Mage::helper('score')->isDmEnabled()) { ?>
+
+        <li class="dropdown">
+            <a style="height: 35px" href="javascript:void(0)" title="<?php echo $this->__('Direct messages') ?>" data-toggle="dropdown" href="<?php echo Mage::getBaseUrl() ?>dm/" class="dropdown-toggle white f25 ptop5"><i class="fa fa-envelope"></i></a>
+            <ul class="dropdown-menu p10">
+                <?php 
+                $messages = Mage::helper('score')->getDirectMessages();
+                if(count($messages)) { 
+                    foreach ($messages as $message) { ?>
+                    <li><a>Message</a></li>
+
+                    <?php } ?> 
+                <?php } else { ?> 
+                   <li><?php echo $this->__('No messages so far') ?></li>
+                <?php } ?>   
+            </ul>
+        </li>
+        <?php } */ ?>
+
+        <li class="dropdown">
+            <a class="dropdown-toggle np mtop5" data-toggle="dropdown" style="height: 35px" href="javascript:void(0)">
+                <?php
+                $customer = Mage::getSingleton('customer/session')->getCustomer();
+
+                if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+                    $customerId = Mage::helper('customer')->getCustomer()->getId();
+                    $customerMagemlm = Mage::getModel('magemlm/customer')->load($customerId, 'customer_id'); ?>
+                    <?php if ($customerMagemlm->getMagemlmImage()) { ?>
+                        <img class="rounded"
+                             src="<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir('media') . DS . 'magemlm', $customerMagemlm->getMagemlmImage(), 35,35); ?>"/>
+                    <?php } else { ?>
+                        <img class="rounded"
+                             src="<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir() . '/' . str_replace(Mage::getBaseUrl(), '', $this->getSkinUrl('images/')), 'def_user.jpeg', 35,35) ?>"/>
+                    <?php
+                    }
+                } else {
+                    ?>
+                    <img class="rounded"
+                         src="<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir() . '/' . str_replace(Mage::getBaseUrl(), '', $this->getSkinUrl('images/')), 'def_user.jpeg', 35,35) ?>"/>
+                <?php
+                }
+                ?> 
+
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="disabled"><?php echo $this->__('Welcome') ?>, <?php if($customer->getFirstname()) { echo $customer->getFirstname(); } else  { echo $this->__("Guest"); } ?></a></li>
+                <?php
+                $already = array();
+                foreach($_links as $_link):
+                    if(in_array($_link->getLabel(),$already)) continue;
+                    $already[] = $_link->getLabel();
+                    ?>
+                    <?php if ($_link instanceof Mage_Core_Block_Abstract):?>
+                        <?php echo $_link->toHtml() ?>
+                    <?php else: ?>
+                        <li <?php echo $_link->getLiParams() ?>><?php echo $_link->getBeforeText() ?>
+                            <a href="<?php echo $_link->getUrl() ?>" title="<?php echo $_link->getTitle() ?>" <?php echo $_link->getAParams() ?>><?php echo $_link->getLabel() ?>
+                            </a>
+                            <?php echo $_link->getAfterText() ?></li>
+                    <?php endif;?>
+                <?php endforeach; ?>
+               
+
+            </ul>
+        </li>
+
+    </ul>
+</div>
+<?php endif; ?>
+<?php /* 
+<!-- popup cart page -->
+<div id="popupcart">    
+    <?php echo $this->getLayout()->createBlock('checkout/cart_sidebar')->setTemplate('checkout/cart/sidebar.phtml')->toHtml(); ?>
+</div> */ ?>

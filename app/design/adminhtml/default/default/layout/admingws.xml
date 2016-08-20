@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+-->
+
+<layout>
+    <default>
+        <reference name="content">
+            <block type="core/template" as="css" template="css.phtml"/>
+        </reference>
+
+    </default>
+
+
+    <!-- add gws multiselect to admin roles edit page -->
+
+    <!-- override roles grid to add website/store columns -->
+    <adminhtml_permissions_role_index>
+        <reference name="adminhtml.permission.role.index">
+            <action method="unsetChild"><alias>grid</alias></action>
+            <block type="enterprise_admingws/Adminhtml_Permissions_Grid_Role" name="adminhtml.permission.role.grid" as="grid"/>
+        </reference>
+    </adminhtml_permissions_role_index>
+
+    <adminhtml_permissions_user_index>
+        <block type="enterprise_admingws/Adminhtml_Permissions_Grid_Role" name="adminhtml.permission.role.grid"/>
+    </adminhtml_permissions_user_index>
+<!--
+    <adminhtml_system_config_edit  module="Enterprise_AdminGws">
+        <reference name="left">
+            <remove name="adminhtml.system.config.switcher"/>
+            <block type="enterprise_permissions/system_config_switcher" name="enterprise.system.config.switcher" template="enterprise/permissions/system/config/switcher.phtml" before="-"/>
+        </reference>
+    </adminhtml_system_config_edit>
+
+    <adminhtml_catalog_product_edit  module="Enterprise_AdminGws">
+        <reference name="left">
+            <remove name="store_switcher"/>
+            <block type="enterprise_permissions/store_switcher" name="permissions_store_switcher" template="enterprise/permissions/store/switcher.phtml" before="-"></block>
+        </reference>
+    </adminhtml_catalog_product_edit>
+
+    <adminhtml_catalog_product_index  module="Enterprise_AdminGws">
+        <reference name="products_list">
+            <remove name="store_switcher"/>
+            <block type="enterprise_permissions/store_switcher" name="permissions_store_switcher" as="store_switcher" template="enterprise/permissions/store/switcher.phtml">
+                <action method="setUseConfirm"><params>0</params></action>
+            </block>
+        </reference>
+    </adminhtml_catalog_product_index>
+
+    <adminhtml_dashboard_index  module="Enterprise_AdminGws">
+        <reference name="dashboard">
+            <remove name="store_switcher"/>
+            <block type="enterprise_permissions/store_switcher" name="permissions_store_switcher" as="store_switcher" template="enterprise/permissions/store/switcher.phtml">
+                <action method="setUseConfirm"><params>0</params></action>
+            </block>
+        </reference>
+    </adminhtml_dashboard_index>
+
+    <adminhtml_catalog_product_action_attribute_edit  module="Enterprise_AdminGws">
+        <reference name="left">
+            <remove name="store_switcher"/>
+            <block type="enterprise_permissions/store_switcher" name="permissions_store_switcher" template="enterprise/permissions/store/switcher.phtml" before="-"></block>
+        </reference>
+    </adminhtml_catalog_product_action_attribute_edit>
+-->
+</layout>

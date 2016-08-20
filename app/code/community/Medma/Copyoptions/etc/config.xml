@@ -1,0 +1,117 @@
+<!--
+/**
+ * Copy Custom Options.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Team
+ * that is bundled with this package of Medma Infomatix Pvt. Ltd.
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * Medma Support does not guarantee correct work of this package
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * =================================================================
+**/ -->
+<config>
+    	<modules>
+        	<Medma_Copyoptions>
+            		<version>0.1.5</version>
+        	</Medma_Copyoptions>
+    	</modules>
+		<admin>
+        <routers>
+			<copyoptions>
+				<use>admin</use>
+				<args>
+					<module>Medma_Copyoptions</module>
+					<frontName>copyoptions</frontName>
+				</args>
+			</copyoptions>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			 <catalog>             
+				<children>
+					<customoptions>
+						<title>Custom Options</title>
+						<sort_order>3</sort_order>						
+						<children>
+							<copyoptions>
+								<title>Copy Custom Options To Products</title>
+								<sort_order>1</sort_order>
+								<action>copyoptions/adminhtml_index/copytoproduct</action>
+							</copyoptions>							
+							<deleteoptions>
+								<title>Delete Custom Options From Products</title>
+								<sort_order>3</sort_order>
+								<action>copyoptions/adminhtml_index/deletefromproduct</action>
+							</deleteoptions>							
+						</children>
+					</customoptions>
+				</children>
+			</catalog>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<Medma_Copyoptions>
+							<title>Copyoptions</title>
+							<sort_order>10</sort_order>
+						</Medma_Copyoptions>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<copyoptions>
+					<file>copyoptions.xml</file>
+				</copyoptions>
+			</updates>
+		</layout>
+    </adminhtml> 
+    <global>
+				<blocks>
+            <copyoptions>
+                <class>Medma_Copyoptions_Block</class>
+            </copyoptions>
+        </blocks>			
+					<events>
+						<medma_domain_authentication>
+							<observers>
+								<domain>
+									<class>Medma_Copyoptions_Model_Authenticate</class>
+									<method>saveDomain</method>
+								</domain>
+							</observers>
+						</medma_domain_authentication>
+					</events>
+					<resources>
+            <copyoptions_setup>
+                <setup>
+                    <module>Medma_Copyoptions</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </copyoptions_setup> 
+            <copyoptions_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </copyoptions_write>
+            <copyoptions_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </copyoptions_read>
+        </resources>     
+    </global>
+</config>

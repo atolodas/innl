@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <BusinessKing_ProductFieldsPermission>
+            <version>0.1.0</version>
+        </BusinessKing_ProductFieldsPermission>
+    </modules>
+    
+    <global>
+    	<blocks>
+    		<productfieldspermission>
+    			<class>BusinessKing_ProductFieldsPermission_Block</class>
+    		</productfieldspermission>
+    		<adminhtml>
+    			<rewrite>
+    				<catalog_product_edit_tab_attributes>BusinessKing_ProductFieldsPermission_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes</catalog_product_edit_tab_attributes>
+    				<catalog_product_edit_tab_price_tier>BusinessKing_ProductFieldsPermission_Block_Adminhtml_Catalog_Product_Edit_Tab_Price_Tier</catalog_product_edit_tab_price_tier>
+    				<catalog_product_edit_tab_websites>BusinessKing_ProductFieldsPermission_Block_Adminhtml_Catalog_Product_Edit_Tab_Websites</catalog_product_edit_tab_websites>
+    				<catalog_product_edit_tab_inventory>BusinessKing_ProductFieldsPermission_Block_Adminhtml_Catalog_Product_Edit_Tab_Inventory</catalog_product_edit_tab_inventory>    				    				
+    			</rewrite>    					
+    		</adminhtml> 
+    	</blocks>
+    	<helpers>
+			<productfieldspermission>
+				<class>BusinessKing_ProductFieldsPermission_Helper</class>				
+			</productfieldspermission>			
+		</helpers>
+		<models>
+    		<productfieldspermission>
+    			<class>BusinessKing_ProductFieldsPermission_Model</class>
+    			<resourceModel>productfieldspermission_mysql4</resourceModel>
+    		</productfieldspermission>    		
+            <productfieldspermission_mysql4>
+                <class>BusinessKing_ProductFieldsPermission_Model_Mysql4</class>
+                <entities>
+					<role_attributes>
+						<table>role_attributes</table>
+					</role_attributes>														
+				</entities> 
+    		</productfieldspermission_mysql4>
+    	</models>
+		<resources>
+            <productfieldspermission_setup>
+                <setup>
+                    <module>BusinessKing_ProductFieldsPermission</module>
+                    <class>BusinessKing_ProductFieldsPermission_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </productfieldspermission_setup>
+            <productfieldspermission_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </productfieldspermission_write>
+            <productfieldspermission_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </productfieldspermission_read>            
+        </resources>		        			                      
+    </global> 
+        
+    <adminhtml>
+    	<menu>
+    		<product translate="title" module="adminhtml">
+                <title>Product</title>
+                <sort_order>100</sort_order>
+                <children>
+                    <fields translate="title">
+                        <title>Manage Fields</title>
+                        <action>productfieldspermission/adminhtml_product_fields</action>
+                        <sort_order>10</sort_order>
+                    </fields>
+                </children>
+            </product>   
+    	</menu>
+    	<acl>
+    		<resources>
+    			<admin translate="title" module="adminhtml">
+	               <children>
+	               	    <product translate="title" module="adminhtml">
+	               	    	<title>Product</title>
+						    <sort_order>110</sort_order>
+	               	    	<children>
+			               	    <fields translate="title"> 
+			               	    	<title>Manage Fields</title>
+						            <sort_order>10</sort_order>
+			               	    </fields>	               			               		
+			               	 </children>
+			            </product>	    
+	               </children>
+	           </admin>
+        	</resources>       
+    	</acl>
+    </adminhtml>
+       
+    <admin>
+        <routers>
+            <productfieldspermission>
+                <use>admin</use>
+                <args>
+                    <module>BusinessKing_ProductFieldsPermission</module>
+                    <frontName>productfieldspermission</frontName>
+                </args>
+            </productfieldspermission>
+        </routers>
+    </admin>    
+    
+</config>

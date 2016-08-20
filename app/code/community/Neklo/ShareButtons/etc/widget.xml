@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<!--
+NOTICE OF LICENSE
+
+This source file is subject to the NekloEULA that is bundled with this package in the file ICENSE.txt.
+
+It is also available through the world-wide-web at this URL: http://store.neklo.com/LICENSE.txt
+
+Copyright (c)  Neklo (http://store.neklo.com/)
+-->
+<widgets>
+    <neklo_sharebuttons type="neklo_sharebuttons/widget_button_list" translate="label" module="neklo_sharebuttons">
+        <name>[NEKLO] Share Buttons</name>
+        <parameters>
+            <is_enabled translate="label">
+                <label>Is Enabled</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>10</sort_order>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <value>0</value>
+            </is_enabled>
+            <title_type translate="label">
+                <label>Title Type</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>20</sort_order>
+                <type>select</type>
+                <source_model>neklo_sharebuttons/source_widget_title_type</source_model>
+                <value>page</value>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                </depends>
+            </title_type>
+            <title translate="label">
+                <label>Title</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>30</sort_order>
+                <type>text</type>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                    <title_type>
+                        <value>custom</value>
+                    </title_type>
+                </depends>
+            </title>
+
+            <!-- Facebook -->
+            <is_facebook_enabled translate="label">
+                <label>Is Facebook Enabled</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>110</sort_order>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <value>0</value>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                </depends>
+            </is_facebook_enabled>
+
+            <!-- Twitter -->
+            <is_twitter_enabled translate="label">
+                <label>Is Twitter Enabled</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>210</sort_order>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <value>0</value>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                </depends>
+            </is_twitter_enabled>
+            <twitter_hashtags translate="label description">
+                <label>Twitter Hashtags</label>
+                <description><![CDATA[Hashtags appended onto the tweet (Comma separated. Don't include <b>#</b>)]]></description>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>230</sort_order>
+                <type>text</type>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                    <is_twitter_enabled>
+                        <value>1</value>
+                    </is_twitter_enabled>
+                </depends>
+            </twitter_hashtags>
+            <twitter_via translate="label description">
+                <label>Twitter Username</label>
+                <description><![CDATA[Twitter username of content author (don't include <b>@</b>)]]></description>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>240</sort_order>
+                <type>text</type>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                    <is_twitter_enabled>
+                        <value>1</value>
+                    </is_twitter_enabled>
+                </depends>
+            </twitter_via>
+
+            <!-- Google+ -->
+            <is_googleplus_enabled translate="label">
+                <label>Is Google+ Enabled</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>310</sort_order>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <value>0</value>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                </depends>
+            </is_googleplus_enabled>
+
+            <!-- Pinterest -->
+            <is_pinterest_enabled translate="label">
+                <label>Is Pinterest Enabled</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>410</sort_order>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <value>0</value>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                </depends>
+            </is_pinterest_enabled>
+
+            <!-- Reddit -->
+            <is_reddit_enabled translate="label">
+                <label>Is Reddit Enabled</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>510</sort_order>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <value>0</value>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                </depends>
+            </is_reddit_enabled>
+
+            <!-- Delicious -->
+            <is_delicious_enabled translate="label">
+                <label>Is Delicious Enabled</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>610</sort_order>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <value>0</value>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                </depends>
+            </is_delicious_enabled>
+            <delicious_provider translate="label">
+                <label>Delicious Provider</label>
+                <description><![CDATA[Company who is sharing the url]]></description>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>630</sort_order>
+                <type>text</type>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                    <is_delicious_enabled>
+                        <value>1</value>
+                    </is_delicious_enabled>
+                </depends>
+            </delicious_provider>
+
+            <!-- Evernote -->
+            <is_evernote_enabled translate="label">
+                <label>Is Evernote Enabled</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>710</sort_order>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <value>0</value>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                </depends>
+            </is_evernote_enabled>
+
+            <!-- StumbleUpon -->
+            <is_stumbleupon_enabled translate="label">
+                <label>Is StumbleUpon Enabled</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>810</sort_order>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <value>0</value>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                </depends>
+            </is_stumbleupon_enabled>
+
+            <!-- Digg -->
+            <is_digg_enabled translate="label">
+                <label>Is Digg Enabled</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>910</sort_order>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <value>0</value>
+                <depends>
+                    <is_enabled>
+                        <value>1</value>
+                    </is_enabled>
+                </depends>
+            </is_digg_enabled>
+
+            <template translate="label">
+                <label>Template</label>
+                <required>1</required>
+                <visible>1</visible>
+                <sort_order>10000</sort_order>
+                <type>select</type>
+                <value>neklo/sharebuttons/widget/button/list.phtml</value>
+                <values>
+                    <featured translate="label">
+                        <value>neklo/sharebuttons/widget/button/list.phtml</value>
+                        <label>Share Buttons Template</label>
+                    </featured>
+                </values>
+            </template>
+        </parameters>
+    </neklo_sharebuttons>
+</widgets>

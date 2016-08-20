@@ -1,0 +1,53 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+?>
+<?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
+<div class="product-image product-image-zoom" style="height:400px; overflow:scroll; ">
+    <?php
+        $_img = '<img id="image" src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(600).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+    ?>
+
+		    <div class="modal hide fade" id="myGallery_<?php echo $_product->getId()?>">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <h3><?php echo $_product->getName()?></h3>
+                </div>
+			    <div class="modal-body">
+			    	<?php echo $this->getLayout()->createBlock('catalog/product_gallery')->setTemplate('catalog/product/gallery.phtml')->toHtml()?>
+			    	<img src="<?php echo $this->helper('catalog/image')->init($_product, 'image')?>" alt="<?php echo $this->htmlEscape($this->getImageLabel())?>" title="<?php echo $this->htmlEscape($this->getImageLabel())?>" />
+			    </div>
+			    <div class="modal-footer">
+			    <a href="#" class="btn" data-dismiss="modal">Close</a>
+			    </div>
+		    </div>
+			            <a class="" data-toggle="modal" href="#myGallery_<?php echo $_product->getId()?>">
+			            	<?php echo $_helper->productAttribute($_product, $_img, 'image'); ?>
+			            </a>
+</div>
+<?php else: ?>
+<p class="product-image">
+    <?php
+        $_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+        echo $_helper->productAttribute($_product, $_img, 'image');
+    ?>
+</p>
+<?php endif; ?>

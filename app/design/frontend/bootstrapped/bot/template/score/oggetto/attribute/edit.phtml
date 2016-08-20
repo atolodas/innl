@@ -1,0 +1,49 @@
+<?php $attribute = $this->getAttributeByCode();
+if(is_object($attribute)) { ?>
+<ul>
+      <li class="row">
+        <span class="col-md-11">
+          <label class="desc">
+            <?php echo $attribute->getFrontendLabel() ?>
+            <?php if($attribute->getIsRequired()) { ?> <span class="req">*</span> <?php } ?>
+         </label>
+          <span>
+	        <?php switch($this->getFieldType()) {
+                case 'text': ?>
+                  <input id="<?php echo Mage::registry('current_oggetto')->getId().'-'.$attribute->getAttributeCode() ?>-attr" name="<?php echo $attribute->getAttributeCode() ?>" type="text" class="editable-attribute field text medium <?php echo $attribute->getFrontendClass() ?>" value="<?php if($oggy = Mage::registry('current_oggetto')) { echo $oggy->getData($attribute->getAttributeCode());  } ?>" maxlength="255" <?php if($attribute->getIsRequired()) { ?> required="" <?php } ?> />
+                <?php break;
+                case 'multiselect':  ?>
+                  <select id="<?php echo Mage::registry('current_oggetto')->getId().'-'.$attribute->getAttributeCode() ?>-attr" multiple="true" size="5"  name="<?php echo $attribute->getAttributeCode() ?>" type="text" class="editable-attribute field medium <?php echo $attribute->getFrontendClass() ?>" value="" maxlength="255" <?php if($attribute->getIsRequired()) { ?> required="" <?php } ?>>
+                    <?php $options = $attribute->getSource()->getAllOptions(false);
+                    foreach($options as $key=>$value) { ?>
+                      <option 	<?php if(Mage::registry('current_oggetto') && in_array($value['value'],explode(',',Mage::registry('current_oggetto')->getData($attribute->getAttributeCode())))) { echo "selected='selected'";  } ?> value="<?php echo $value['value'] ?>"><?php echo $value['label'] ?></option>
+                    <?php }	?>
+                  </select>
+                <?php break;
+                 case 'select':
+                 case 'boolean':
+                   $options = $attribute->getSource()->getAllOptions(false);
+                 ?>
+                 <select id="<?php echo Mage::registry('current_oggetto')->getId().'-'.$attribute->getAttributeCode() ?>-attr" name="<?php echo $attribute->getAttributeCode() ?>" type="text" class="editable-attribute field medium <?php echo $attribute->getFrontendClass() ?>" value="" maxlength="255" <?php if($attribute->getIsRequired()) { ?> required="" <?php } ?>>
+                    <?php foreach($options as $key=>$value) { ?>
+                      <option 	<?php if(Mage::registry('current_oggetto') && in_array($value['value'],explode(',',Mage::registry('current_oggetto')->getData($attribute->getAttributeCode())))) { echo "selected='selected'";  } ?> value="<?php echo $value['value'] ?>"><?php echo $value['label'] ?></option>
+                    <?php }	?>
+                  </select>
+                 <?php
+                  break;
+                default:
+                break;
+                } ?>
+          </span>
+        </span>
+        <span class="col-md-5">
+
+        </span>
+      </li>
+      </ul>
+      <script type="text/javascript">
+       var elem = $("<?php echo Mage::registry('current_oggetto')->getId().'-'.$attribute->getAttributeCode() ?>-attr");
+       elem.on('change', function() { saveAttribute('<?php echo Mage::registry('current_oggetto')->getId()?>',this.name,this.value, this); });
+
+      </script>
+<?php } ?>

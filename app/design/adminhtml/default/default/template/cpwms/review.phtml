@@ -1,0 +1,21 @@
+<?php
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="<?php echo $this->getHeaderWidth() ?>">
+                    <?php echo $this->getHeaderHtml() ?>
+            </td>
+            <td class="a-right">
+                <?php echo $this->getButtonsHtml() ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php if( !$this->isSingleStoreMode() ): ?>
+<?php echo $this->getChildHtml('store_switcher');?>
+<?php endif;?>
+<?php echo $this->getChildHtml('order_switcher');?>
+<div>
+    <?php echo $this->getGridHtml() ?>
+</div>

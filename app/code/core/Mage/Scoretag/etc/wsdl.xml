@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+    name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+            <complexType name="scoreOggettoScoretagListEntity">
+                <all>
+                    <element name="scoretag_id" type="xsd:string" minOccurs="1" />
+                    <element name="name" type="xsd:string" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoScoretagListEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:scoreOggettoScoretagListEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="scoreOggettoScoretagAddEntity">
+                <all>
+                    <element name="scoretag" type="xsd:string" minOccurs="1" />
+                    <element name="oggetto_id" type="xsd:string" minOccurs="1" />
+                    <element name="customer_id" type="xsd:string" minOccurs="1" />
+                    <element name="store" type="xsd:string" minOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoScoretagUpdateEntity">
+                <all>
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                    <element name="status" type="xsd:string" minOccurs="0" />
+                    <element name="base_popularity" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="scoreOggettoScoretagInfoEntity">
+                <all>
+                    <element name="name" type="xsd:string" minOccurs="1" />
+                    <element name="status" type="xsd:string" minOccurs="1" />
+                    <element name="base_popularity" type="xsd:string" minOccurs="1" />
+                    <element name="oggettos" type="typens:associativeArray" minOccurs="1" />
+                </all>
+            </complexType>
+        </schema>
+    </types>
+
+    <message name="scoreOggettoScoretagListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="oggettoId" type="xsd:string" />
+        <part name="store" type="xsd:string" />
+    </message>
+    <message name="scoreOggettoScoretagListResponse">
+        <part name="result" type="typens:scoreOggettoScoretagListEntityArray" />
+    </message>
+    <message name="scoreOggettoScoretagInfoRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="scoretagId" type="xsd:string" />
+        <part name="store" type="xsd:string" />
+    </message>
+    <message name="scoreOggettoScoretagInfoResponse">
+        <part name="result" type="typens:scoreOggettoScoretagInfoEntity" />
+    </message>
+    <message name="scoreOggettoScoretagAddRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="data" type="typens:scoreOggettoScoretagAddEntity" />
+    </message>
+    <message name="scoreOggettoScoretagAddResponse">
+        <part name="result" type="typens:associativeArray" />
+    </message>
+    <message name="scoreOggettoScoretagUpdateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="scoretagId" type="xsd:string" />
+        <part name="data" type="typens:scoreOggettoScoretagUpdateEntity" />
+        <part name="store" type="xsd:string" />
+    </message>
+    <message name="scoreOggettoScoretagUpdateResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+    <message name="scoreOggettoScoretagRemoveRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="scoretagId" type="xsd:string" />
+    </message>
+    <message name="scoreOggettoScoretagRemoveResponse">
+        <part name="result" type="xsd:boolean" />
+    </message>
+
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="scoreOggettoScoretagList">
+            <documentation>Retrieve list of scoretags by oggetto</documentation>
+            <input message="typens:scoreOggettoScoretagListRequest" />
+            <output message="typens:scoreOggettoScoretagListResponse" />
+        </operation>
+    </portType>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="scoreOggettoScoretagInfo">
+            <documentation>Retrieve oggetto scoretag info</documentation>
+            <input message="typens:scoreOggettoScoretagInfoRequest" />
+            <output message="typens:scoreOggettoScoretagInfoResponse" />
+        </operation>
+    </portType>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="scoreOggettoScoretagAdd">
+            <documentation>Add scoretag(s) to oggetto</documentation>
+            <input message="typens:scoreOggettoScoretagAddRequest" />
+            <output message="typens:scoreOggettoScoretagAddResponse" />
+        </operation>
+    </portType>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="scoreOggettoScoretagUpdate">
+            <documentation>Update oggetto scoretag</documentation>
+            <input message="typens:scoreOggettoScoretagUpdateRequest" />
+            <output message="typens:scoreOggettoScoretagUpdateResponse" />
+        </operation>
+    </portType>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="scoreOggettoScoretagRemove">
+            <documentation>Remove oggetto scoretag</documentation>
+            <input message="typens:scoreOggettoScoretagRemoveRequest" />
+            <output message="typens:scoreOggettoScoretagRemoveResponse" />
+        </operation>
+    </portType>
+
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="scoreOggettoScoretagList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+    </binding>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="scoreOggettoScoretagInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+    </binding>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="scoreOggettoScoretagAdd">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+    </binding>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="scoreOggettoScoretagUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+    </binding>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="scoreOggettoScoretagRemove">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+    </binding>
+
+    <service name="{{var wsdl.name}}Service">
+        <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+            <soap:address location="{{var wsdl.url}}" />
+        </port>
+    </service>
+</definitions>

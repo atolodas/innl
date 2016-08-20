@@ -1,0 +1,60 @@
+<div class="col-md-12">
+	<h4 class="section-header"><?php echo $this->__('Templates') ?>
+		<div class="form-buttons pull-right mbottom5">
+			<button type="button" class="btn btn-large btn-info f15 simpleAjaxInner"  href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/editTemplate/id/0' ?>"><?php echo $this->__('Add new template') ?></button>
+		</div>
+	</h4>
+</div>
+
+<div class="list centered">
+	<div class="col-md-12 header white p5 mbottom10"> 
+		
+		<div class="col-md-3 col-xs-3"><?php echo $this->__('Template title') ?></div>
+		<div class="col-md-2 col-xs-2"><?php echo $this->__('Use for') ?></div>
+		<div class="col-md-2 col-xs-2"><?php echo $this->__('Type') ?></div>
+		<div class="col-md-3 col-xs-3"><?php echo $this->__('Actions') ?></div>
+
+	</div>
+	<?php 
+	$kinds = array(
+		'main'=>$this->__('Main page for Object'),
+		'parent'=>$this->__('Object parent template'),
+		'child'=>$this->__('Object child template'),
+		'list'=>$this->__('Object template for list'),
+		'grid'=>$this->__('Object template for grid'),
+		'mygrid'=>$this->__('Template for "My objects" grid'),
+		'mylist'=>$this->__('Template for "My objects" list'),
+		'customer_list'=>$this->__('Template for Users list'),
+		'customer_main'=>$this->__('Template for User main page'),
+		);
+	foreach ($this->getTemplates() as $block) {  
+		$setName = Mage::helper('score/oggetto')->getSetNameById($block->getType());
+		?>
+		<div class="col-md-12"> 
+			<div class="col-md-3 col-xs-3"><?php echo $block->getHeader() ?></div>
+			<div class="col-md-2 col-xs-2"><?php echo ($setName?$setName:$block->getType())  ?></div>
+			<div class="col-md-2 col-xs-2"><?php echo isset($kinds[$block->getKind()])?$kinds[$block->getKind()]:$block->getKind() ?></div>
+			<div class="col-md-3 col-xs-3">
+				<a class="simpleAjaxInner" href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/editTemplate/id/'.$block->getId() ?>" title="Edit">
+					<i class="fa fa-edit f20 black mright20"></i> 
+				</a> 
+				
+				<?php /* if(Mage::registry('scode') != 'demo') { ?> 
+				<a class="simpleAjaxNoAction" href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/deleteBlock/id/'.$block->getId() ?>" title="Delete">
+				<i class="fa fa-remove f20 black mright20" onclick="simpleAjax('<?php echo $this->getUrl('manage/blocks') ?>',false)"></i>  </a>
+				<?php } else { ?> 
+					<i class="fa fa-remove f20 grey disabled mright20"></i>
+					<?php } */ ?>
+				</div>
+				<hr class="col-md-12" style="color:grey; height: 2px; margin:0;padding:0;" />
+			</div>
+
+			<?php } 
+			if(isset($_GET['openlast'])) { ?>
+			<script type="text/javascript">
+			simpleAjaxInner('<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/editTemplate/id/'.$block->getId() ?>');
+			</script>
+			<?php } ?>
+		</div>	
+
+

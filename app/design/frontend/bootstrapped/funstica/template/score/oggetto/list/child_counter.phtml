@@ -1,0 +1,27 @@
+<?php 
+$counter = 0;
+ $items = $this->getItems();
+if(($this->getLocalise() && $this->getLocalise() != ',,,')) { 
+$oggetto = Mage::registry('current_oggetto');
+if(!is_object($oggetto)) $oggetto = Mage::registry('oggetto');
+if($oggetto->getChildCounter()) $counter = $oggetto->getChildCounter();
+
+
+if(!$counter) { 
+	$counter = $items->getSize();
+}
+if($counter): ?> 
+	<span class="cntr">
+		<?php echo $counter;?>
+	</span>
+<?php endif; 
+if($counter) echo Mage::helper('dcontent')->localise($this->getLocalise(), $counter);
+} else { 
+if($counter = $items->getSize()): 
+echo $counter.' ';
+else:
+$counter = 0;
+echo '0 ';
+endif;
+echo Mage::helper('dcontent')->localise($this->getLocalise(), $counter);
+} ?>

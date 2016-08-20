@@ -1,0 +1,6 @@
+<?php $_helper = $this->helper('score/output'); ?>
+<?php $_oggetto = $this->getOggetto(); ?>
+<?php if($output = Mage::app()->getLayout()->getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($_oggetto,'main','col_left')) {
+	echo $output;
+}
+?>

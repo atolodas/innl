@@ -1,0 +1,48 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_eventss = $this->getEventss(); ?>
+<div class="page-title events-title">
+    <h3><?php echo Mage::helper('ultimate_events')->__('Events') ?></h3>
+</div>
+
+
+<?php if ($_eventss->getSize() > 0) : ?>
+   
+<?php //echo $this->getPagerHtml(); ?>
+
+<div id='calendar'></div>
+<script>
+
+	$(document).ready(function() {
+
+		$('#calendar').fullCalendar({
+			defaultDate: '2014-11-11',
+			editable: true,
+			events: [
+                            
+                                
+                                <?php foreach ($_eventss as $_events) : ?>
+                                    {
+					title: '<?php echo $_events->getTitle();?>',
+					start: '<?php echo $_events->getDate();?>',
+                                        url: '<?php echo $_events->getEventsUrl()?>',
+                                    },
+                                <?php endforeach;?>
+                                    
+			]
+		});
+		
+	});
+
+</script>
+<style type="text/css">
+#calendar {
+    width: 900px;
+    margin: auto;
+}
+</style>
+
+<?php else : ?>
+    <?php echo Mage::helper('ultimate_events')->__('There are no events at this moment');?>
+<?php endif;?>
+
+<?php //echo $this->getPagerHtml(); ?>

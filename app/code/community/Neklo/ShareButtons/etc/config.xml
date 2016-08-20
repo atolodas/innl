@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+NOTICE OF LICENSE
+
+This source file is subject to the NekloEULA that is bundled with this package in the file ICENSE.txt.
+
+It is also available through the world-wide-web at this URL: http://store.neklo.com/LICENSE.txt
+
+Copyright (c)  Neklo (http://store.neklo.com/)
+-->
+<config>
+    <modules>
+        <Neklo_ShareButtons>
+            <version>1.0.1</version>
+        </Neklo_ShareButtons>
+    </modules>
+    <global>
+        <blocks>
+            <neklo_sharebuttons>
+                <class>Neklo_ShareButtons_Block</class>
+            </neklo_sharebuttons>
+        </blocks>
+        <helpers>
+            <neklo_sharebuttons>
+                <class>Neklo_ShareButtons_Helper</class>
+            </neklo_sharebuttons>
+        </helpers>
+        <models>
+            <neklo_sharebuttons>
+                <class>Neklo_ShareButtons_Model</class>
+            </neklo_sharebuttons>
+        </models>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <neklo_sharebuttons>
+                    <file>neklo/sharebuttons.xml</file>
+                </neklo_sharebuttons>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Neklo_ShareButtons>
+                    <files>
+                        <default>Neklo_ShareButtons.csv</default>
+                    </files>
+                </Neklo_ShareButtons>
+            </modules>
+        </translate>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Neklo_ShareButtons>
+                    <files>
+                        <default>Neklo_ShareButtons.csv</default>
+                    </files>
+                </Neklo_ShareButtons>
+            </modules>
+        </translate>
+    </adminhtml>
+    <default>
+        <neklo_sharebuttons>
+            <general>
+                <is_enabled>1</is_enabled>
+            </general>
+        </neklo_sharebuttons>
+    </default>
+</config>

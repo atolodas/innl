@@ -1,0 +1,8 @@
+#main-navbar div, .page-content-wrapper div {
+  padding: 5px;
+
+}
+.container, .container-fluid {
+	padding: 0 !important;
+	width: 100%;
+}

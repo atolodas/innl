@@ -1,0 +1,40 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<div id="fade">&nbsp;</div>
+<div class="row">
+<label class="pointer btn-navbar" onclick="toggleMobileMenu('#mobile-menu','right')">
+   <i class="fa fa-bars f25 white inline pull-right mtop10 mright10"></i>
+</label>
+<span id="left-mobile"></span>
+<div class="span white">
+	<a href="<?php echo $this->getUrl('') ?>" class="white">
+	<?php $html =  $this->getLogoAlt();
+		$noHtml = strip_tags($html);
+		if($html != $noHtml) { echo $html; } else { 
+	?>
+	    	<strong><h3 class="m5 f20" style="font-family:Verdana"><?php echo $noHtml ?></h3></strong>
+	<?php } ?>
+    </a>
+</div>
+<div class="nav-collapse" id="mobile-menu">
+	  <?php echo $this->getChildHtml('topLinks') ?>
+    <?php //echo $this->getChildHtml('topOggettoSearch') ?>
+</div><!--/.nav-collapse -->
+
+<?php 
+$url = Mage::helper('core/url')->getCurrentUrl();
+if(substr_count($url, 'customer/account') == 0) Mage::getSingleton('customer/session')->setBeforeAuthUrl($url); ?>
+
+</div>

@@ -1,0 +1,46 @@
+<div class="box-collateral box-tags">
+    <?php if( $this->getCount() ): ?>
+   <div class="red-label">Click to vote if you agreed this  </div> <br/>
+    <script type='text/javascript'>
+      function voteForTag(id,button,url, tag) {
+        button.addClassName('disabled');
+
+        new EasyAjax.Request(url, {
+                method: 'post',
+                action_content: '',
+                parameters: {easy_ajax: 1},
+                onComplete: function (transport)
+                {
+                        var data = transport.responseText;
+                        $('success'+id).innerHTML = 'Thanks for voting on <strong>\''+tag+'\'</strong>.';
+                }
+                });
+      }
+    </script>
+    <?php echo $this->renderScoretagsShort('<button class="btn" onclick="voteForTag(\''.$this->getCurrentOggettoId().'\',this,\''.(Mage::getBaseUrl()).'scoretag/index/saveAjax/oggetto/'.$this->getCurrentOggettoId().'/oggettoScoretagName/%2$s \',\'%2$s\')"><span>%2$s? </span></button>') ?>
+
+    <?php endif;   ?>
+    <br/>
+    <div class="red-label" id="success<?php echo $this->getCurrentOggettoId() ?>"></div>
+
+    <?php /* ?> <br/>
+    <form id="addTagForm" action="<?php echo $this->getFormAction(); ?>" method="get" class="form-inline">
+            <input type="text" class="input-text required-entry" name="oggettoScoretagName" id="oggettoScoretagName" style="margin:0" />
+            <button type="button" title="<?php echo $this->__('Add Tags') ?>" class="btn" onclick="submitTagForm()">
+                <span>
+                    <span><?php echo $this->__('Add Your Tags') ?></span>
+                </span>
+            </button>
+    </form>
+    <p class="note" style="font-size:11px;"><?php echo $this->__("Use spaces to separate tags. Use single quotes (') for phrases.") ?></p>
+    <script type="text/javascript">
+    //<![CDATA[
+        var addTagFormJs = new VarienForm('addTagForm');
+        function submitTagForm(){
+            if(addTagFormJs.validator.validate()) {
+                addTagFormJs.form.submit();
+            }
+        }
+    //]]>
+    </script> <?php */ ?>
+</div>

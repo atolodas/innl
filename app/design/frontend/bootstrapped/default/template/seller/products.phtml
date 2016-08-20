@@ -1,0 +1,34 @@
+<div id="tabs" class="noborder col-md-12">
+	<ul>
+<?php 
+
+
+$tabs = array(
+		array('label'=>$this->__('Products'),'id'=>'products', 'content' => $this->getChildHtml('product.grid')),
+		array('label'=>$this->__('Import'),'id'=>'import', 'content' =>$this->getChildHtml('product.import')),
+   		 array('label'=>$this->__('API'),'id'=>'api','content' => ''),
+    
+	);
+
+foreach ($tabs as $_tab): ?>
+    <li 
+    class="pointer"
+    id="<?php echo $_tab['id'] ?>"
+    name="<?php echo $_tab['id'] ?>"
+    title="<?php echo $_tab['label'] ?>"
+    style="border-right:5px solid #fff">
+        <a class="black p10"  href="#<?php echo $_tab['id'] ?>_contents">
+           <?php echo $_tab['label']; ?>
+        </a>
+    </li>
+<?php endforeach; ?>
+</ul>
+<?php foreach ($tabs as $_tab): ?>
+     <div id="<?php echo $_tab['id'] ?>_contents" class="col-md-12 np mtop20"><?php echo $_tab['content'] ?></div>
+<?php endforeach; ?>
+</div>
+<script type="text/javascript">
+   jQuery(window).load(function() {
+    jQuery( "#tabs" ).tabs();
+  });  
+</script>

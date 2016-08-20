@@ -1,0 +1,18 @@
+<?php 
+$oggy = $this->getOggetto();
+if($oggy->getId()) {  ?>
+<block id="adminmode<?php echo $oggy->getId() ?>"></block>
+<script type="text/javascript">
+var html = '<div id="admincontrols<?php echo $oggy->getId() ?>" title="<?php echo $this->__('This block is visible only for super admin') ?>" class="f20 relative w100 centered nmt top0 right0 hidden" style="opacity:0.7" >'+
+	'<ul class="nm np">'+ 
+		'<li class="inline p5"><a title="<?php echo $this->__('Delete') ?> \'<?php echo $oggy->getName().$oggy->getTitle() ?>\'" href="<?php echo Mage::getBaseUrl() ?>score/oggetto/delete/id/<?php echo $oggy->getId(); ?>"><i class="black fa fa-remove"></i></a></li>'+
+		'<li class="inline p5"><a title="<?php echo $this->__('Edit') ?> \'<?php echo $oggy->getName().$oggy->getTitle() ?>\'" href="<?php echo $oggy->getUrl(); ?>?editmode"><i class="black fa fa-edit"></i></a></li>'+
+	'</ul>'+
+'</div>';
+var el = jQuery('#adminmode<?php echo $oggy->getId() ?>').prev();
+el.append(html);
+el.mouseover( function() { jQuery('#admincontrols<?php echo $oggy->getId() ?>').removeClass('hidden'); });
+el.mouseout( function() { jQuery('#admincontrols<?php echo $oggy->getId() ?>').addClass('hidden'); });
+</script>
+
+<?php } ?>

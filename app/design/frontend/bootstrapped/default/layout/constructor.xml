@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <default>
+        <reference name="root">
+            <action method="setTemplate"><template>page/empty.phtml</template></action>
+        </reference>
+    </default>
+
+    <constructor_index_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="googleanalytics/ga" name="google_analytics" as="google_analytics" template="googleanalytics/ga.phtml" />
+            <block type="core/template" name="constructor_start" template="constructor/start.phtml" />
+        </reference>
+    </constructor_index_index>
+
+    <constructor_index_welcome>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="googleanalytics/ga" name="google_analytics" as="google_analytics" template="googleanalytics/ga.phtml" />
+            <block type="core/template" name="constructor_start" template="constructor/welcome.phtml" />
+        </reference>
+    </constructor_index_welcome>
+
+
+    <manage_admin_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/empty.phtml</template></action>
+        </reference>
+    
+        <reference name="content">
+            <block type="googleanalytics/ga" name="google_analytics" as="google_analytics" template="googleanalytics/ga.phtml" />
+            <block type="constructor/admin" name="constructor_start" template="constructor/admin.phtml" />
+        </reference>
+    </manage_admin_index>
+
+    <manage_pages_pages>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_pages" template="constructor/pages.phtml" />
+        </reference>
+    </manage_pages_pages>
+
+    <manage_blocks_blocks>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_blocks" template="constructor/blocks.phtml" />
+        </reference>
+    </manage_blocks_blocks>
+
+    <manage_objects_objects>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_objects" template="constructor/objects.phtml" />
+        </reference>
+    </manage_objects_objects>
+
+    <manage_templates_templates>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_templates" template="constructor/templates.phtml" />
+        </reference>
+    </manage_templates_templates>
+
+     <manage_users_users>
+        <reference name="content">
+            <block type="core/template" name="users" template="constructor/users.phtml">
+                <block type="constructor/users" name="user.grid" />
+            </block>
+        </reference>
+    </manage_users_users>
+
+     <manage_forms_forms>
+        <reference name="content">
+            <block type="core/template" name="forms" template="constructor/forms.phtml">
+                    <block type="constructor/forms" name="forms.grid" />
+            </block>
+        </reference>
+    </manage_forms_forms>
+
+     <manage_products_products>
+        <reference name="content">
+            <block type="core/template" name="products" template="constructor/products.phtml">
+                    <block type="constructor/products" name="products.grid" />
+            </block>
+        </reference>
+    </manage_products_products>
+
+     <manage_categories_categories>
+        <reference name="content">
+            <block type="core/template" name="categories" template="constructor/categories.phtml">
+                    <block type="constructor/categories" name="categories.grid" />
+            </block>
+        </reference>
+    </manage_categories_categories>
+
+    <manage_general_general>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_general" template="constructor/config.phtml" />
+        </reference>
+    </manage_general_general>
+
+    <manage_web_web>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_domain" template="constructor/config.phtml" />
+        </reference>
+    </manage_web_web>
+
+    <manage_analytics_analytics>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_domain" template="constructor/config.phtml" />
+        </reference>
+    </manage_analytics_analytics>
+
+    <manage_design_design>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_domain" template="constructor/config.phtml" />
+        </reference>
+    </manage_design_design>
+
+    <constructor_admin_editpage>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_page" template="constructor/editPage.phtml" />
+        </reference>
+    </constructor_admin_editpage>
+
+    <constructor_admin_editblock>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_block" template="constructor/editBlock.phtml" />
+        </reference>
+    </constructor_admin_editblock>
+
+    <constructor_admin_edittemplate>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_template" template="constructor/editTemplate.phtml" />
+        </reference>
+    </constructor_admin_edittemplate>
+
+
+    <constructor_admin_editobject>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_object" template="constructor/editObject.phtml" />
+        </reference>
+    </constructor_admin_editobject>
+
+    <constructor_admin_editform>
+        <reference name="content">
+            <block type="constructor/admin" name="constructor_object" template="constructor/editForm.phtml" />
+        </reference>
+    </constructor_admin_editform>
+   
+</layout>

@@ -1,0 +1,143 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<?php
+/**
+ * Catalog advanced search form
+ *
+ * @see Mage_CatalogSearch_Block_Advanced_Form
+ */
+?> 
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?> 
+<style type="text/css">
+    input, select { width: 100%; }
+    .controls { display: block; clear: both;}
+    .control-label { color: #fff; }
+</style>
+<form action="<?php echo Mage::getBaseUrl().'scoresearch/advanced/result' ?>" method="get" id="form-validate" class="form-vertical p5">
+    <?php if($this->getSet()) { ?>
+        <input type="hidden" name="set" value="<?php echo $this->getSet() ?>"/> 
+    <?php } ?>
+     <fieldset>
+        <div class="form-list" id="advanced-search-list col-md-10 pull-right">
+            <?php 
+            $skip = array();
+            foreach ($this->getSearchableAttributes($this->getSet()) as $_attribute): ?>
+            <?php $_code = $_attribute->getAttributeCode();
+                //if($this->getAttributeInputType($_attribute) == 'string' && !Mage::helper('score/oggetto')->isDictionaryAttribute($_code) && !Mage::helper('score/oggetto')->isRelatedAttribute($_code)) continue;
+
+                $isRelated = Mage::helper('score/oggetto')->isRelatedAttribute($_code);
+                $isChain = Mage::helper('score/oggetto')->isChainAttribute($_code);
+                $isUser = Mage::helper('score/oggetto')->isUserAttribute($_code);
+                $isDict = Mage::helper('score/oggetto')->isDictionaryAttribute($_code);
+             ?>
+            <div class="control-group">
+                <label class="control-label" for="<?php echo $_code ?>"><?php echo $this->getAttributeLabel($_attribute) ?></label>
+                <?php switch($this->getAttributeInputType($_attribute)):
+                    case 'number': ?>
+                    <div class="controls">
+                        <input type="text" name="<?php echo $_code ?>[from]" value="<?php echo $this->htmlEscape($this->getAttributeValue($_attribute, 'from')) ?>" id="<?php echo $_code ?>" title="<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>" class="input-text validate-number" />
+                        <span class="separator">-</span>
+                        <input type="text" name="<?php echo $_code ?>[to]" value="<?php echo $this->htmlEscape($this->getAttributeValue($_attribute, 'to')) ?>" id="<?php echo $_code ?>_to" title="<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>" class="input-text validate-number" />
+                    </div>
+                    <?php break;
+                    case 'price': ?>
+                    <div class="controls">
+                        <input name="<?php echo $_code ?>[from]" value="<?php echo $this->htmlEscape($this->getAttributeValue($_attribute, 'from')) ?>" id="<?php echo $_code ?>" title="<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>"  class="input-text validate-number" type="text" />
+                        <span class="separator">-</span>
+                        <input name="<?php echo $_code ?>[to]" value="<?php echo $this->htmlEscape($this->getAttributeValue($_attribute, 'to')) ?>" id="<?php echo $_code ?>_to" title="<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>"  class="input-text validate-number" type="text" />
+                        <small>(<?php echo $this->getCurrency($_attribute); ?>)</small>
+                    </div>
+                    <?php break;
+                    case 'select': ?>
+                        <div class="controls">
+                            <?php echo $this->getAttributeSelectElement($_attribute) ?>
+                        </div>
+                    <?php break;
+                    case 'yesno': ?>
+                        <?php echo $this->getAttributeYesNoElement($_attribute) ?>
+                    <?php break;
+                    case 'date': ?>
+                    <div class="controls">
+                        <?php echo $this->getDateInput($_attribute, 'from') ?>
+                        <span class="separator">-</span>
+                        <?php echo $this->getDateInput($_attribute, 'to') ?>
+                    </div>
+                    <?php break;
+                    default: 
+                        // $(".js-example-basic-multiple").select2();
+                        //  <select class="js-example-basic-multiple" multiple="multiple">
+                  
+                 if ($isRelated && !$isChain) {
+
+                    $oggettos = Mage::getModel('score/oggetto')->getAvailableObjects($isRelated);
+                    $data = array();
+                    foreach ($oggettos as $object) {
+                        $data[$object->getId()] = $object->getTitle().' '.$object->getName();
+                    }
+                   
+                    ?>
+                    <script type="text/javascript">
+                        jQuery(document).ready(function(){
+                            jQuery('#<?php echo $_code ?>').select2({
+                                  placeholder: "<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>",
+                                  allowClear: true
+                                });
+                        });
+                    </script>
+                <?php
+                    } elseif($isDict) { 
+                            $data = array();
+                            $elements = Mage::helper('score/oggetto')->getDictionaryValues($isDict);
+                            foreach ($elements as $object) {
+                                $data[$object['id']] = $object['title'];
+                            }
+                                ?>
+                    <script type="text/javascript">
+                        jQuery(document).ready(function(){
+                            jQuery('#<?php echo $_code ?>').select2({
+                              placeholder: "<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>",
+                              allowClear: true
+                            });
+                        });
+                    </script>
+                <?php
+                    }
+                    ?>
+                    <div class="controls">
+                        <?php if(!empty($data)) { ?> 
+                             <select name="<?php echo $_code ?>" id="<?php echo $_code ?>" class="input-text <?php echo $this->getAttributeValidationClass($_attribute) ?>" >
+                                  <option value=""></option>
+                                  <?php foreach($data as $key => $value) { ?>
+                                    <option value="<?php echo $key ?>" <?php if($key == $this->getAttributeValue($_attribute)) echo "selected"; ?>><?php echo $value ?></option>
+                                   <?php } ?>
+                            </select>
+                       
+                        <?php } else { ?> 
+                        <input type="text" name="<?php echo $_code ?>" id="<?php echo $_code ?>" value="<?php echo $this->getAttributeValue($_attribute) ?>" title="<?php echo $this->htmlEscape($this->getAttributeLabel($_attribute)) ?>"  class="input-text <?php echo $this->getAttributeValidationClass($_attribute) ?>" />
+                        <?php } ?>
+                    </div>
+                <?php endswitch; ?>
+            </div>
+            <?php endforeach; ?>
+            
+        </div>
+        <button type="submit" title="<?php echo $this->__('Search') ?>" class="btn btn-large inline btn-success f20"><span><span><?php echo $this->__('Find') ?></span></span></button>
+            
+    </fieldset>
+</form>
+
+
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+//]]>
+</script>

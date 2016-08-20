@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <!--catalog>
+            <children>
+                <cpwms translate="title" module="cpwms">
+                    <title></title>
+                    <action>cpwms/adminhtml_xmlformat/index</action>
+                    <sort_order>1000</sort_order>
+                    <children>
+                        <main module="cpwms">
+                            <title>Manage XMLs formats</title>
+                            <sort_order>1</sort_order>
+                            <action>cpwms/adminhtml_xmlformat/index</action>
+                        </main>
+                        <review module="cpwms">
+                            <title>Review</title>
+                            <sort_order>2</sort_order>
+                            <action>cpwms/adminhtml_review/index</action>
+                        </review>
+                        <log module="cpwms">
+                            <title>Logging</title>
+                            <sort_order>3</sort_order>
+                            <action>cpwms/adminhtml_logging/index</action>
+                        </log>
+                        <replacer module="cpwms">
+                            <title>Replacer</title>
+                            <sort_order>3</sort_order>
+                            <action>cpwms/adminhtml_replacer/index</action>
+                        </replacer>
+                        <viewxmls module="cpwms">
+                            <title>View XMLs</title>
+                            <sort_order>3</sort_order>
+                            <action>cpwms/adminhtml_viewxmls/index</action>
+                        </viewxmls>
+                        <settings module="cpwms">
+                            <title>Settings</title>
+                            <sort_order>4</sort_order>
+                            <action>adminhtml/system_config/edit/section/common</action>
+                        </settings>
+                    </children>
+                </cpwms>
+            </children>
+        </catalog-->
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <cpwms module="cpwms">
+                                <title>WMS</title>
+                                <sort_order>1000</sort_order>
+                                <children>
+                                    <main module="cpwms">
+                                        <title>Manage XMLs formats</title>
+                                    </main>
+                                    <review module="cpwms">
+                                        <title>Review</title>
+                                    </review>
+                                    <log module="cpwms">
+                                        <title>Logging</title>
+                                    </log>
+                                    <settings module="cpwms">
+                                        <title>Settings</title>
+                                    </settings>
+                                </children>
+                            </cpwms>
+                        </children>
+                    </sales>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <common translate="title" module="cpwms">
+                                        <title>WMS Common Options Config Part</title>
+                                    </common>
+                                    <http translate="title" module="cpwms">
+                                        <title>WMS Http Options Config Part</title>
+                                    </http>
+                                    <soap translate="title" module="cpwms">
+                                        <title>WMS Soap Options Config Part</title>
+                                    </soap>
+                                    <ftp translate="title" module="cpwms">
+                                        <title>WMS Ftp Options Config Part</title>
+                                    </ftp>
+                                    <inventory_advice translate="title" module="cpwms">
+                                        <title>Inventory Advice Options Config Part</title>
+                                    </inventory_advice>
+                                    <aknowledgment translate="title" module="cpwms">
+                                        <title>Aknowledgment Options Config Part</title>
+                                    </aknowledgment>
+                                    <shipment translate="title" module="cpwms">
+                                        <title>Shipment Options Config Part</title>
+                                    </shipment>
+                                    <dumpmail translate="title" module="cpwms">
+                                        <title>WMS - Dump Mail Config Part</title>
+                                    </dumpmail>
+                                    <cpwms_dev translate="title" module="cpwms">
+                                        <title>WMS - Extra functions (for developers only)</title>
+                                    </cpwms_dev>
+                                    <cafepress_common translate="title" module="cpwms">
+                                        <title>Cafe Press Common Options Config Part</title>
+                                    </cafepress_common>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <catalog>
+                        <children>
+                            <cpwms>
+                                <title>Manage Synchronize Products</title>
+                                <sort_order>1000</sort_order>
+                            </cpwms>
+                        </children>
+                    </catalog>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

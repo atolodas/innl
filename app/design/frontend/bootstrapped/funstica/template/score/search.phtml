@@ -1,0 +1,22 @@
+<style type="text/css">
+.searchField { 
+width: 100%;
+color: #45517F;
+font-weight: bolder;
+font-size: 20px;
+background-color: lightblue; 
+text-transform: uppercase;
+}
+
+</style>
+<script type="text/javascript">
+	function searchObjects(event) {
+		var objectsType = '<?php echo $this->getObjects() ?>';
+		var eventType = event.type;
+		if(eventType == 'click' || (eventType == 'keyup' && event.keyCode == 13)) { 
+			filterObjectsByType(objectsType); 
+		}
+	}
+</script>
+<input type="text" name="queryTextField" id="queryText" placeholder="<?php echo $this->__('Search') ?>" class="searchField" onkeyup="searchObjects(event)"/>
+<i class="fa fa-search purple f25 absolute bold mtop5 pointer " style="right: 20px" onclick="searchObjects(event)"></i> 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config><modules>
+    <Shaurmalab_ScoreSearch>
+        <active>true</active>
+        <codePool>local</codePool>
+        <depends>
+            <Shaurmalab_Score/>
+        </depends>
+    </Shaurmalab_ScoreSearch>
+</modules></config>

@@ -1,0 +1,33 @@
+<div class="my-wishlist">
+    <div class="page-title">
+        <h3><?php echo $this->escapeHtml($this->getHeader()) ?></h3>
+    </div>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php if ($this->hasWishlistItems()): ?>
+        <fieldset>
+            <?php foreach($this->getWishlistItems() as $item): ?>
+                <?php
+                    $product = $item->getProduct();
+                    $isVisibleProduct = $product->isVisibleInSiteVisibility();
+                ?>
+                    <div class="col-md-3">
+                        <div class="well">
+                            <a class="product-image" href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>">
+
+                                <img src="<?php echo ($product->getRemoteImage()?$product->getRemoteImage():$this->helper('catalog/image')->init($product, 'small_image')); ?>" alt="<?php echo $this->escapeHtml($product->getName()) ?>" /></a>
+                            <h4 class="product-name"><a href="<?php echo $this->getProductUrl($item) ?>"><?php echo $this->escapeHtml($product->getName()) ?></a></h4>
+                            <?php echo $this->getPriceHtml($product) ?>
+                            <?php echo $this->getDetailsHtml($item) ?>
+                            <?php if ($product->isSaleable()): ?>
+                                <?php if ($isVisibleProduct): ?>
+                                    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="setLocation('<?php echo Mage::helper('checkout/cart')->getAddUrl($product) ?>')" class="btn btn-large btn-danger btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                                <?php endif ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+            <?php endforeach ?>
+        </fieldset>
+    <?php else: ?>
+        <p><?php echo $this->__('Wishlist is empty now.') ?></p>
+    <?php endif ?>
+</div>

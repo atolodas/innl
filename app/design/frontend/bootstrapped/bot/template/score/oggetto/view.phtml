@@ -1,0 +1,14 @@
+<?php $_helper = $this->helper('score/output'); ?>
+<?php $_oggetto = $this->getOggetto(); ?>
+<?php if(isset($_GET['editmode']) && $_oggetto->availableForSave()) {
+echo "<h3 class='well'> Edit {$_oggetto->getName()} </h3>";
+?>
+<?php
+echo Mage::app()->getLayout()->getBlockSingleton("score/oggetto_create")->setTemplate("score/oggetto/create_advanced.phtml")->toHtml();
+
+} else { ?>
+
+<?php if($output = Mage::app()->getLayout()->getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($_oggetto,'main')) {
+	echo $output;
+}
+} ?>

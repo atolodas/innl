@@ -1,0 +1,225 @@
+<div class="col-md-6 nml f15" id="col-left">
+    <?php switch(Mage::registry('slang')) {
+        case 'ru':
+            ?>
+            <div class="well"> 
+            <h3>Здравствуйте!</h3> <br/>
+            <br/>
+            В наше время огромных возможностей каждый имеет навыки, знания и опыт, и любой может превратить эти активы в процветающий бизнес в Интернете. Но не все могут быстро начать, вырастить бизнес и добиться успеха.
+            У одних нет знаний в веб-разработке или денег для инвестирования в создание веб-сервиса, другие не могут найти своих клиентов, третьи теряют страсть к делу из-за длительного и медленного развития.
+            И мы здесь, чтобы исправить это!<br/><br/>
+
+            Мы собираемся представить вам <strong>Конструктор Стартапов</strong>, предназначенный для создания абсолютно динамичных, гибких, легко управляемых и уникальных веб-сервисов.<br/>
+            Мы дадим вам начальную аудиторию и предоставим торговую площадку, где Вы сможете продать свои услуги или купить инструменты, которые сделают ВАШ стартап лучше.<br/>
+            Мы создадим <strong>Систему Сотрудничества Стартапов</strong>!<br/><br/>
+
+            Мы не говорим о проверке идеи стартапа на прочность.<br/>
+            Мы не говорим о создании посадочных (лендинг) страниц.<br/>
+            Мы говорим о создании полнофункционального стартапа, который будет приносить пользу и, возможно, деньги.<br/>
+            И если вы готовы действовать, нарушать правила и изменить мир (или создать новый) - мы открыты для регистрации Вашего Нового Стартапа!<br/><br/>
+
+            Оптимизируем Веб для лучшей жизни! Присоединяйтесь. 
+            </div>
+            <?php
+            break;
+        default:
+            ?>
+
+            <div class="well">
+                <h3>Howdy!</h3><br/>
+                <br/>
+
+                These days of greatest opportunities everyone has skills, knowledge and experience, and anyone can turn those assets into a thriving business on the web. But not all can start business quick, grow it and succeed.
+                Somebody have no knowledge in web-development or money for invest into development phase, others - can not find their customers, third - loosing passion because of long and slow process of growth.
+                And we are here to break the rules!<br/><br/>
+
+                We are going to present you a <strong>Startup Builder</strong> for absolutely dynamic, flexible, easy manageable and unique web-services.<br/>
+                We will give you initial auditory and will provide a marketplace where you will be able to sell your services or buy some tools to make your startup better.<br/>
+                We will create <strong>Startups Synergy System</strong>!<br/><br/>
+
+                Our service is not about validating startups ideas.<br/>
+                Our service is not about landing pages creation.<br/>
+                We are talking about creation of full functional Startup that will bring benefit and, possibly, money. <br/>
+                And if you are ready to act, to break the rules and change the world (or create new one) - we are open now for Your New Startup registration!<br/><br/>
+
+                PS All startups registered before end of 2014 will get 10% discount for all our services. Forever!<br/>
+                No kidding!<br/><br/>
+
+                We optimise the Web for better living. Join us!
+            </div>
+            <?php
+            break;
+
+    }
+    ?>
+</div>
+<?php
+
+if(Mage::getSingleton('customer/session')->isLoggedIn() == false) {
+?>
+
+    <div class="row-fluid">
+<div class="col-md-6 f12">
+    <div class="well">
+    <h3 class="centered"><?php echo $this->__('You have to login or register before you can create Your Startup'); ?></h3>
+    <?php echo Mage::getBlockSingleton("customer/form_login")->setTemplate("persistent/customer/form/login-constructor.phtml")->toHtml(); ?>
+
+<?php  //  echo Mage::getBlockSingleton("customer/form_register")->setTemplate("persistent/customer/form/register-constructor.phtml")->toHtml();
+?>
+</div>
+</div>
+    </div>
+<?php
+} else {
+    ?>
+    <div class="col-md-6 f12">
+     <div class="well">
+    <style>
+        input { font-size: 20px }
+        .validation-advice { width: 100%; display:block; float: right;}
+    </style>
+
+
+    <form method="post" id="formCreate" name="formCreate" action="<?php echo $this->getUrl('*/*/createApp') ?>" enctype="multipart/form-data">
+        <?php $attributes = array(
+            array('code'=> 'name', 'label' => 'Your startup name' , 'input' => 'text'),
+            array('code'=> 'base_url', 'label' => 'Subdomain', 'input' => 'text', 'class' => 'validate-alphanum',
+            'note' => 'Min 4 chars. Url of your Startup will look like "http://*Subdomain*.innl.co/". Later you will be able to attach your own domain to your startup'),
+            array('code'=> 'title', 'label' => 'Your startup tag line' , 'input' => 'text'),
+            array('code'=> 'logo', 'label' => 'Your Logo' , 'input' => 'image', 'note' => 'Allowed file types: PNG, GIF, JPG, JPEG'),
+            array('code'=> 'favicon', 'label' => 'Favicon' , 'input' => 'image', 'note' => 'Allowed file types: ICO, PNG, GIF, JPG, JPEG, APNG, SVG. Not all browsers support all these formats!'),
+            array('code'=> 'timezone', 'label' => 'Timezone', 'input' => 'select', 'options' => Mage::getModel('adminhtml/system_config_source_locale_timezone')->toOptionArray()),
+            array('code'=> 'locale', 'label' => 'Locale', 'input' => 'select', 'options' => Mage::getModel('adminhtml/system_config_source_locale')->toOptionArray()),
+
+            array('code'=> 'seo_description', 'label' => 'Description', 'input' => 'textarea', 'note' => 'Will be used for SEO'),
+            array('code'=> 'seo_keywords', 'label' => 'Keywords', 'input' => 'textarea', 'note' => 'Coma separated. Will be used for SEO'),
+        );
+        $post = Mage::getSingleton('customer/session')->getFormData();
+        ?>
+        <div><h3 class="centered">
+                <?php switch(Mage::registry('slang')) {
+                    case 'ru':
+                        echo 'Создай Свой Стартап Сегодня!';
+                        break;
+                    default:
+                        echo 'Create Your Startup Today!';
+                      break;
+
+                }
+            ?>
+        </h3></div>
+        <ul>
+        <?php
+        foreach ($attributes as $attribute) {
+            ?>
+            <li class="row-fluid  mtop20">
+        <span class=" mbottom10 clearer row-fluid">
+          <label class="desc inline col-md-3" style="margin-bottom: 10px !important;">
+              <?php echo $this->__($attribute['label']) ?>
+          </label>
+          <span id="<?php echo $attribute['code']?>-block" class="col-md-9">
+	        <?php
+            $code = $attribute['code'];
+
+
+            switch ($attribute['input']) {
+                case 'text':
+                    if(isset($_GET[$attribute['code']])) {
+                        $name = $_GET[$attribute['code']];
+                        echo "<h3>".$name."</h3>
+                        <input type='hidden' name='{$attribute['code']}' value='{$_GET[$attribute['code']]}' />";
+                    } else {
+                        ?>
+              <div class="input-append input-prepend">
+                  <?php if(isset($attribute['pre'])) { ?>
+                  <span class="add-on pbottom5 f15"><?php echo $attribute['pre'] ?></span>
+                            <?php } ?>
+                        <input name="<?php echo $attribute['code'] ?>"
+                               id="<?php echo $attribute['code'] ?>" type="text"
+                               class="input-text required-entry pull-left <?php echo (isset($attribute['class']))?$attribute['class']:'' ?>"
+                               value="<?php echo (isset($post[$attribute['code']])?$post[$attribute['code']]:'') ?>" maxlength="255"  />
+                  <?php if(isset($attribute['post'])) { ?>
+                      <span class="add-on pbottom5 f15"><?php echo $attribute['post'] ?></span>
+                  <?php } ?>
+                  </div>
+                    <?php
+                    }
+                    break;
+                case 'textarea':
+                    ?>
+                    <textarea name="<?php echo $attribute['code'] ?>"
+                              id="<?php echo $attribute['code'] ?>" rows="5" style="width:100%"
+                              class="nml input-text required-entry"><?php echo (isset($post[$attribute['code']])?$post[$attribute['code']]:'') ?></textarea>
+                    <?php break;
+                case 'select':
+                case 'boolean':
+                case 'multiselect':
+
+                    $options = $attribute['options'];
+                ?>
+
+                    <select
+                        id="<?php echo $attribute['code'] ?>" <?php if ($attribute['input'] == 'multiselect') {
+                        echo 'multiple="true" size="5"';
+                    } ?>
+                        name="<?php echo $attribute['code'] ?><?php if ($attribute['input'] == 'multiselect') {
+                            echo '[]';
+                        } ?>" type="text" style="width:100%" class="nml validate-select"
+                        value="" maxlength="255">
+                        <?php if (count($options)) { ?>
+                            <?php foreach ($options as $key => $value) {
+                                if($attribute['code']=='locale' && !in_array($value['value'],array('ru_RU','en_GB'))) {
+                                    continue;
+                                } else {
+                                    $value['label'] = ucfirst(preg_replace('/\(.*\)/','',$value['label']));
+                                }
+
+                                ?>
+                                <option value="<?php echo $value['value'] ?>" <?php echo ((isset($post[$attribute['code']]) && $post[$attribute['code']] == $value['value'])?'selected':'') ?>><?php echo  $this->__($value['label']) ?></option>
+                            <?php
+                            }
+                        }  ?>
+                    </select>
+                    <?php
+                    break;
+                case 'media_image':
+                case 'image':
+                    ?>
+                    <input name="<?php echo $attribute['code'] ?>"
+                           id="<?php echo $attribute['code'] ?>" type="file"
+                           class="nml absolute" style="z-index:-2;opacity: 0"
+                           value="" maxlength="255"   />
+                    <button class="btn-large btn-danger" type="button" onclick="jQuery('#<?php echo $attribute['code']  ?>').trigger('click')">
+                        <?php echo $this->__('Add '.$attribute['label']); ?>
+                    </button>
+
+                    <?php
+                    break;
+                default:
+                    break;
+            } ?>
+        <?php if(isset($attribute['note'])) { ?>
+              <span class="note pull-left col-md-12 nml" ><?php echo $this->__($attribute['note']) ?></span>
+              <?php } ?>
+          </span>
+        </span>
+        </li>
+      <?php } ?>
+
+
+        <li class="row-fluid" style="margin-top:10px;">
+   <span class="col-md-12">
+      <button class="btn-large btn-danger pull-right" type="submit"><?php echo $this->__('Create Startup') ?></button>
+    </span>
+        </li>
+
+        </ul>
+
+
+
+    </form>
+</div></div>
+<?php } ?>
+<script type="text/javascript">
+    var form = new VarienForm('formCreate',true);
+</script>

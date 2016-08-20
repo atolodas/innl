@@ -1,0 +1,23 @@
+<?php
+	$feeds = $this->getFeed();
+?>
+<?php $this->getSize() ?>
+<ul class="feed-list">
+<?php foreach($feeds as $feed): ?>
+	<li class="feed-item">
+		<div class="left-feed">
+			<?php if($this->getShowImage() == "true"): ?>
+			<?php echo $feed->getImage() ?>
+			<?php endif ?>
+		</div>
+		<div class="right-feed">
+			<h3 class="feed-title"><?php if($this->getShowTitle() == "true"): ?><a href="<?php echo $feed->getLink() ?>"><?php echo $feed->getTitle() ?></a><?php endif ?></h3>
+			<h3 class="feed-info"><?php if($this->getShowAuthor() == "true"): ?><?php echo $feed->getAuthor() ?> - <?php endif ?><?php if($this->getShowDate() == "true"): ?><?php echo $feed->getDate() ?><?php endif ?></h3>
+			<div class="feed-content">
+				<?php if($this->getShowDesc() == "true"): ?><?php echo $feed->getDescription() ?><?php endif ?>
+			</div>
+		</div>
+	</li>
+<?php endforeach ?>
+</ul>
+<p><a class="more-link" href="<?php echo $this->getMoreLink() ?>"><?php echo $this->getMoreText() ?></a>

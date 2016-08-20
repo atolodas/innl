@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Oggetto_Cacherecords>
+            <version>0.1.3</version>
+        </Oggetto_Cacherecords>
+    </modules>
+    <frontend>
+        <routers>
+            <cacherecords>
+                <use>standard</use>
+                <args>
+                    <module>Oggetto_Cacherecords</module>
+                    <frontName>cacherecords</frontName>
+                </args>
+            </cacherecords>
+        </routers>
+        <layout>
+            <updates>
+                <cacherecords>
+                    <file>cacherecords.xml</file>
+                </cacherecords>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+			<cacherecords>
+				<use>admin</use>
+				<args>
+					<module>Oggetto_Cacherecords</module>
+        				<frontName>cacherecords</frontName>
+				</args>
+			</cacherecords>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<custom_modules>
+            <title>Custom Modules</title>
+            <sort_order>180</sort_order>
+            <children>
+			<cacherecords translate="title" module="cacherecords">
+				<title>Cacherecords</title>
+				<sort_order>73</sort_order>
+				<children>
+					<items translate="title" module="cacherecords">
+						<title>Manage Items</title>
+						<sort_order>1</sort_order>
+						<action>cacherecords/adminhtml_cacherecords/index</action>
+					</items>
+				</children>
+			</cacherecords>
+			</children>
+			</custom_modules>
+		</menu>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+                        <cacherecords translate="title" module="cacherecords">
+                            <title>Cacherecords</title>
+                            <sort_order>73</sort_order>
+                            <children>
+                                <items translate="title" module="cacherecords">
+                                    <title>Manage Items</title>
+                                    <sort_order>1</sort_order>
+                                </items>
+                            </children>
+                        </cacherecords>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <referrersave translate="title" module="cacherecords">
+                                            <title>Referrersave config</title>
+                                        </referrersave>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<cacherecords>
+					<file>cacherecords.xml</file>
+				</cacherecords>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+    	<models>
+            <cacherecords>
+                <class>Oggetto_Cacherecords_Model</class>
+                <resourceModel>cacherecords_mysql4</resourceModel>
+            </cacherecords>
+            <cacherecords_mysql4>
+                <class>Oggetto_Cacherecords_Model_Mysql4</class>
+                <entities>
+                    <cacherecords>
+                        <table>cacherecords</table>
+                    </cacherecords>
+                </entities>
+            </cacherecords_mysql4>
+           
+        </models>
+        <resources>
+            <cacherecords_setup>
+                <setup>
+                    <module>Oggetto_Cacherecords</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </cacherecords_setup>
+            <cacherecords_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </cacherecords_write>
+            <cacherecords_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </cacherecords_read>
+        </resources>
+        <blocks>
+            <cacherecords>
+                <class>Oggetto_Cacherecords_Block</class>
+            </cacherecords>
+           <adminhtml>
+	    <rewrite>
+<widget_grid_column_filter_exttext>Oggetto_Cacherecords_Block_Adminhtml_Searchmany</widget_grid_column_filter_exttext>
+	    
+</rewrite>
+        </adminhtml>
+        </blocks>
+        <helpers>
+            <cacherecords>
+                <class>Oggetto_Cacherecords_Helper</class>
+            </cacherecords>
+        </helpers>
+        
+    </global>
+</config>

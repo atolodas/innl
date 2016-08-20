@@ -1,0 +1,40 @@
+<?php
+/**
+ * Ultimate_Events extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Ultimate
+ * @package        Ultimate_Events
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Events view template
+ *
+ * @category    Ultimate
+ * @package     Ultimate_Events
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $_events = $this->getCurrentEvents();?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title events-title">
+    <h3><?php echo $_events->getTitle(); ?></h3>
+</div>
+<div class="events-view">
+    <?php echo $_events->getDescription();?>
+    
+    <br /><br />
+    
+    <div class="events-date">
+            <strong>Event date</strong>
+            <?php echo Mage::helper('core')->formatDate($_events->getDate(), 'full');?>
+    </div>
+
+</div>

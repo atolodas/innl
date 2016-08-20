@@ -1,0 +1,43 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<?php
+/**
+ * Product list toolbar
+ *
+ * @see Mage_Catalog_Block_Product_List_Toolbar
+ */
+/* @var $this Mage_Catalog_Block_Product_List_Toolbar */
+?>
+
+<?php if($this->getCollection()->getSize()): ?>
+
+<div class="row-fluid">
+    <div>
+        <div class="row-fluid">
+            <div class="btn-toolbar thumbnail">
+                <div class="btn-group">
+                    <button class="btn"><?php echo $this->__('Show') ?></button>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                    <ul class="dropdown-menu" onchange="setLocation(this.value)">
+                        <?php foreach ($this->getAvailableLimit() as  $_key=>$_limit): ?>
+                        <li <?php if($this->isLimitCurrent($_key)): ?> class="active" <?php endif ?>>
+                            <a href="<?php echo $this->getLimitUrl($_key) ?>"><?php echo $_limit ?> <?php echo $this->__('per page') ?></a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div> <!-- /btn-group -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php endif ?>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <events_adminhtml_events_index>
+        <reference name="content">
+            <block type="events/adminhtml_events" name="events" />
+        </reference>
+    </events_adminhtml_events_index>
+</layout>

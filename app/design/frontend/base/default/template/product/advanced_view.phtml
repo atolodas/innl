@@ -1,0 +1,279 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @var $this Yoast_MetaRobots_Block_Catalog_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php
+$_helper = $this->helper('catalog/output');
+$_product = $this->getProduct();
+$catalog = Mage::getModel('catalog/product_type_grouped');
+$_associatedProducts = $catalog->getAssociatedProducts($_product);
+
+?>
+<!--SKU: <?php echo $_product->getSku();?>-->
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="product-view">
+<div class="product-essential">
+<form action="<?php echo $this->helper('pad')->getAddUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+<div class="no-display">
+    <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+    <input type="hidden" name="related_product" id="related-products-field" value="" />
+</div>
+
+<div class="product-shop">
+    <div class="product-name">
+        <h3>
+            <span><?php echo $_product->getAttributeText('brand')?></span><br />
+            <span class="small"><?php echo $_product->getCollectionStyle().' '. $_product->getColorDisplay() .' '.$this->__(' Rug');?></span>
+        </h3>
+    </div>
+
+    <div class="price">
+        <?php
+        if ($_product->isGrouped()) {
+            $prices = array();
+            $associated = $_product->getTypeInstance(true)->getAssociatedProductCollection($_product)->addAttributeToSelect('special_price');
+            foreach ($associated as $assoc) {
+                $prices[] = $assoc->getSpecialPrice();
+            }
+            $min_price = min($prices);
+            $max_price = max($prices);
+            $min_price = $this->helper('brands')->applyBrandPricing($_product->getBrand(), $min_price, $_product, 'min');
+            $max_price = $this->helper('brands')->applyBrandPricing($_product->getBrand(), $max_price, $_product, 'max');
+            $priceRange = Mage::helper('core')->currency($min_price, true, false) . ' - ' . Mage::helper('core')->currency($max_price, true, false);
+
+        } else {
+            $_price = $this->helper('brands')->applyBrandPricing($_product->getBrand(), $_product->getSpecialPrice(), $_product, 'min');
+            $priceRange =  Mage::helper('core')->currency($_price, true, false);
+        }
+        ?>
+        <?php echo $priceRange; ?>
+    </div>
+
+    <hr />
+
+    <?php if ($_product->getDescription()):?>
+        <div class="mb20 short-description">
+            <h3 style="font-weight: normal;"><?php echo $this->__('DESCRIPTION') ?></h3>
+            <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getDescription()), 'description') ?></div>
+        </div>
+    <?php endif;?>
+
+    <hr />
+
+    <div class="advanced-info" id="super-product-table">
+        <div class="left-label-m"><?php echo $this->__('MATERIAL') ?></div>
+        <div class="left-value"><?php echo $_product->getMaterialDescription()?></div>
+        <div class="clear h30"></div>
+        <hr />
+
+        <div class="left-label-m"><?php echo $this->__('CONSTRUCTION') ?></div>
+        <div class="left-value"><?php echo $_product->getConstructionDescription()?></div>
+        <div class="clear h30"></div>
+        <hr />
+
+        <div class="h30"></div>
+        <div class="left-label"><?php echo $this->__('1. SELECT COLOR') ?></div>
+        <?php $products = Mage::getBlockSingleton('onotole/catalog_product_list_morecolors')->getProducts($_product,1,1); ?>
+        <select name="colors" onchange="location.href=this.value">
+            <?php if(count($products)>0):?>
+                <option value=""><?php echo 'A. '.$_product->getColorDisplay() ?></option>
+                <?php $arr = array('B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29');
+                $i = 0;
+                $statuses = Mage::getSingleton('catalog/product_status')->getVisibleStatusIds();
+                foreach($products as $relproduct):
+                    if($relproduct->getId()!=$_product->getId()):
+                        $url_key = $relproduct->getUrlKey();?>
+                        <option onclick="location.href='<?php echo Mage::getBaseUrl().$url_key.'.html' ?>'" value="<?php echo Mage::getBaseUrl().$url_key.'.html' ?>"><?php echo $arr[$i].'. '.$relproduct->getColorDisplay() ?> </option>
+                        <?php ++$i;  ?>
+                    <?php endif ?>
+                <?php endforeach ?>
+            <?php else: $url_key = $_product->getUrlKey();?>
+                <option value="<?php echo Mage::getBaseUrl().$url_key.'.html'  ?>"><?php echo 'A. '.$_product->getColorDisplay() ?></option>
+            <?php endif;
+            ?>
+        </select>
+        <div class="clear h30"></div>
+
+        <div class="left-label"><?php echo $this->__('2. SELECT SIZE') ?></div>
+        <select class="validate-select" name="size" onchange="changePad(this.value)">
+            <option value="" onclick="changePad(0)"><?php echo $this->__('Click for Size')?></option>
+
+            <?php if (count($_associatedProducts)):?>
+                <?php $id = -1;?>
+                <?php foreach ($_associatedProducts as $_item): ?>
+                    <?php
+                    $_price = $this->helper('brands')->applyBrandPricing($_item->getBrand(), $_item->getSpecialPrice(), $_item, 'min');
+                    $price =  Mage::helper('core')->currency($_price, true, false);?>
+                    <option  value="<?php echo $_item->getId()?>">
+                        <?php echo $this->escapeHtml($_item->getSizeActual()) ?>
+                        <?php echo $this->escapeHtml($_item->getAttributeText('shape')) ?>
+                        (<?php echo $price ?>)
+                    </option>
+                    <?php
+                    if (!isset($result[$_item->getShape()]) || !$result[$_item->getShape()]) {
+                        $id = $_item->getShape();
+                        $result[$id] = 1;
+                    } else {
+                        $id = $_item->getShape();
+                        $result[$id] = $result[$id] + 1;
+                    }
+                    ?>
+                <?php endforeach ?>
+                <?php arsort($result); reset($result); Mage::register('main_shape', key($result))?>
+            <?php else: ?>
+                <?php
+                $_price = $this->helper('brands')->applyBrandPricing($_product->getBrand(), $_product->getSpecialPrice(), $_product, 'min');
+                $price =  Mage::helper('core')->currency($_price, true, false);
+                ?>
+                <option value="<?php echo $_product->getId()?>">
+                    <?php echo $this->escapeHtml($_product->getSizeActual()) ?>
+                    (<?php echo $price ?>)
+                </option>
+            <?php endif ?>
+        </select>
+        <input id="item-qty" type="hidden" name="" value="1" />
+        <div class="clear h30"></div>
+
+        <div class="left-label"><?php echo $this->__('3. SELECT PAD') ?></div>
+        <select id="select_pads_" name="pad">
+            <?php echo Mage::helper('pad')->getSelectPadOptions(0) ?>
+        </select>
+
+        <?php if($_product->isSaleable()): ?>
+            <div class="clear h30"></div>
+            <div class="wish-links">
+                <a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>">
+                    <?php echo $this->__('Email this to me')?>
+                </a>
+                <br />
+                <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                    <a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>">
+                        <?php echo $this->__('Add to wishlist')?>
+                    </a>
+                <?php endif ?>
+            </div>
+            <div class="add-to-cart-product">
+                <?php echo $this->getChildHtml('addtocart') ?>
+            </div>
+        <?php endif ?>
+        <div class="clear h30"></div>
+
+        <div>
+            <div style="float: left">
+                <a href="http://pinterest.com/pin/create/button/?url=<?php echo $_product->getUrlKey()?>&media=<?php echo $this->helper('catalog/image')->init($_product, 'image')?>&description=<?php echo $_product->getAttributeText('brand')?> <?php echo $_product->getCollectionStyle().' '. $_product->getColorDisplay().' '.$this->__(' Rug');?>" class="pin-it-button" count-layout="none">
+                    <span class="pinterest-image" title="Pin It"></span>
+                </a>
+                <div class="g-plusone" data-size="medium" data-annotation="none"></div>
+                <script type="text/javascript">
+                    (function () {
+                    var po = document.createElement('script');
+                    po.type = 'text/javascript';
+                    po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(po, s);
+                    })();
+                </script>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="Rugzilla"
+                   data-count="none">Tweet</a>
+                <script>!function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//platform.twitter.com/widgets.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                    }
+                    }(document, "script", "twitter-wjs");</script>
+            </div>
+            <div style="float: left;width: 200px; margin-left: 2px">
+                <fb:like send="false" layout="button_count" width="200" show_faces="false"></fb:like>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="product-img-box">
+    <?php echo $this->getChildHtml('media') ?>
+</div>
+
+<div class="clear h30"></div>
+
+<?php if (count(Mage::getBlockSingleton('catalog/product_view_media')->getGalleryImages($_product)) > 0): ?>
+    <div class="more-views">
+        <h3><?php echo $this->__('More Views') ?></h3>
+        <ul>
+            <?php foreach (Mage::getBlockSingleton('catalog/product_view_media')->getGalleryImages($_product) as $_image): ?>
+                <li>
+                    <?php
+                    $file = BP . DS . 'media' . DS . 'catalog' . DS . 'product' . DS . $_image->getFile();
+                    if (file_exists($file)) {
+                        list($width, $height) = getimagesize($file);
+                        $scale= $width/$height;
+                        $scale2 = $height/$width;
+                    } else {
+                        $scale = 1;
+                        $scale2 = 2;
+                    }
+
+                    ?>
+                    <a href="#" onclick="popWin('<?php echo $this->getGalleryUrl($_image) ?>', 'gallery', 'width=350,height=350,left='+(screen.width-350)/2+',top=0,location=no,status=yes,scrollbars=yes,resizable=yes',350); return false;" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(114,ceil(114*$scale2)); ?>"  alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" style=''/></a>
+                </li>
+            <?php endforeach;?>
+        </ul>
+    </div>
+<?php endif; ?>
+
+<div class="clear h50"></div>
+<div>
+    <div id="samecol">
+    </div>
+</div
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var productAddToCartForm = new VarienForm('product_addtocart_form');
+    productAddToCartForm.submit = function(){
+    if (this.validator.validate()) {
+    this.form.submit();
+    }
+    }.bind(productAddToCartForm);
+
+    //]]>
+</script>
+</div>
+</div>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>

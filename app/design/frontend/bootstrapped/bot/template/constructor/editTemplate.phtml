@@ -1,0 +1,211 @@
+<?php 
+$templateId = Mage::app()->getRequest()->getParam('id');
+$template = Mage::getModel('dcontent/templates')->load($templateId); 
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl() ?>js/prototype/windows/themes/default.css">
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/prototype/window.js"></script>
+
+<form id="edit_form" afterSubmit="<?php if($templateId) { ?> simpleAjax('<?php echo $this->getUrl('manage/templates') ?>', false); <?php } else { ?>simpleAjax('<?php echo $this->getUrl('manage/templates') ?>?openlast=true');  <?php } ?>" class="ajaxForm" action="<?php echo  Mage::getBaseUrl().Mage::registry('slang').DS.'constructor/admin/saveTemplate/id/'.$templateId ?>" method="post">
+	<div>
+		<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+	</div>
+	<div id="template_tabs_main_section_content" style=""><div class="entry-edit">
+    <div class="row  header white p5 mbottom10 mtop10 dt" style="width:100%">
+        <h4 class="dtc head-edit-form fieldset-legend p5"><?php echo $this->__('Template Information')?></h4>
+
+        <div class="form-buttons col-md-6 text-right">
+            <button type="submit" class="btn btn-large btn-danger f15" title="<?php echo $this->__('Save') ?>"><?php echo $this->__('Save') ?></button>
+        </div>
+    </div>
+    <div class="fieldset " id="template_base_fieldset">
+    <div class="hor-scroll">
+                        <table class="form-list" cellspacing="0">
+            <tbody>
+    <tr>
+        <td class="input-large"><label for="template_title"><?php echo $this->__('Template title')?> <span class="required">*</span></label></td>
+    <td class="value">
+        <input id="template_title" name="header" value="<?php echo $template->getHeader() ?>" title="Template Title" class="input-large input-text required-entry" type="text">            </td>
+    </tr>
+    <tr>
+   
+        <td class="input-large"><label for="template_identifier"><?php echo $this->__('Use for')?> <span class="required">*</span></label></td>
+        <td class="value">
+            <select class=" select" name="type" id="type">
+                <option value="<?php echo $this->__('Customer') ?>"><?php echo $this->__('Customer') ?></option>
+                <?php foreach ($this->getObjects() as $object) {  ?>
+    
+            <option value="<?php echo $object->getId() ?>" <?php if(in_array($object->getId(), explode(',',$template->getType()))) { echo "selected"; } ?>><?php echo $object->getName() ?></option>
+                <?php } ?> 
+            </select>    
+                </td>
+    </tr>
+<tr>
+    <?php 
+
+    $groups = Mage::getModel('customer/group')->getCollection(); // add store filter here 
+
+
+      $kinds = array(
+          array('value'=> 'main','label'=>$this->__('Main page for Object')),
+          array('value'=> 'parent','label'=>$this->__('Object parent template')),
+          array('value'=> 'child','label'=>$this->__('Object child template')),
+          array('value'=> 'list','label'=>$this->__('Object template for list')),
+          array('value'=> 'grid','label'=>$this->__('Object template for grid')),
+          array('value'=> 'mygrid','label'=>$this->__('Template for "My objects" grid')),
+          array('value'=> 'mylist','label'=>$this->__('Template for "My objects" list')),
+          array('value'=> 'customer_list','label'=>$this->__('Template for Users list')),
+          array('value'=> 'customer_main','label'=>$this->__('Template for User main page')),
+
+
+
+          array('value'=> 'custom','label'=>$this->__('Custom template')), // ATTANTION! That should be last in list
+      );
+      $codes = array();
+      $showCustomTemplate = 0;
+      $kindSeleted = 0;
+      foreach ($kinds as $kind) {
+          $codes[] = $kind['value'];
+      }
+      
+      ?>
+        <td class="input-large"><label for="template_is_active"><?php echo $this->__('Type')?> <span class="required">*</span></label></td>
+    <td class="value">
+            <select class=" select" multiselect name="kind" id="kind" onchange="checkCustomTemplate(this.value)">
+                <?php foreach ($kinds as $k) { ?>
+                        <option value="<?php echo $k['value'] ?>" <?php if(in_array($k['value'], explode(',',$template->getKind())) || (!$kindSeleted && $k['value'] == 'custom')) { echo "selected"; $kindSeleted = 1; } ?>><?php echo $k['label'] ?></option>
+                <?php } ?> 
+            </select>    
+            </td>
+    </tr>
+    <tr>
+    <td class="input-large"></td>
+    <td class="value">
+            <input class=" select" name="kind" id="customTemplate" <?php if(in_array($template->getKind(),$codes)) { ?> style="display:none" disabled="true" <?php } else { ?> value="<?php echo $template->getKind() ?>"  <?php } ?> >
+      </td>
+    </tr>
+            </tbody>
+        </table>
+            </div>
+        </div>
+</div>
+</div>
+<script type="text/javascript">
+function checkCustomTemplate(val) { 
+    if(val == 'custom') { 
+       jQuery('#customTemplate').prop( "disabled", false ).show();
+    } else { 
+       jQuery('#customTemplate').prop( "disabled", true ).hide();
+    }
+}
+</script>
+
+<div id="template_tabs_content_section_content" >
+<div class="entry-edit">
+    <div class="dt row  header white p5 mbottom10 mtop10" style="width:100%">
+        <h4 class="dtc head-edit-form fieldset-legend  p5"><?php echo $this->__('Content')?></h4>
+        <div class="form-buttons">
+            
+        </div>
+    </div>
+    <div class="fieldset fieldset-wide" id="template_content_fieldset">
+        <div class="hor-scroll">
+            <div id="buttonstemplate_content" class="buttons-set">
+                <textarea id="template_content" name="product" style="height: 300px; margin:10px; width: 600px;" class=" required-entry textarea"><?php echo $template->getProduct() ?></textarea>
+                <link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/css/style.css' ?>" />
+            <link rel="stylesheet" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/css/redactor.css' ?>" />
+            <script src="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/redactor.js' ?>"></script>
+
+                <script type="text/javascript">
+                          jQuery('#template_content').redactor({ imageUpload: '<?php echo $this->getUrl("constructor/admin/imageUpload")?>' });
+               </script>
+                </div>
+            </div>
+    </div>
+
+
+     <div class="fieldset fieldset-wide" id="template_content_fieldset">
+        <label for="template_is_active"><?php echo $this->__('Left column')?> </label>
+        <div class="hor-scroll">
+            <div id="buttonstemplate_content" class="buttons-set">
+                <textarea id="col_left" name="col_left" style="height: 300px; margin:10px; width: 600px;" class="textarea"><?php echo $template->getColLeft() ?></textarea>
+                <link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/css/style.css' ?>" />
+            <link rel="stylesheet" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/css/redactor.css' ?>" />
+            <script src="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/redactor.js' ?>"></script>
+
+                <script type="text/javascript">
+                          jQuery('#col_left').redactor({ imageUpload: '<?php echo $this->getUrl("constructor/admin/imageUpload")?>' });
+               </script>
+                </div>
+            </div>
+    </div>
+
+
+     <div class="fieldset fieldset-wide" id="template_content_fieldset">
+                <label for="template_is_active"><?php echo $this->__('Right column')?> </label>
+        <div class="hor-scroll">
+            <div id="buttonstemplate_content" class="buttons-set">
+                <textarea id="col_right" name="col_right" style="height: 300px; margin:10px; width: 600px;" class="textarea"><?php echo $template->getColRight() ?></textarea>
+                <link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/css/style.css' ?>" />
+            <link rel="stylesheet" href="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/css/redactor.css' ?>" />
+            <script src="<?php echo Mage::getBaseUrl().'imperavi-redactor/redactor/redactor.js' ?>"></script>
+
+                <script type="text/javascript">
+                          jQuery('#col_right').redactor({ imageUpload: '<?php echo $this->getUrl("constructor/admin/imageUpload")?>' });
+               </script>
+                </div>
+            </div>
+    </div>
+
+</div>
+
+<div class="entry-edit">
+    <div class="dt row  header white p5 mbottom10 mtop10" style="width:100%">
+        <h4 class="dtc head-edit-form fieldset-legend  p5"><?php echo $this->__('Preview')?></h4>
+        <div class="form-buttons">
+                   <button type="button" class="btn btn-large btn-info f15 preview-btn" onclick="previewTemplate(this.form, this)" title="<?php echo $this->__('Refresh') ?>"><?php echo $this->__('Refresh') ?></button>
+         
+        </div>
+    </div>
+    <div class="fieldset fieldset-wide" id="template_preview_fieldset">
+        <iframe id="previewFrame" name="previewFrame" src="<?php echo Mage::getBaseUrl() ?>constructor/admin/preview" style="width:98%;height:500px; border:0px;"  ></iframe>
+        <?php 
+          //  $html = Mage::helper('constructor')->getTemplatePreview($template);
+        ?>
+    <script type="text/javascript">
+        jQuery('iframe#previewFrame').load(function()
+        {   
+             new Ajax.Request('<?php echo Mage::getBaseUrl() ?>constructor/admin/previewTemplate', {
+                method: 'post',
+                action_content: ['content'],
+                parameters: jQuery('#edit_form').serialize(),
+                onComplete: function (transport)
+                {
+                    var data = transport.responseText.evalJSON();
+                    jQuery(document.getElementById('previewFrame').contentWindow.document.getElementById('mainContent')).html(data.content);
+                    document.getElementById('previewFrame').eval(data.content);
+                }
+            });
+        });
+
+        function  previewTemplate(form, el) { 
+            jQuery(el).html("<i class='fa fa-cog fa-spin mtop5 white'></i>");
+            var oldAction = jQuery(form).attr('action');
+            jQuery(form).attr('action','<?php echo Mage::getBaseUrl() ?>constructor/admin/preview');
+            jQuery(form).attr('target','previewFrame');
+            form.submit();
+            jQuery(form).attr('action',oldAction);
+            jQuery(form).attr('target','');
+            jQuery(el).html(jQuery(el).attr('title'));
+         
+        }
+    </script>
+    </div>
+</div>
+
+<div class="row header white p5 mbottom10 mtop10 text-right dt" style="width:100%">
+    <button type="submit" class="btn btn-large btn-danger f15" title="<?php echo $this->__('Save') ?>"><?php echo $this->__('Save') ?></button>
+</div>
+</form>
+<script type="text/javascript">
+	var form = new VarienForm('edit_form', true);        
+</script>

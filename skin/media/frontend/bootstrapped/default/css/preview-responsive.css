@@ -1,0 +1,149 @@
+/* fix for preview.css remove after publish demo-responsive*/
+#preview-bar {
+	border-bottom: 2px solid #3a3a3a;
+}
+
+/* ============= RESPONSIVATOR ===========================================================================================================*/
+#responsivator {
+    background-color: #000;
+    background: #000; /* Old browsers */
+    height: 18px;
+    width: 119px;
+    list-style: none;
+    z-index: 100;
+    position: relative;
+    opacity: .9;
+    border: 1px solid #181818;
+    padding: 4px;
+    margin-left: 10px;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    padding-left: 12px;
+    display: none;
+}
+.ie #responsivator {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+/*.webkit #responsivator {
+		top: 54px;
+}*/
+#responsivator li {
+    width: 20px;
+    height: 16px;
+    cursor: pointer;
+    margin-left: 2px;
+    float: left;
+}
+.webkit #responsivator li {
+    width: 19px;
+    height: 16px;
+}
+/*#frameWrapper {
+	position: relative;
+	z-index: 100;
+
+}*/
+#frame { overflow-x: hidden; opacity: 1;}
+#responsivator #desktop { background: url('../images/icons-grey.png') 0 0px; }
+#responsivator #desktop.active { background: url('../images/icons-white.png') 0px 0px; }
+#responsivator #tablet-landscape { background: url('../images/icons-grey.png') -36px 0px; }
+#responsivator #tablet-landscape.active { background: url('../images/icons-white.png') -36px 0px; }
+#responsivator #tablet-portrait { background: url('../images/icons-grey.png') -18px 0px; }
+.webkit	#responsivator #tablet-portrait { background: url('../images/icons-grey.png') -17px 0px; }
+#responsivator #tablet-portrait.active { background: url('../images/icons-white.png') -18px 0px; }
+.webkit	#responsivator #tablet-portrait.active { background: url('../images/icons-white.png') -17px 0px; }
+#responsivator #iphone-landscape { background: url('../images/icons-grey.png') -58px 0px; }
+#responsivator #iphone-landscape.active { background: url('../images/icons-white.png') -58px 0px; }
+#responsivator #iphone-portrait { background: url('../images/icons-grey.png') -76px 0px;  width: 16px;}
+#responsivator #iphone-portrait.active { background: url('../images/icons-white.png') -76px 0px;  width: 14px; }
+#iframelive.tablet-landscape,
+#iframelive.tablet-portrait,
+#iframelive.iphone-landscape,
+#iframelive.iphone-portrait {
+    height: 94%;
+    overflow: auto;
+}
+#iframelive {
+    height: 100%;
+    background: #1d1d1d;
+}
+
+/* DESKTOP  */
+#iframelive.desktop iframe {
+    width: 100%;
+    margin: 0;
+    height: 100%;
+}
+#iframelive.desktop #preview-wrapper {
+    background: none;
+    margin: 0;
+    /*overflow: auto;*/
+    height: 100%;
+}
+#iframelive.desktop {
+
+}
+
+/* tablet-landscape  */
+#iframelive.tablet-landscape iframe {
+    width: 1039px;
+    height: 690px !important;
+    margin: 51px 0 0 80px;
+}
+#iframelive.tablet-landscape #preview-wrapper {
+    background: url('../images/pad-land-1d1d1d.jpg');
+    width: 1242px;
+    height: 798px;
+    margin: 20px auto;
+    overflow: auto;
+}
+#iframelive.tablet-landscape #preview-wrapper iframe {
+    overflow-x: hidden;
+}
+
+/*  tablet-portrait */
+#iframelive.tablet-portrait iframe {
+
+    width: 785px;
+    height: 1038px !important;
+    margin: 65px 0 0 58px;
+
+}
+#iframelive.tablet-portrait #preview-wrapper {
+    background: url('../images/pad-port-1d1d1d.jpg');
+    width: 901px;
+    height: 1213px;
+    margin: 20px auto;
+}
+
+/* iphone-landscape */
+#iframelive.iphone-landscape iframe {
+    width: 495px;
+    height: 335px !important;
+    margin: 28px 0 0 133px;
+}
+#iframelive.iphone-landscape #preview-wrapper {
+    background: url('../images/phone-land-1d1d1d.jpg');
+    width: 759px;
+    height: 395px;
+    margin: 150px auto 20px;
+}
+
+/* iphone-portrait */
+#iframelive.iphone-portrait iframe {
+    width: 337px;
+    height: 495px !important;
+    margin: 133px 0 0 30px;
+}
+#iframelive.iphone-portrait #preview-wrapper {
+    background: url('../images/phone-port-1d1d1d.jpg');
+    width: 395px;
+    height: 762px;
+    margin: 20px auto;
+}
+
+
+/*  ====================================================================================================================================== */

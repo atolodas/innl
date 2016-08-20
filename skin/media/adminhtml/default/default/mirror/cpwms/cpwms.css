@@ -1,0 +1,81 @@
+div.cp_type_element{
+    text-align: center;
+    border: 1px solid #ffffff;
+}
+
+div.cp_type_element.selected{
+    border: 1px solid #808080;
+}
+
+div.cp_product_image{
+    text-align: center;
+    border: 1px solid #ffffff;
+}
+
+div.cp_product_image.selected{
+    border: 1px solid #808080;
+}
+
+div.cp_table_wrapper{
+    overflow: auto;
+}
+
+#simplecreation{
+}
+
+#simplecreation tr td{
+    text-align: center;
+    /*border: 1px solid #000000;*/
+    border-top: 1px dotted #000000;
+    border-left: 1px dotted #000000;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+#simplecreation .cp_table_head{
+    /*background-color: #6F8992;*/
+    /*color: #ffffff;*/
+    border: 0px;
+    border-left: 1px dotted #000000;
+}
+
+#simplecreation .cp_table_left{
+    /*background-color: #6F8992;*/
+    /*color: #ffffff;*/
+    border: 0px;
+    border-top: 1px dotted #000000;
+}
+
+#simplecreation .cp_table_left_top{
+    border-top: 0px;
+    border-left: 0px;
+    /*background-color: #6F8992;*/
+    /*color: #ffffff;*/
+    /*border-right: 0px;*/
+    /*border-bottom: 0px;*/
+}
+
+button.cp_create_button{
+    width: 100px;
+}
+
+#cp_product_weight{
+    width: 50px !important;
+}
+
+div.cafepress_imagegrid_wrapper{
+    overflow: auto;
+}
+
+div.cp_create_print{
+    text-align: center;
+    border: 1px solid #ffffff;
+}
+
+div.cp_create_print.selected{
+    border: 1px solid #808080;
+}
+
+div.cp_create_prints_wrapper{
+    overflow: auto;
+}

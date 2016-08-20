@@ -1,0 +1,11 @@
+<?php
+if(Mage::registry('current_product')) {
+$product = Mage::registry('current_product'); ?>
+<meta property="og:title" content="<?php echo $product->getName() ?> | HD Brows" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="<?php echo $product->getProductUrl() ?>" />
+<meta property="og:image" content="<?php echo Mage::helper('catalog/image')->init($product,'image') ?>" />
+<meta property="og:site_name" content="HD Brows" />
+<meta property="og:description" content="<?php echo $product->getShortDescription() ?>" />
+<?php } ?>
+

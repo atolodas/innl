@@ -1,0 +1,23 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+
+<?php $_oggetto = $this->getOggetto(); ?>
+<?php $_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_oggetto); ?>
+
+<div class="add-to-links">
+<?php if ($this->helper('wishlist')->isAllow()) : ?>
+    <a href="<?php echo $_wishlistSubmitUrl ?>" onclick="oggettoAddToCartForm.submitLight(this, '<?php echo $_wishlistSubmitUrl ?>'); return false;" class="label label-info"><?php echo $this->__('Add to Wishlist') ?></a>
+<?php endif; ?>
+<?php
+    $_compareUrl = $this->helper('score/oggetto_compare')->getAddUrl($_oggetto);
+?>
+</div>

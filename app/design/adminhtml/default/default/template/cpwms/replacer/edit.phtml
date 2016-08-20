@@ -1,0 +1,105 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
+<div class="content-header">
+    <h3 class="icon-head head-products"><?php echo $this->getHeader() ?></h3>
+    <p class="content-buttons form-buttons"><?php echo $this->getBackButtonHtml() ?>
+    <?php echo $this->getCancelButtonHtml() ?>
+    <?php echo $this->getSaveButtonHtml() ?>
+    <?php echo $this->getSaveAndEditButtonHtml() ?>
+    <?php echo $this->getDeleteButtonHtml() ?>
+    </p>
+</div>
+<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="replacer_edit_form" enctype="multipart/form-data">
+    <?php echo $this->getBlockHtml('formkey')?>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+    var replacerTemplateSyntax = /(^|.|\r|\n)({{(\w+)}})/;
+    var replacerForm = new varienForm('replacer_edit_form', '<?php echo $this->getValidationUrl() ?>');
+
+    replacerForm._processValidationResult = function(transport) {
+        var response = transport.responseText.evalJSON();
+        if (response.error){
+            if (response.attribute && $(response.attribute)) {
+                $(response.attribute).setHasError(true, replacerForm);
+                Validation.ajaxError($(response.attribute), response.message);
+                if (!Prototype.Browser.IE){
+                    $(response.attribute).focus();
+                }
+            }
+            else if ($('messages')) {
+                $('messages').innerHTML = '<ul class="messages"><li class="error-msg"><ul><li>' + response.message + '</li></ul></li></ul>';
+            }
+        }
+        else{
+            replacerForm._submit();
+        }
+    };
+    function saveAndContinueEdit(urlTemplate) {
+        var template = new Template(urlTemplate, replacerTemplateSyntax);
+        var url = template.evaluate({tab_id:replacer_info_tabsJsTabs.activeTab.id});
+        replacerForm.submit(url);
+    }
+    function setSettings(urlTemplate, typeElement) {
+        var template = new Template(urlTemplate, replacerTemplateSyntax);
+        setLocation(template.evaluate({type:$F(typeElement)}));
+    }
+
+Event.observe(window, 'load', function() {
+    var objName = '<?php echo $this->getSelectedTabId() ?>';
+    if (objName) {
+        obj = $(objName);
+        //IE fix (bubbling event model)
+        replacer_info_tabsJsTabs.setSkipDisplayFirstTab();
+        replacer_info_tabsJsTabs.showTabContent(obj);
+    }
+    Product.AttributesBridge.setTabsObject(replacer_info_tabsJsTabs);
+});
+
+//
+//Validation.addAllThese([
+//    ['validate-super-product-attributes', '<?php echo Mage::helper('catalog')->__('Please select one or more attributes.') ?>', function(v) {
+//                return (v != "no-attributes");
+//            }]]);
+
+
+
+<?php /*GET POSSIBLE CONDITION*/ ?>
+    var possible_condition = 'possible_condition';
+    var possible_values_grid = 'possible_values_grid_block';
+    
+    function getPossibleValues(){
+        var construction = $(possible_condition).value;
+        console.log(construction);
+        getContentPossibleValueGrid(construction);
+        
+    }
+    
+    function getContentPossibleValueGrid(construction) {
+        var url = "<?php echo $this->getUpdatePossibleValueGridUrl(); ?>";
+        new Ajax.Request(url, {
+            parameters: {'construction': construction},
+            method: "POST",
+            onSuccess: updatePossibleValuesGrid
+        });
+    };
+    
+    function updatePossibleValuesGrid(response){
+        console.log(response.responseText.evalJSON());
+        var result = response.responseText.evalJSON();
+        if (result.update_possible_values_grid_section_html!=undefined){
+            $(possible_values_grid).innerHTML = result.update_possible_values_grid_section_html;
+        } else {
+            alert(response.responseText);
+        }
+        console.log(result.error);
+    };
+    
+//]]>
+</script>

@@ -1,0 +1,25 @@
+    <link type="text/css" rel="stylesheet" media="screen" href="<?php echo $this->getSkinUrl('ehut_sociallogin/css/style.css');?>"/>
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('ehut_sociallogin/js/sociallogin.js');?>"></script>
+    <div class="ehut-socialconnect-social " >
+        <div class="account-login">
+                        <div class="ehut-social-button-login">
+                            <?php
+                             if($this->getButtons()){
+                                foreach($this->getButtons() as $button){
+                                    echo $button->render();
+                                }
+                             }
+                            ?>
+                        </div>
+        </div>
+
+
+    </div>
+    <?php
+    if(Mage::getSingleton('core/design_package')->getTheme('frontend') == 'iphone') { ?>
+    <style type="text/css">
+        .ehut-social-button-login .ehut-icon-social{
+            float: left;
+        }
+    </style>
+    <?php } ?>

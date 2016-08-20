@@ -1,0 +1,5 @@
+<?php
+
+class Cafepress_CPCore_Block_Adminhtml_Xmlformat_Edit_Tabs_Form_Example extends Cafepress_CPCore_Block_Adminhtml_Xmlformat_Form
+{
+}

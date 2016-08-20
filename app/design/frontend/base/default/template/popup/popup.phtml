@@ -1,0 +1,73 @@
+<?php
+if (!$this->isEasyAjax()) {
+    $actions = array('1' => 'click', '2' => 'mouseover');
+    $popups = Mage::getModel('popup/popup')
+        ->getCollection()
+        ->addFieldToFilter('status', '1');
+
+
+    $secure = (Mage::app()->getStore()->isCurrentlySecure() == true) ? true : null;
+    ?>
+
+    <?php foreach($popups as $popup) {
+        $id =  strtolower(str_replace(' ','',$popup->getName()));
+        ?>
+        <div style="position: absolute; z-index: 100;" id="bigPopup<?php echo $id ?>" ondblclick="uiHide(this)">
+            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-1" class="ui-dialog-title">Title to be fixed)</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">close</span></button></div>
+            <div class="content">
+
+            </div>
+        </div>
+   <?php } ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            observePopups();
+        });
+
+        function observePopups() {
+
+            <?php
+        foreach($popups as $popup) {
+        $id =  strtolower(str_replace(' ','',$popup->getName()));
+        $url = (($popup->getUrl())?Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK,$secure).$popup->getUrl():'');
+        $url2 = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK,$secure).$popup->getUrl2();
+        $scripts = $popup->getStyle();
+            ?>
+
+
+            jQuery('<?php echo $popup->getTextId(); ?>').each(function (index) {
+
+                var element = jQuery(this);
+
+                if('<?php echo $url; ?>' ||  element.attr('href') != 'javascript:void(0);') {
+                    var href = element.attr('href');
+                    element.attr('data-href', href).attr('href', 'javascript:void(0);');
+                    element.on('<?php echo $actions[$popup->getAction()]; ?>', function (event, preload) {
+                    <?php if($popup->getUrl2()) {
+            if($popup->getUrl()) { ?>
+                    doubleAjax(<?php if($url) { ?>'<?php echo $url; ?>'
+                    <?php } else { ?>element.attr('data-href')<?php } ?>, '<?php echo $url2; ?>', '<?php echo $popup->getBlock(); ?>', 'divId', this.form.serialize(), '<?php echo $popup->getTextId(); ?>', '<?php echo $scripts; ?>');
+                    <?php } else { ?>
+                    doubleAjax(element.attr('data-href'), '<?php echo $url2; ?>', '<?php echo $popup->getBlock(); ?>', '<?php echo $popup->getTextId(); ?>', this.form.serialize(), '<?php echo $popup->getTextId(); ?>', '<?php echo $scripts; ?>');
+                    <?php }
+                       } else if($popup->getType() == 2) { ?>
+                    ajaxPopup(<?php if($url) { ?>'<?php echo $url; ?>'
+                    <?php } else { ?>element.attr('data-href')<?php } ?>, '<?php echo $popup->getBlock(); ?>', '<?php echo $id ?>', preload, '<?php echo $scripts; ?>');
+                    <?php }
+                    else if($popup->getType() == 1) { ?>
+                    ajaxSmallPopup(<?php if($url) { ?>'<?php echo $url; ?>'
+                    <?php } else { ?>element.attr('data-href')<?php } ?>, '<?php echo $popup->getBlock(); ?>', '<?php echo $popup->getTextId(); ?>', 0, preload, '<?php echo $scripts; ?>');
+                    <?php } ?>
+                });
+                }
+            });
+            <?php if($popup->getPreload() == 1) { ?>
+            jQuery(document).ready(function () {
+                element.trigger('<?php echo $actions[$popup->getAction()]; ?>', [1]);
+            });
+            <?php } ?>
+
+        <?php } ?>
+        }
+    </script>
+<?php } ?>

@@ -1,0 +1,21 @@
+
+<div class="pull-right  hidden-tablet">
+<form id="search_mini_form"  action="<?php echo Mage::getBaseUrl().'oggetto/' ?>" onsubmit="this.action = this.action + $('search').value.replace(/[^а-яА-Яa-zA-Z0-9\-\_]+/g,'-') + '.html'"
+      method="post" class="navbar-search nml ">
+    <div class="form-search pull-left" id="searchField" style="display:none;">
+        <?php /*?><label for="search"><?php echo $this->__('Search:') ?></label><?php */?>
+        <input id="search" type="text" name="<?php echo $this->helper('scoresearch')->getQueryParamName() ?>" value="<?php echo $this->helper('scoresearch')->getEscapedQueryText() ?>" class="search-query" />
+        <?php /*?><button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button><?php */?>
+        <div id="search_autocomplete" class="dropdown search-autocomplete"></div>
+        <script type="text/javascript">
+        //<![CDATA[
+            var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search') ?>');
+        //    searchForm.initAutocomplete('<?php echo $this->helper('scoresearch')->getSuggestUrl() ?>', 'search_autocomplete');
+        //]]>
+        </script>
+    </div>
+
+<i class="fa fa-search f25 m10 white pointer pull-right " onclick="jQuery('#searchField').toggle();jQuery('#search').focus();"></i>
+</form>
+
+</div>

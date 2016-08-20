@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Modules>
+    <DisableCompletely>
+        <IG_404ToSearch/>
+        <Medma_Copyoptions />
+        <Custom_Lancaster />
+        <Custom_Funstica />
+        <Ultimate_Events />
+        <Shaurmalab_Seller />
+        <Mage_AllToDisableNonStore/>
+        <Mage_Authorizenet/>
+        <Mage_Centinel/>
+        <Mage_Persistent/>
+        <Mage_Weee/>
+        <Mage_XmlConnect/>
+        <Phoenix_Moneybookers />
+        <Mage_ImportExport />
+        <Mage_Downloadable />
+        <Mage_Captcha />
+        <Mage_Bundle />
+        <Mage_Newsletter />
+        <Mage_Api2 />
+    </DisableCompletely>
+    <DisablePerStore>
+        <base></base>
+        <tufi>
+            <Mage_AllToDisableNonStore/>
+            <Mage_Authorizenet/>
+            <Mage_Centinel/>
+            <Mage_Persistent/>
+            <Mage_Weee/>
+            <Mage_XmlConnect/>
+            <Phoenix_Moneybookers />
+            <Mage_ImportExport />
+            <Mage_Downloadable />
+            <Mage_Captcha />
+            <Mage_Bundle />
+            <Mage_Newsletter />
+            <Mage_Api2 />
+
+        </tufi>
+        <tobotornot>
+            <Mage_AllToDisableNonStore/>
+            <Mage_Authorizenet/>
+            <Mage_Centinel/>
+            <Mage_Persistent/>
+            <Mage_Weee/>
+            <Mage_XmlConnect/>
+            <Phoenix_Moneybookers />
+            <Mage_ImportExport />
+            <Mage_Downloadable />
+            <Mage_Captcha />
+            <Mage_Bundle />
+            <Mage_Newsletter />
+            <Mage_Api2 />
+
+        </tobotornot>
+    </DisablePerStore>
+    <EnablePerStore>
+        <store>
+            <Mage_AllToDisableNonStore/>
+            <Mage_Authorizenet/>
+            <Mage_Centinel/>
+            <Mage_Persistent/>
+            <Mage_Weee/>
+            <Mage_XmlConnect/>
+            <Phoenix_Moneybookers />
+            <Medma_Copyoptions />
+            <Mage_ImportExport />
+            <Mage_Downloadable />
+            <Mage_Captcha />
+            <Mage_Bundle />
+            <Mage_Api2 />
+            <Ewall_Customtags/>
+            <Ewall_Advancetag/>
+            <EM_NewsFeedWidget/>
+            <EH_SocialLogin/>
+            <DP_Social/>
+            <DP_Product/>
+            <Cafepress_CPWms/>
+            <Cafepress_CPCore/>
+            <BusinessKing_ProductFieldsPermission/>
+            <Aschroder_SMTPPro/>
+            <Activo_CatalogSearch/>
+        </store>
+        <admin>
+            <Mage_AllToDisableNonStore/>
+            <Mage_Authorizenet/>
+            <Mage_Centinel/>
+            <Mage_Persistent/>
+            <Mage_Weee/>
+            <Mage_XmlConnect/>
+            <Phoenix_Moneybookers />
+            <Medma_Copyoptions />
+            <Mage_ImportExport />
+            <Mage_Downloadable />
+            <Mage_Captcha />
+            <Mage_Bundle />
+            <Mage_Api2 />
+            <Ewall_Customtags/>
+            <Ewall_Advancetag/>
+            <EM_NewsFeedWidget/>
+            <EH_SocialLogin/>
+            <DP_Social/>
+            <DP_Product/>
+            <Cafepress_CPWms/>
+            <Cafepress_CPCore/>
+            <BusinessKing_ProductFieldsPermission/>
+            <Aschroder_SMTPPro/>
+            <Activo_CatalogSearch/>
+        </admin>
+
+        <base>
+            <EH_SocialLogin/>
+            <DP_Social/>
+            <DP_Product/>
+            <Cafepress_CPWms/>
+            <Cafepress_CPCore/>
+            <BusinessKing_ProductFieldsPermission/>
+            <Aschroder_SMTPPro/>
+            <Activo_CatalogSearch/>
+        </base>
+        <wiki>
+		<IG_404ToSearch/>
+	</wiki>
+	<p>
+            <IG_404ToSearch/>
+        </p>
+        <swarm>
+            <IG_404ToSearch/>
+        </swarm>
+        <demo></demo>
+        <reviewme></reviewme>
+        <quotes>
+            <IG_404ToSearch/>
+        </quotes>
+        <tufi>
+            <IG_404ToSearch/>
+        </tufi>
+        <funstica>
+            <Custom_Funstica />
+        </funstica>
+    </EnablePerStore>
+</Modules>

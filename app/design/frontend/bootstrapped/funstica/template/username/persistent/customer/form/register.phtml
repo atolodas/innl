@@ -1,0 +1,129 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<?php
+/**
+ * Create account form template
+ *
+ * @see app/design/frontend/base/default/template/customer/form/register.phtml
+ */
+/** @var $this Mage_Customer_Block_Form_Register */
+?>
+<style type="text/css">
+.field label { width: 30%; text-align: right; font-size: 20px !important; font-weight: normal; }
+select, .select2-container { width: 210px; }
+.icheckbox_square-red .validation-advice { display: none !important; }
+ </style>
+<div class="account-create mtop20" >
+    <?php echo $this->getChildHtml('form_fields_before')?>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="form-validate" class="form">
+        <input style="display:none">
+        <input type="password" style="display:none">
+        <!-- Fool chrome -->
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-xs-12">
+                        <fieldset class="control-group">
+                            <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+                            <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
+
+                            <div class="">
+                                <div class="">
+                                    <h3 class="bg-green white centered btn-large  w100p f25 bold" style="text-transform: uppercase;"><?php echo $this->__('New account') ?></h3>
+                                    <div class="well mtop5 w100p noborder f15 lh30">
+                                        <div class="fields">
+                                            <?php //echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
+                                            <div class="field">
+                                               <label for="country"><?php echo $this->__('Username') ?></label>
+                                               <span class="input-box">
+                                                <input type="text" id="usename" name="username" value="<?php echo $this->htmlEscape($this->getFormData()->getUsername()) ?>" title="<?php echo $this->__('Username') ?>" placeholder="<?php echo $this->__('Username') ?>" class="input-text required-entry">
+                                            </span>
+
+                                        </div>
+                                        <div class="field">
+                                           <label for="country"><?php echo $this->__('Password') ?></label>
+                                           <span class="input-box">
+                                            <input placeholder="<?php echo $this->__('Password') ?>" value="<?php echo $this->htmlEscape($this->getFormData()->getPassword()) ?>" type="password" name="password" id="password" title="<?php echo $this->__('Password') ?>" class="input-text required-entry" />
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                   <label for="country"><?php echo $this->__('Emаil') ?></label>
+                                   <span class="input-box">
+                                    <input placeholder="<?php echo $this->__('Emаil') ?>" type="text" name="email" id="email_address" value="<?php echo $this->htmlEscape($this->getFormData()->getEmail()) ?>" title="<?php echo $this->__('Emаil') ?>" class="input-text required-entry" />
+                                </span>
+                                </div>
+
+                            <div class="field">
+                                <label for="country" class="required"><?php echo $this->__('Country') ?></label>
+                                <span class="input-box">
+                                    <?php echo $this->getCountryHtmlSelect() ?>
+                                </span>
+                            </div>
+
+                             <div class="field">
+                                <label for="city" class="required"><?php echo $this->__('City') ?></label>
+                                <span class="input-box">
+                                    <?php echo $this->getCityHtmlSelect() ?>
+                                </span>
+                            </div>
+
+                            <div class="field centered">
+                                <span class="input-box"> 
+                                    <input type="checkbox" class="required-entry" name="agreement" id="agreement" />
+                                    <?php echo $this->__("I've read and agreed <a href='%s' target='_blank'>User conditions</a>",Mage::getBaseUrl().Mage::registry('slang').'/conditions') ?>
+                                </span>
+                            </div>
+
+                            <div class="centered">
+                                <button type="submit" title="<?php echo $this->__('Ready') ?>" style="text-transform: uppercase; width:85%" class="btn btn-xlarge btn-warning bold f25"><span><span><?php echo $this->__('Ready') ?></span></span></button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </fieldset>
+</div>
+<?php $formCode =  $this->getFormCode(); ?>
+<input type="hidden" name="back" value="<?php echo Mage::helper('core/url')->getCurrentUrl() ?>" />
+<input type="hidden" name="form_code" value="<?php echo ($formCode)?$formCode:'customer_account_create' ?>" />
+<?php if($formCode && $formCode!='customer_account_create') { ?>
+
+<div class="col-md-5">
+    <h3>Additional Info</h3>
+    <fieldset class="control-group">
+        <?php echo Mage::app()->getLayout()->createBlock('core/template')->setFormCode($formCode)->setTemplate('customer/form/attributes.phtml')->toHtml(); ?>
+    </fieldset>
+</div>
+<?php } ?>
+</div>
+
+
+<?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+    <input name="context" type="hidden" value="checkout" />
+<?php endif; ?>
+</form>
+<script type="text/javascript">
+        //<![CDATA[
+        var dataForm = new VarienForm('form-validate', true);
+         jQuery('#form-validate').on('submit', function() { if(!jQuery('#agreement').is(":checked")) { alert('<?php echo $this->__("You must agree User conditions to continue") ?>');  } });
+        jQuery(document).ready(function() {
+          jQuery('select').select2();
+           changeCitiesByCode( jQuery('#country').val());
+            jQuery('#country').change(function() { changeCitiesByCode(this.value); } );
+        });
+        //]]>
+        </script>
+    </div>

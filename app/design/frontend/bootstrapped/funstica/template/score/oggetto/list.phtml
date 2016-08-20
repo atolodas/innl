@@ -1,0 +1,177 @@
+     <?php
+     /* @var $toolbar Mage_Score_Block_Oggetto_List_Toolbar */
+     $limits = $this->getLayout()->createBlock('score/oggetto_list_toolbar')->getLimit();
+     if(!is_array($limits)) $limits = array($limits);
+     $_oggettoCollection=$this->getLoadedOggettoCollection();
+     $_oggettoCollection->addAttributeToSelect('image');
+   // 
+     $_helper = $this->helper('score/output');
+
+     /* @var $pager Mage_Page_Block_Html_Pager */
+     $pager = $this->getLayout()->createBlock('page/html_pager', 'bootstrapped.standalone.pager');
+
+        // set limit - uses category's instead of default pager's (10-20-50)
+     $pager->setAvailableLimit($limits);
+        // need to set collection
+     $pager->setCollection($_oggettoCollection);
+        //set custom template
+     $pager->setTemplate('score/oggetto/list/pager.phtml');
+     ?>
+     <?php if($_oggettoCollection->count()): ?>
+     <div class="category-oggettos content  dwell">
+       <?php if($this->getPager()!=="0") { ?>
+        <div class="pull-right">
+        <?php
+         //   echo $pager->toHtml();
+        ?>
+    </div>
+    <?php } ?>
+   
+    <?php // List mode ?>
+    <?php if($this->getMode()=='list'): ?>
+    <?php $_iterator = 0; ?>
+    <ol class="oggettos-list unstyled row-fluid np nm" id="oggettos-list">
+        <?php foreach ($_oggettoCollection as $_oggetto): ?>
+        <li class="item <?php if( ++$_iterator == sizeof($_oggettoCollection) ): ?> last<?php endif; ?> row-fluid">
+
+         <?php
+         if($output = $this->getLayout()->createBlock('dcontent/oggettos')->getTemplateForOggetto($_oggetto,'list')) {
+             echo $output;
+         } else { ?>
+         <?php $img =  $this->helper('score/image')->init($_oggetto, 'image') ?>
+         <div class="col-md-4"><a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" class="oggetto-image thumbnail"><img src="<?php //echo $this->helper('score/image')->init($_oggetto, 'image')->resize(225); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" /></a></div>
+         <?php // Oggetto description ?>
+         <div class="col-md-8">
+            <div class="thumbnail data">
+                <div class="caption">
+                    <?php $_oggettoNameStripped = $this->stripTags($_oggetto->getName(), null, true); ?>
+                    <h3 class="oggetto-name"><a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $_oggettoNameStripped; ?>"><?php echo $_helper->oggettoAttribute($_oggetto, $_oggetto->getName() , 'name'); ?></a></h3>
+                    <?php if ($_oggetto->getPinedUrl()) { ?><a  target="_blank" href="<?php echo $_oggetto->getPinedUrl() ?>" title="<?php echo $_oggetto->getPinedUrl() ?>"><?php echo $_oggetto->getPinedUrl() ?></a> <?php } ?>
+
+                    <?php if($_oggetto->getRatingSummary()): ?>
+                    <?php echo $this->getReviewsSummaryHtml($_oggetto) ?>
+                <?php endif; ?>
+                <div class="row-fluid">
+                    <?php echo $this->getPriceHtml($_oggetto, true) ?>
+                </div>
+                <div class="desc std">
+                    <?php echo $_helper->oggettoAttribute($_oggetto, $_oggetto->getShortDescription(), 'short_description') ?>
+                    <a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $_oggettoNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                </div>
+                 <?php  /*  <p class="add-to-links unstyled">
+                        <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                        <a href="<?php echo $this->helper('wishlist')->getAddUrl($_oggetto) ?>" class="link-wishlist label label-info"><?php echo $this->__('Add to Wishlist') ?></a>
+                        <?php endif; ?>
+                        <?php if($_compareUrl=$this->getAddToCompareUrl($_oggetto)): ?>
+                        <span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare label label-info"><?php echo $this->__('Add to Compare') ?></a>
+                        <?php endif; ?>
+                    </p> */ ?>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+    </li>
+<?php endforeach; ?>
+</ol>
+<script type="text/javascript">decorateList('oggettos-list', 'none-recursive')</script>
+<?php elseif($this->getMode()=='columns'): ?>
+    <?php $_collectionSize = $_oggettoCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+    <ul class="oggettos-grid unstyled thubmnails row-fluid centered" id="grid">
+
+        <?php $i=0; foreach ($_oggettoCollection as $_oggetto):
+
+        ?>
+        <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> ">
+
+            <?php
+            if($output = $this->getLayout()->createBlock('dcontent/oggettos')->getTemplateForOggetto($_oggetto,'grid')) {
+                echo $output;
+            } else { ?>
+            <div class="thumbnail">
+
+                <a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" class="product-image">
+                    <div style="max-height:400px; overflow:scroll;"><img src="<?php echo $this->helper('score/image')->init($_oggetto, 'image')->resize(400); ?>" width="400" alt="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" />
+                    </div></a>
+
+                    <div class="caption">
+                        <h3 class="oggetto-name"><a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $this->stripTags($_oggetto->getName(), null, true) ?>"><?php echo $_helper->oggettoAttribute($_oggetto, $_oggetto->getName(), 'name') ?></a></h3>
+                        <?php if ($_oggetto->getPinedUrl()) { ?><a  target="_blank" href="<?php echo $_oggetto->getPinedUrl() ?>" title="<?php echo $_oggetto->getPinedUrl() ?>"><?php echo $_oggetto->getPinedUrl() ?></a> <?php } ?>
+                        <?php echo Mage::app()->getLayout()->createBlock("scoretag/oggetto_list")->setCurrentOggettoId($_oggetto->getId())->setOggettoId($_oggetto->getId()+rand(1,10))->setTemplate("scoretag/votelist.phtml")->toHtml(); ?>
+                        <?php if($_oggetto->getRatingSummary()): ?>
+                        <?php echo $this->getReviewsSummaryHtml($_oggetto, 'short') ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php } ?>
+        </li>
+        <?php    $i++;     endforeach ?>
+    </ul>
+    <script type="text/javascript">
+            //decorateGeneric($$('ul.oggettos-grid'), ['odd','even','first','last']);
+            jQuery(document).ready(function() {
+
+                jQuery("#grid").gridalicious({
+                    width: 390,
+                    gutter: 15,
+                    animate: true,
+                    animationOptions: {
+                        speed: 200,
+                        duration: 500,
+                    }
+                });
+
+                jQuery('#next-page').click(function(){
+                    jQuery("#grid").gridalicious('append', makeboxes());
+                });
+
+                jQuery('#prev-page').click(function(){
+                    jQuery("#grid").gridalicious('prepend', makeboxes());
+                });
+            });
+            </script>
+        <?php elseif($this->getMode()=='grid'): ?>
+        <?php $_collectionSize = $_oggettoCollection->count() ?>
+        <?php $_columnCount = $this->getColumnCount(); ?>
+        <ul class="oggettos-grid unstyled thubmnails row-fluid" id="grid">
+            <?php
+            $i=1; foreach ($_oggettoCollection as $_oggetto):
+            ?>
+            <?php if(($i-1)%$_columnCount==0) { ?>
+            <div class="clearer"></div>
+            <?php } ?>
+            <li class="item mtop20 nmb nmt nml">
+                <?php
+                if($output = $this->getLayout()->createBlock('dcontent/oggettos')->getTemplateForOggetto($_oggetto,'grid')) {
+                    echo $output;
+                } else { ?>
+                <div class="thumbnail">
+                    <a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" class="product-image">
+                        <div style="max-height:400px; overflow:scroll;">
+                           <img src="<?php echo $this->helper('score/image')->init($_oggetto, 'image')->resize(400); ?>" width="400" alt="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" />
+                       </div>
+                   </a> 
+               </div>
+               <?php } ?>
+           </li>
+           <?php     $i++;   endforeach ?>
+       </ul>
+
+   <?php endif; ?>
+
+   <?php if($this->getPager()!=="0") { ?>
+   <div class="toolbar-bottom">
+      <div class="mbottom10 clearer" style="float:right">
+        <?php
+        echo $pager->toHtml();
+        ?>
+    </div>
+</div>
+<?php } ?>
+ <?php if($this->getToolbar()!=="0") {
+        echo $this->getToolbarHtml();
+        ?>
+            <div class="mbottom10 clearer" style="float:right"></div>
+    <?php } ?>
+</div>
+<?php endif; ?>

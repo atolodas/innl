@@ -1,0 +1,16 @@
+<div class="col-md-12">
+	<h4 class="section-header"><?php echo $this->__('Manage users') ?></h4>
+</div>
+
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/grid.css') ?>" />
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/grid.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/grid_front.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/hash_front.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/mage/adminhtml/events.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl() ?>js/prototype/windows/themes/default.css">
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl() ?>js/prototype/window.js"></script>
+
+
+<?php 
+echo $this->getChildHtml('user.grid');
+?>

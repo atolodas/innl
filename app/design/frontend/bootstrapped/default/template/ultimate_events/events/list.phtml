@@ -1,0 +1,136 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>	
+<?php $_eventss = $this->getEventss(); ?>
+<?php $vkCustomers = Mage::getModel('customer/customer')->getCollection()
+					->addAttributeToFilter('ehut_sociallogin_vkid',array('neq'=>''))
+					->addNameToSelect();
+		?>
+<script type="text/javascript">
+		var existedFriends = [];
+		<?php foreach ($vkCustomers as $c) { ?>
+			existedFriends[<?php echo  $c->getId() ?>] = <?php echo $c->getData('ehut_sociallogin_vkid') ?>;
+		<?php } ?>
+</script>
+<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?34"></script>
+<script type="text/javascript">
+    VK.init({apiId:<?php echo Mage::getStoreConfig('ehut_sociallogin/vk/app_id') ?>});
+    	var dates = [];
+                <?php foreach ($_eventss as $_events) : ?>
+                        dates.push({
+							title: '<?php echo $_events->getTitle();?>',
+							start: '<?php echo $_events->getDate();?>',
+                            url: '<?php echo $_events->getEventsUrl()?>',
+                        });
+                <?php endforeach;?>
+</script>
+<?php 
+$customer = Mage::getModel('customer/customer')->load(Mage::getSingleton('customer/session')->getCustomerId());
+if((!Mage::getSingleton('customer/session')->getCustomerId() || !$customer->getData('ehut_sociallogin_vkid'))  && Mage::getStoreConfig('ehut_sociallogin/vk/enabled')) { ?> 
+<!-- VK LOGIN -->
+<?php $url = "https://oauth.vk.com/authorize?v=5.31&client_id=".(Mage::getStoreConfig('ehut_sociallogin/vk/app_id'))."&redirect_uri=".(Mage::getBaseUrl().'ehut_sociallogin/vk/connect/')."&scope=email"; ?>
+<div id="login_button" class="text-centered m10">
+	<a class="btn btn-medium btn-danger" href="<?php echo $url ?>">Авторизуйте Vkontakte.ru</a> чтобы получить список друзей
+</div>
+
+
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+
+		jQuery('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: '',
+			},
+			defaultDate: '<?php echo date('Y-m-d') ?>',
+			editable: false,
+			eventLimit: true, // allow "more" link when too many events
+			lang: '<?php echo Mage::registry('slang') ?>',
+			events: dates,
+			eventColor: '#000', 	
+			eventBorderColor: '#fff', 
+			eventBackgroundColor: '#fff', 
+		});
+		
+	});
+
+</script>
+<!-- END VK LOGIN -->
+<?php } else { ?>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+
+	VK.Api.call('friends.get', {uid: <?php echo $customer->getData('ehut_sociallogin_vkid') ?>,fields: 'first_name,last_name,sex,bdate,photo_100,online,status'}, function(r) {
+  if(r.response) {
+  	for(i=0;i<r.response.length;i++) {
+  		if(r.response[i].bdate != undefined) { 
+  			var name = r.response[i].first_name+' '+r.response[i].last_name;
+  			if(name != undefined) { 
+	  			var dateArr = r.response[i].bdate.split('.');
+	  			if(dateArr[1].length == 1) { dateArr[1] = '0'+dateArr[1]; }
+	  			if(dateArr[0].length == 1) { dateArr[0] = '0'+dateArr[0]; }
+	  			var date = '<?php echo date('Y') ?>-'+dateArr[1]+'-'+dateArr[0]+' 00:00:00';
+	  			var end = '<?php echo date('Y') ?>-'+dateArr[1]+'-'+dateArr[0]+' 01:00:00';
+
+	  			existedIndex = existedFriends.indexOf(r.response[i].uid);
+	  			var imgCode = '<div class="h75 nmb well p5 centered bg-grey"><div class="col-md-5 mright10"><img class="rounded inline" alt="'+name+'" src="'+r.response[i].photo_100+'" /></div><div class="f12 black">'+r.response[i].first_name+'<br/>'+r.response[i].last_name+'</div></div>';
+	  			if(existedIndex != -1) { 
+	  				imgCode = '<div class="h75 nmb well p5 active centered bg-green"><a href="<?php echo Mage::getBaseUrl().'wishlist/shared/public/id/' ?>'+existedIndex+'" target="_blank" class="white"><div class="col-md-5 mright10 "><img class="rounded inline" alt="'+name+'" src="'+r.response[i].photo_100+'" /></div><div class="f12">'+r.response[i].first_name+'<br/>'+r.response[i].last_name+'<br/><u>Сделать подарок</u></div></a></div>';
+	  			}
+	  			dates.push({
+	  				title: name,
+	  				start: date,
+	  				allDayDefault: false,
+	  				end: end,
+	  				url: '',
+	  				id: r.response[i].uid,
+	  				img: imgCode,
+	  			});
+	  			
+  			}
+	  	}
+	}   
+
+		jQuery('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: '',
+			},
+			defaultDate: '<?php echo date('Y-m-d') ?>',
+			editable: false,
+			eventLimit: true, // allow "more" link when too many events
+			lang: '<?php echo Mage::registry('slang') ?>',
+			events: dates,
+			eventColor: '#000', 	
+			eventBackgroundColor: '#fff', 
+			eventBorderColor: '#fff', 
+			eventRender: function(event, element) {
+		        for(i=0;i<dates.length;i++) {
+					if(dates[i].img != undefined) { 
+						jQuery('#'+dates[i].id).html(dates[i].img);
+					}
+				}
+		    }
+		});
+
+		
+
+
+  }
+  } );
+
+	});
+
+</script>
+
+<?php } ?>
+<div id='calendar'></div>
+
+<style type="text/css">
+#calendar {
+    width: 100%;
+    margin: auto;
+}
+
+.f12 { font-stretch: condensed; }
+</style>

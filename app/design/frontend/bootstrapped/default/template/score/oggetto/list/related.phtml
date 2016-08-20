@@ -1,0 +1,57 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<?php if($this->getItems()->getSize()): ?>
+<div class="block block-related well">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Child Items') ?></span></strong>
+    </div>
+    <div class="block-content">
+        
+        <div class="form-horizontal">
+        <?php foreach($this->getItems() as $_item): ?>
+        <?php if($output = Mage::getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($_item,'child')) {
+					echo $output;
+				} else { ?>
+                <div class="control-group">
+                    <label for="related-checkbox<?php echo $_item->getId() ?>" class="control-label">
+                        <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_item->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" width="50" height="50" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
+                     <?php echo $_item->getName() ?></label>
+                 </div>
+                 <?php } ?> 
+        <?php endforeach ?>
+        </div>
+    </div>
+</div>
+<?php endif ?>
+
+<?php if($this->getParentItems()->getSize()): ?>
+<div class="block block-related well">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Parent Items') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <div class="form-horizontal">
+        <?php foreach($this->getParentItems() as $_item): ?>
+          <?php if($output = Mage::getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($_item,'parent')) {
+					echo $output;
+				} else { ?>
+                <div class="control-group">
+                    <label for="related-checkbox<?php echo $_item->getId() ?>" class="control-label">
+                        <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_item->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" width="50" height="50" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
+                    <?php echo $_item->getName() ?></label>
+                 </div>
+                 <?php } ?> 
+        <?php endforeach ?>
+        </div>
+    </div>
+</div>
+<?php endif ?>

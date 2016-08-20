@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <cacherecords_adminhtml_cacherecords_index>
+        <reference name="content">
+            <block type="cacherecords/adminhtml_cacherecords" name="cacherecords" />
+        </reference>
+    </cacherecords_adminhtml_cacherecords_index>
+</layout>

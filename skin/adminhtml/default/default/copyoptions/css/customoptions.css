@@ -1,0 +1,18 @@
+/**
+ * Copy Custom Options.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Team
+ * that is bundled with this package of Medma Infomatix Pvt. Ltd.
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento COMMUNITY edition
+ * Medma Support does not guarantee correct work of this package
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * =================================================================
+**/
+.copy-options{height:750px;overflow:auto;}
+.del_row{width:100%;float:left;}
+.main-col-copy-options{width:100%;float:left;}

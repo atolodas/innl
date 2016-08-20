@@ -1,0 +1,81 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $this->getLang() ?>">
+<head>
+    <?php echo $this->getChildHtml('head') ?>
+</head>
+<body<?php echo $this->getBodyClass() ? ' class="' . $this->getBodyClass() . '"' : '' ?>>
+<?php echo $this->getChildHtml('after_body_start') ?>
+<div class="wrapper npb">
+
+    <div class="page">
+        <div class="navbar navbar-top nmb">
+            <div class="navbar-inner">
+                <div class="container">
+                    <?php echo $this->getChildHtml('header') ?>
+                </div>
+            </div>
+        </div>
+        <?php echo $this->getChildHtml('topMenuCms') ?>
+                 
+      <div class="container">
+
+        <div class="">
+            <div class="col-md-3 " style="max-width: 21.5%" id="col-left">
+                <div class=" equal bg-purple" id="col-left-wr">
+                    <?php echo $this->getChildHtml('left') ?>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xs-8 equal" style="min-width: 57%">
+                
+                    <?php echo $this->getChildHtml('global_messages') ?>
+
+                    <?php echo $this->getChildHtml('content') ?>
+            </div>
+
+            <div class="col-md-3 col-lg-3 col-xs-4" id="col-right"  style="max-width: 21.5%">
+                <div class="equal" style="background-color: rgb(253,192,2)" id="col-right-wr">
+                    <?php echo $this->getChildHtml('right') ?> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+    
+<footer class="footer navbar-fixed-bottom navbar-inner noborder npt">
+    <div class="container">
+        <?php echo $this->getChildHtml('footer') ?>
+        <?php echo $this->getChildHtml('global_notices') ?>
+    </div>
+</footer>
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+
+        <link href="<?php echo $this->getSkinUrl('css/red.css')?>" rel="stylesheet"  />
+
+
+        <?php echo $this->getChildHtml('before_body_end') ?>
+<script type="text/javascript">
+<?php foreach(Mage::getSingleton('customer/session')->getData() as $_code => $value) {
+if(is_array($value) || is_object($value)) continue;
+  ?>
+jQuery('select[name="<?php echo $_code ?>"]').val('<?php echo $value ?>');
+jQuery('input[name="<?php echo $_code ?>"]').val('<?php echo $value ?>');
+<?php } ?>
+</script>
+    </body>
+    </html>

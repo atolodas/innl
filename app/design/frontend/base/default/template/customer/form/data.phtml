@@ -1,0 +1,61 @@
+<ul style="margin:0">
+ <?php
+ if(!$customer = $this->getCustomer()) {
+   $customer = Mage::helper('customer')->getCustomer();
+ }
+ $attributes = Mage::getResourceModel('customer/form_attribute_collection')
+                ->addFormCodeFilter($this->getFormCode())
+               ->setSortOrder()
+		->load();
+
+      foreach($attributes as $attribute) {
+
+      ?>
+      <li>
+        <span class="">
+<?php if($attribute_value = $customer->getData($attribute->getAttributeCode())!= '') { ?>
+          <label class="desc">
+            <?php echo $attribute->getFrontendLabel() ?>
+         </label>
+<?php } ?>
+          <span>
+	        <?php switch($attribute->getFrontendInput()) {
+                case 'text':
+		case 'textarea': 	
+	 ?>
+<?php if($attribute->getFrontendClass() == 'validate-url') { ?><a href="<?php echo $customer->getData($attribute->getAttributeCode()); ?>" target="_blank"> <?php } ?>
+                  <?php echo $customer->getData($attribute->getAttributeCode()); ?>
+<?php if($attribute->getFrontendClass() == 'validate-url') { ?></a> <?php } ?>
+                <?php break;
+                case 'multiselect':  ?>
+                    <?php $options = $attribute->getSource()->getAllOptions(false);
+                    $vals = array();
+                    foreach($options as $key=>$value) { ?>
+                      <?php if(in_array($value['value'],explode(',',$customer->getData($attribute->getAttributeCode())))) {  $vals[] =  $value['label']; }
+                      ?>
+                    <?php }
+                     echo implode(', ',$vals); ?>
+                  </select>
+                <?php break;
+                 case 'select':
+                   $options = $attribute->getSource()->getAllOptions(false);
+                  $vals = array();
+                  foreach($options as $key=>$value) { ?>
+                      <?php if(in_array($value['value'],explode(',',$customer->getData($attribute->getAttributeCode())))) { $vals[] = $value['label']; } ?>
+                    <?php }
+                    echo $opts = implode(', ',$vals);
+                    if($opts == '' && $attribute_value == 1) echo 'Yes';
+			else  if($opts == '' && $attribute_value == 0) echo 'No'; 
+			?>
+                  </select>
+                 <?php break;
+                  case 'date':
+                  default:
+                break;
+                } ?>
+          </span>
+        </span>
+      </li>
+      <?php } ?>
+
+</ul>

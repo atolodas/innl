@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<layout version="0.0.1">
+
+    <default>
+        <reference name="head">
+            <block type="core/template"
+				name="janrain_captureui_header"
+				template="janrain/captureui/header.phtml"/>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template"
+				name="janrain_captureui_footer"
+				template="janrain/captureui/footer.phtml"/>
+        </reference>
+    </default>
+
+    <customer_logged_in>
+        <reference name="top.links">
+            <action method="removeLinkByUrl"><url helper="customer/getLogoutUrl"/></action>
+            <action method="addLink" translate="label title" module="customer">
+                <label>Edit Profile</label>
+                <url helper="captureui/profileUrl" />
+                <title>Edit Profile</title>
+                <prepare />
+                <urlParams />
+                <position>1000</position>
+                <liParams />
+                <aParams>class="janrain_capture_anchor"</aParams>
+                <beforeText></beforeText>
+                <afterText></afterText>
+            </action>
+            <action method="addLink" translate="label title" module="customer">
+                <label>Sign out</label>
+                <url helper="captureui/logoutUrl" />
+                <title>Sign out</title>
+                <prepare />
+                <urlParams />
+                <position>1010</position>
+                <liParams />
+                <aParams />
+                <beforeText></beforeText>
+                <afterText></afterText>
+            </action>
+        </reference>
+    </customer_logged_in>
+
+
+
+    <customer_account_index>
+        <reference name="head">
+            <block type="core/template"
+				name="janrain_captureui_header"
+				template="janrain/captureui/header.phtml"/>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template"
+				name="janrain_captureui_footer"
+				template="janrain/captureui/footer.phtml"/>
+        </reference>
+
+        <reference name="customer_account_dashboard">
+            <block type="customer/account_dashboard_info" name="customer_account_dashboard_info" as="info" template="janrain/captureui/account_info.phtml"/>
+        </reference>
+    </customer_account_index>
+
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="customer">
+                <name>account_edit</name>
+                <path>customer/account</path>
+                <label>Account Information</label>
+            </action>
+        </reference>
+    </customer_account>
+    
+</layout>

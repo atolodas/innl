@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<config>
+   <sections>
+        <admin>
+            <groups>
+                <ewall_advancetag translate="label" module="tag"><!-- this group is for big block -->
+                    <label>Advance Tags (For Tags List Page)</label>
+                    <sort_order>550</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <isdisplay translate="label">
+                            <label>Is Display?</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>select "Yes" to display it</comment>
+                        </isdisplay>
+                        <width translate="label">
+                            <label>Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>Width of the Flash tag cloud</comment>
+                        </width>
+                        <height translate="label">
+                            <label>Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>Height of the Flash tag cloud</comment>
+                        </height>
+                        <color1 translate="label">
+                            <label>Color of the tags</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>optional</comment>
+                        </color1>
+                        <color2 translate="label">
+                            <label>color for gradient</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>optional</comment>
+                        </color2>
+                        <color3 translate="label">
+                            <label>highlight color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>These should be 6 character hex color values without the # prefix (000000 for black, ffffff for white)  optional</comment>
+                        </color3>
+                        <color4 translate="label">
+                            <label>Background color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>6 character hex color value</comment>
+                        </color4>
+                        <transparent translate="label">
+                            <label>Use transparent mode</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>Switches on Flash's wmode-transparent setting</comment>
+                        </transparent>
+                        <speed translate="label">
+                            <label>Rotation speed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>Speed (percentage, default is 100)</comment>
+                        </speed>						
+                        <distribute translate="label">
+                            <label>Distribute tags evenly on sphere</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>Places tags at equal intervals instead of random</comment>
+                        </distribute>
+                        <type translate="label">
+                            <label>Type of Tags</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>ewall_advancetag/source_type</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </type>
+					</fields>
+                </ewall_advancetag>
+				<ewall_advancetag2 translate="label" module="tag">  <!-- this group is for small block -->
+                    <label>Advance Tags (For Small Block)</label>
+                    <sort_order>650</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <isdisplay translate="label">
+                            <label>Is Display?</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>select "Yes" to display it</comment>
+                        </isdisplay>
+						<width translate="label">
+                            <label>Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>Width of the Flash tag cloud</comment>
+                        </width>
+                        <height translate="label">
+                            <label>Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>Height of the Flash tag cloud</comment>
+                        </height>
+                        <color1 translate="label">
+                            <label>Color of the tags</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>optional</comment>
+                        </color1>
+                        <color2 translate="label">
+                            <label>color for gradient</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>optional</comment>
+                        </color2>
+                        <color3 translate="label">
+                            <label>highlight color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>These should be 6 character hex color values without the # prefix (000000 for black, ffffff for white)  optional</comment>
+                        </color3>
+                        <color4 translate="label">
+                            <label>Background color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>6 character hex color value</comment>
+                        </color4>
+                        <transparent translate="label">
+                            <label>Use transparent mode</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>Switches on Flash's wmode-transparent setting</comment>
+                        </transparent>
+                        <speed translate="label">
+                            <label>Rotation speed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>Speed (percentage, default is 100)</comment>
+                        </speed>						
+                        <distribute translate="label">
+                            <label>Distribute tags evenly on sphere</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+							<comment>Places tags at equal intervals instead of random</comment>
+                        </distribute>
+                        <type translate="label">
+                            <label>Type of Tags</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>ewall_advancetag/source_type</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </type>
+					</fields>
+                </ewall_advancetag2>
+            </groups>
+        </admin>
+    </sections>
+</config>

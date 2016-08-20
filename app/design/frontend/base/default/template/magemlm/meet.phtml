@@ -1,0 +1,46 @@
+<?php /*
+ * Profile template for frontend
+ *
+ */
+ 	//$totalCommission 	= Mage::getModel('magemlm/commissions')->getCommissionSummary($customerId);
+	$customerCreatedAt  = Mage::helper('magemlm')->getCustomerCreatedDate();
+	//$monthCount 		= Mage::helper('magemlm')->countMonths($customerCreatedAt, date('Y-m'));
+	$customerId			= Mage::app()->getRequest()->getParam('id');
+	//$totalCommission    = Mage::getModel('magemlm/commissions')->getCommissionSummary($customerId);
+	$customer = Mage::getModel('customer/customer')->load($customerId);
+?>
+
+ <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<div class="well col-md-11">
+  <?php $customerMagemlm 	= Mage::getModel('magemlm/customer')->load($customerId, 'customer_id'); ?>
+  <?php
+  if($customer->getRoles()) { ?>
+
+  <div class=" col-md-3 pull-right">
+    <p align="center">
+      <?php if ($customerMagemlm->getMagemlmImage()) { ?>
+      <?php $image			= Mage::getBaseUrl('media') . DS . 'magemlm' . DS . $customerMagemlm->getMagemlmImage(); ?>
+      <img src="<?php echo $image; ?>" width="95%"/>
+      <?php } else { ?>
+       <img src="<?php echo $this->getSkinUrl('images/def_user.jpeg') ?>" />
+      <?php  } ?>
+    </p>
+  </div>
+
+<div class="col-md-4">
+       <?php if($output = Mage::getBlockSingleton('dcontent/oggettos')->getTemplateForCustomer($customer,'customer_main',$customer->getGroupId())) {
+	        echo $output;
+        } else {  ?>
+   <?php echo Mage::app()->getLayout()->createBlock('core/template')->setCustomer($customer)->setFormCode('public_account')->setTemplate('customer/form/data.phtml')->toHtml(); ?>
+    <?php } ?>
+<?php } else { ?>
+<div class="alert alert-error fade in">
+        <a class="close" data-dismiss="alert">×</a>
+        There are no public profile with this Id. Search other co-founders at <a href='http://www.innativelife.com/en/inl/customer/search'>http://www.innativelife.com/en/inl/customer/search</a>    </div>
+<?php } ?>
+</div>
+
+
+</div>
+

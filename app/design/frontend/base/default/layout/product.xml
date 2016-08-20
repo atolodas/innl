@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <custom_product_layout>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="product.info">
+            <action method="setTemplate"><template>product/advanced_view.phtml</template></action>
+        </reference>
+        <reference name="media">
+            <action method="setTemplate"><template>product/advanced_media.phtml</template></action>
+        </reference>
+    </custom_product_layout>
+</layout> 

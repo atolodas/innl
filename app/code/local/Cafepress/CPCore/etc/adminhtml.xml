@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+                <cpcore translate="title" module="cpcore">
+                    <title>Sync</title>
+                    <action>cpcore/adminhtml_xmlformat/index</action>
+                    <sort_order>30</sort_order>
+                    <children>
+                        <main module="cpcore">
+                            <title>Manage XMLs formats</title>
+                            <sort_order>1</sort_order>
+                            <action>cpcore/adminhtml_xmlformat/index</action>
+                        </main>
+                        <log module="cpcore">
+                            <title>Logging</title>
+                            <sort_order>3</sort_order>
+                            <action>cpcore/adminhtml_logging/index</action>
+                        </log>
+                        <replacer module="cpcore">
+                            <title>Replacer</title>
+                            <sort_order>3</sort_order>
+                            <action>cpcore/adminhtml_replacer/index</action>
+                        </replacer>
+                        <viewxmls module="cpcore">
+                            <title>View XMLs</title>
+                            <sort_order>3</sort_order>
+                            <action>cpcore/adminhtml_viewxmls/index</action>
+                        </viewxmls>
+                        <settings module="cpcore">
+                            <title>Settings</title>
+                            <sort_order>4</sort_order>
+                            <action>adminhtml/system_config/edit/section/common</action>
+                        </settings>
+                    </children>
+                </cpcore>
+         
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <cpcore module="cpcore">
+                                <title>Cafepress</title>
+                                <sort_order>1000</sort_order>
+                                <children>
+                                    <main module="cpcore">
+                                        <title>Manage XMLs formats</title>
+                                    </main>
+                                    <review module="cpcore">
+                                        <title>Review</title>
+                                    </review>
+                                    <log module="cpcore">
+                                        <title>Logging</title>
+                                    </log>
+                                    <settings module="cpcore">
+                                        <title>Settings</title>
+                                    </settings>
+                                </children>
+                            </cpcore>
+                        </children>
+                    </sales>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <common translate="title" module="cpcore">
+                                        <title>WMS Common Options Config Part</title>
+                                    </common>
+                                    <http translate="title" module="cpcore">
+                                        <title>WMS Http Options Config Part</title>
+                                    </http>
+                                    <soap translate="title" module="cpcore">
+                                        <title>WMS Soap Options Config Part</title>
+                                    </soap>
+                                    <ftp translate="title" module="cpcore">
+                                        <title>WMS Ftp Options Config Part</title>
+                                    </ftp>
+                                    <inventory_advice translate="title" module="cpcore">
+                                        <title>Inventory Advice Options Config Part</title>
+                                    </inventory_advice>
+                                    <aknowledgment translate="title" module="cpcore">
+                                        <title>Aknowledgment Options Config Part</title>
+                                    </aknowledgment>
+                                    <shipment translate="title" module="cpcore">
+                                        <title>Shipment Options Config Part</title>
+                                    </shipment>
+                                    <dumpmail translate="title" module="cpcore">
+                                        <title>WMS - Dump Mail Config Part</title>
+                                    </dumpmail>
+                                    <cpcore_dev translate="title" module="cpcore">
+                                        <title>WMS - Extra functions (for developers only)</title>
+                                    </cpcore_dev>
+                                    <cafepress_common translate="title" module="cpcore">
+                                        <title>Cafe Press Common Options Config Part</title>
+                                    </cafepress_common>
+                                    <wms_client translate="title" module="cpcore">
+                                        <title>WMS Client</title>
+                                    </wms_client>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <catalog>
+                        <children>
+                            <cpcore>
+                                <title>Manage Synchronize Products</title>
+                                <sort_order>1000</sort_order>
+                            </cpcore>
+                        </children>
+                    </catalog>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

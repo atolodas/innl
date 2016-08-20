@@ -1,0 +1,965 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Shaurmalab_Score
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <api>
+        <resources>
+            <score_category translate="title" module="core">
+                <model>score/category_api</model>
+                <title>Category API</title>
+                <acl>score/category</acl>
+                <methods>
+                    <currentStore>
+                        <title>Set/Get current store view</title>
+                    </currentStore>
+                    <tree translate="title" module="core">
+                        <title>Retrieve hierarchical tree</title>
+                        <acl>score/category/tree</acl>
+                    </tree>
+                    <level translate="title" module="core">
+                        <title>Retrieve one level of categories by website/store view/parent category</title>
+                    </level>
+                    <info translate="title" module="core">
+                        <title>Retrieve category data</title>
+                        <acl>score/category/info</acl>
+                    </info>
+                    <create translate="title" module="core">
+                        <title>Create new category</title>
+                        <acl>score/category/create</acl>
+                    </create>
+                    <update translate="title" module="core">
+                        <title>Update category</title>
+                        <acl>score/category/update</acl>
+                    </update>
+                    <move translate="title" module="core">
+                        <title>Move category in tree</title>
+                        <acl>score/category/move</acl>
+                    </move>
+                    <delete translate="title" module="core">
+                        <title>Delete category</title>
+                        <acl>score/category/delete</acl>
+                    </delete>
+                    <assignedOggettos translate="title" module="core">
+                        <title>Retrieve list of assigned oggettos</title>
+                        <acl>score/category/oggetto</acl>
+                    </assignedOggettos>
+                    <assignOggetto translate="title" module="core">
+                        <title>Assign oggetto to category</title>
+                        <acl>score/category/oggetto/assign</acl>
+                    </assignOggetto>
+                    <updateOggetto translate="title" module="core">
+                        <title>Update assigned oggetto</title>
+                        <acl>score/category/oggetto/update</acl>
+                    </updateOggetto>
+                    <removeOggetto translate="title" module="core">
+                        <title>Remove oggetto assignment</title>
+                        <acl>score/category/oggetto/remove</acl>
+                    </removeOggetto>
+                </methods>
+                <faults module="core">
+                    <store_not_exists>
+                        <code>100</code>
+                        <message>Requested store view not found.</message>
+                    </store_not_exists>
+                    <website_not_exists>
+                        <code>101</code>
+                        <message>Requested website not found.</message>
+                    </website_not_exists>
+                    <not_exists>
+                        <code>102</code>
+                        <message>Category not exists.</message>
+                    </not_exists>
+                    <data_invalid>
+                        <code>103</code>
+                        <message>Invalid data given. Details in error message.</message>
+                    </data_invalid>
+                    <not_moved>
+                        <code>104</code>
+                        <message>Category not moved. Details in error message.</message>
+                    </not_moved>
+                    <not_deleted>
+                        <code>105</code>
+                        <message>Category not deleted. Details in error message.</message>
+                    </not_deleted>
+                    <oggetto_not_assigned>
+                        <code>106</code>
+                        <message>Requested oggetto is not assigned to category.</message>
+                    </oggetto_not_assigned>
+                </faults>
+            </score_category>
+            <score_category_attribute translate="title" module="core">
+                <title>Category attributes API</title>
+                <model>score/category_attribute_api</model>
+                <acl>score/category</acl>
+                <methods>
+                    <currentStore translate="title" module="core">
+                        <title>Set/Get current store view</title>
+                    </currentStore>
+                    <list translate="title" module="core">
+                        <title>Retrieve category attributes</title>
+                        <method>items</method>
+                    </list>
+                    <options translate="title" module="core">
+                        <title>Retrieve attribute options</title>
+                    </options>
+                </methods>
+                <faults module="core">
+                    <store_not_exists>
+                        <code>100</code>
+                        <message>Requested store view not found.</message>
+                    </store_not_exists>
+                    <not_exists>
+                        <code>101</code>
+                        <message>Requested attribute not found.</message>
+                    </not_exists>
+                </faults>
+            </score_category_attribute>
+            <score_oggetto translate="title" module="core">
+                <title>Oggetto API</title>
+                <model>score/oggetto_api</model>
+                <acl>score/oggetto</acl>
+                <methods>
+                    <currentStore translate="title" module="core">
+                        <title>Set/Get current store view</title>
+                    </currentStore>
+                    <list translate="title" module="core">
+                        <title>Retrieve oggettos list by filters</title>
+                        <method>items</method>
+                        <acl>score/oggetto/info</acl>
+                    </list>
+                    <info translate="title" module="core">
+                        <title>Retrieve oggetto</title>
+                        <acl>score/oggetto/info</acl>
+                    </info>
+                    <create translate="title" module="core">
+                        <title>Create new oggetto</title>
+                        <acl>score/oggetto/create</acl>
+                    </create>
+                    <update translate="title" module="core">
+                        <title>Update oggetto</title>
+                        <acl>score/oggetto/update</acl>
+                    </update>
+                    <multiUpdate translate="title" module="Shaurmalab_Score">
+                        <title>Multi update oggetto</title>
+                        <acl>score/oggetto/update</acl>
+                    </multiUpdate>
+                    <delete translate="title" module="core">
+                        <title>Delete oggetto</title>
+                        <acl>score/oggetto/delete</acl>
+                    </delete>
+                    <getSpecialPrice translate="title" module="core">
+                        <title>Get special price</title>
+                    </getSpecialPrice>
+                    <setSpecialPrice translate="title" module="core">
+                        <title>Set special price</title>
+                        <acl>score/oggetto/update</acl>
+                    </setSpecialPrice>
+                    <listOfAdditionalAttributes translate="title" module="core">
+                        <title>Get list of non-default attributes by oggetto type and attributes set</title>
+                        <method>getAdditionalAttributes</method>
+                        <acl>score/oggetto/listOfAdditionalAttributes</acl>
+                    </listOfAdditionalAttributes>
+                </methods>
+                <faults module="core">
+                    <store_not_exists>
+                        <code>100</code>
+                        <message>Requested store view not found.</message>
+                    </store_not_exists>
+                    <oggetto_not_exists>
+                        <code>101</code>
+                        <message>Oggetto not exists.</message>
+                    </oggetto_not_exists>
+                    <data_invalid>
+                        <code>102</code>
+                        <message>Invalid data given. Details in error message.</message>
+                    </data_invalid>
+                    <not_deleted>
+                        <code>103</code>
+                        <message>Oggetto not deleted. Details in error message.</message>
+                    </not_deleted>
+                    <oggetto_type_not_exists>
+                        <code>104</code>
+                        <message>Oggetto type is not in allowed types.</message>
+                    </oggetto_type_not_exists>
+                    <oggetto_attribute_set_not_exists>
+                        <code>105</code>
+                        <message>Oggetto attribute set is not existed</message>
+                    </oggetto_attribute_set_not_exists>
+                    <oggetto_attribute_set_not_valid>
+                        <code>106</code>
+                        <message>Oggetto attribute set is not belong score oggetto entity type</message>
+                    </oggetto_attribute_set_not_valid>
+                    <multi_update_not_match>
+                        <code>107</code>
+                        <message>Quantity of oggetto IDs and oggetto data should match. No changes made.</message>
+                    </multi_update_not_match>
+                    <partially_updated>
+                        <code>108</code>
+                        <message>There was an error during one or more oggettos update. See error log for details.</message>
+                    </partially_updated>
+                </faults>
+            </score_oggetto>
+            <score_oggetto_attribute translate="title" module="core">
+                <title>Oggetto attributes API</title>
+                <model>score/oggetto_attribute_api</model>
+                <acl>score/oggetto</acl>
+                <methods>
+                    <currentStore translate="title" module="core">
+                        <title>Set/Get current store view</title>
+                        <acl>score/oggetto/attribute/write</acl>
+                    </currentStore>
+                    <list translate="title" module="core">
+                        <title>Retrieve attribute list</title>
+                        <method>items</method>
+                        <acl>score/oggetto/attribute/read</acl>
+                    </list>
+                    <options translate="title" module="core">
+                        <title>Retrieve attribute options</title>
+                        <acl>score/oggetto/attribute/read</acl>
+                    </options>
+                    <types translate="title" module="core">
+                        <title>Get list of possible attribute types</title>
+                        <acl>score/oggetto/attribute/types</acl>
+                    </types>
+                    <create translate="title" module="core">
+                        <title>Create new attribute</title>
+                        <acl>score/oggetto/attribute/create</acl>
+                    </create>
+                    <update translate="title" module="core">
+                        <title>Update attribute</title>
+                        <acl>score/oggetto/attribute/update</acl>
+                    </update>
+                    <remove translate="title" module="core">
+                        <title>Delete attribute</title>
+                        <acl>score/oggetto/attribute/remove</acl>
+                    </remove>
+                    <info translate="title" module="core">
+                        <title>Get full information about attribute with list of options</title>
+                        <acl>score/oggetto/attribute/info</acl>
+                    </info>
+                    <addOption translate="title" module="core">
+                        <title>Add option</title>
+                        <acl>score/oggetto/attribute/option/add</acl>
+                    </addOption>
+                    <removeOption translate="title" module="core">
+                        <title>Remove option</title>
+                        <acl>score/oggetto/attribute/option/remove</acl>
+                    </removeOption>
+                </methods>
+                <faults module="core">
+                    <store_not_exists>
+                        <code>100</code>
+                        <message>Requested store view not found.</message>
+                    </store_not_exists>
+                    <not_exists>
+                        <code>101</code>
+                        <message>Requested attribute not found.</message>
+                    </not_exists>
+                    <invalid_parameters>
+                        <code>102</code>
+                        <message>Invalid request parameters.</message>
+                    </invalid_parameters>
+                    <invalid_code>
+                        <code>103</code>
+                        <message>Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.</message>
+                    </invalid_code>
+                    <invalid_frontend_input>
+                        <code>104</code>
+                        <message>Incorrect attribute type.</message>
+                    </invalid_frontend_input>
+                    <unable_to_save>
+                        <code>105</code>
+                        <message>Unable to save attribute.</message>
+                    </unable_to_save>
+                    <can_not_delete>
+                        <code>106</code>
+                        <message>This attribute cannot be deleted.</message>
+                    </can_not_delete>
+                    <can_not_edit>
+                        <code>107</code>
+                        <message>This attribute cannot be edited.</message>
+                    </can_not_edit>
+                    <unable_to_add_option>
+                        <code>108</code>
+                        <message>Unable to add option.</message>
+                    </unable_to_add_option>
+                    <unable_to_remove_option>
+                        <code>109</code>
+                        <message>Unable to remove option.</message>
+                    </unable_to_remove_option>
+                </faults>
+            </score_oggetto_attribute>
+            <score_oggetto_attribute_set translate="title" module="core">
+                <title>Oggetto attribute sets API</title>
+                <model>score/oggetto_attribute_set_api</model>
+                <acl>score/oggetto/attribute/set</acl>
+                <methods>
+                    <create translate="title" module="core">
+                        <title>Create attribute set based on another set</title>
+                        <acl>score/oggetto/attribute/set/create</acl>
+                    </create>
+                    <remove translate="title" module="core">
+                        <title>Remove attribute set</title>
+                        <acl>score/oggetto/attribute/set/remove</acl>
+                    </remove>
+                    <list translate="title" module="core">
+                        <title>Retrieve oggetto attribute sets</title>
+                        <method>items</method>
+                        <acl>score/oggetto/attribute/set/list</acl>
+                    </list>
+                    <attributeAdd translate="title" module="core">
+                        <title>Add attribute into attribute set</title>
+                        <acl>score/oggetto/attribute/set/attribute_add</acl>
+                    </attributeAdd>
+                    <attributeRemove translate="title" module="core">
+                        <title>Remove attribute from attribute set</title>
+                        <acl>score/oggetto/attribute/set/attribute_remove</acl>
+                    </attributeRemove>
+                    <groupAdd translate="title" module="core">
+                        <title>Add group into attribute set</title>
+                        <acl>score/oggetto/attribute/set/group_add</acl>
+                    </groupAdd>
+                    <groupRename translate="title" module="core">
+                        <title>Rename existing group</title>
+                        <acl>score/oggetto/attribute/set/group_rename</acl>
+                    </groupRename>
+                    <groupRemove translate="title" module="core">
+                        <title>Remove group from attribute set</title>
+                        <acl>score/oggetto/attribute/set/group_remove</acl>
+                    </groupRemove>
+                </methods>
+                <faults module="core">
+                    <invalid_skeleton_set_id>
+                        <code>100</code>
+                        <message>Attribute set with requested id does not exist.</message>
+                    </invalid_skeleton_set_id>
+                    <invalid_data>
+                        <code>101</code>
+                        <message>Invalid data given.</message>
+                    </invalid_data>
+                    <create_attribute_set_error>
+                        <code>102</code>
+                        <message>Error while creating attribute set. Details in error message.</message>
+                    </create_attribute_set_error>
+                    <remove_attribute_set_error>
+                        <code>103</code>
+                        <message>Error while removing attribute set. Details in error message.</message>
+                    </remove_attribute_set_error>
+                    <invalid_attribute_set_id>
+                        <code>104</code>
+                        <message>Attribute set with requested id does not exist.</message>
+                    </invalid_attribute_set_id>
+                    <attribute_set_has_related_oggettos>
+                        <code>105</code>
+                        <message>Unable to remove attribute set as it has related goods. Use forceOggettosRemove parameter to remove attribute set with all goods.</message>
+                    </attribute_set_has_related_oggettos>
+                    <invalid_attribute_id>
+                        <code>106</code>
+                        <message>Attribute with requested id does not exist.</message>
+                    </invalid_attribute_id>
+                    <add_attribute_error>
+                        <code>107</code>
+                        <message>Error while adding attribute to attribute set. Details in error message.</message>
+                    </add_attribute_error>
+                    <invalid_attribute_group_id>
+                        <code>108</code>
+                        <message>Attribute group with requested id does not exist.</message>
+                    </invalid_attribute_group_id>
+                    <attribute_is_already_in_set>
+                        <code>109</code>
+                        <message>Requested attribute is already in requested attribute set.</message>
+                    </attribute_is_already_in_set>
+                    <remove_attribute_error>
+                        <code>110</code>
+                        <message>Error while removing attribute from attribute set. Details in error message.</message>
+                    </remove_attribute_error>
+                    <attribute_is_not_in_set>
+                        <code>111</code>
+                        <message>Requested attribute is not in requested attribute set.</message>
+                    </attribute_is_not_in_set>
+                    <group_already_exists>
+                        <code>112</code>
+                        <message>Requested group exist already in requested attribute set.</message>
+                    </group_already_exists>
+                    <group_add_error>
+                        <code>113</code>
+                        <message>Error while adding group to attribute set. Details in error message.</message>
+                    </group_add_error>
+                    <group_rename_error>
+                        <code>114</code>
+                        <message>Error while renaming group. Details in error message.</message>
+                    </group_rename_error>
+                    <group_remove_error>
+                        <code>115</code>
+                        <message>Error while removing group from attribute set. Details in error message.</message>
+                    </group_remove_error>
+                    <group_has_system_attributes>
+                        <code>116</code>
+                        <message>Group can not be removed as it contains system attributes.</message>
+                    </group_has_system_attributes>
+                    <group_has_configurable_attributes>
+                        <code>117</code>
+                        <message>Group can not be removed as it contains attributes, used in configurable oggettos.</message>
+                    </group_has_configurable_attributes>
+                </faults>
+            </score_oggetto_attribute_set>
+            <score_oggetto_type translate="title" module="core">
+                <title>Oggetto types API</title>
+                <model>score/oggetto_type_api</model>
+                <acl>score/oggetto</acl>
+                <methods>
+                    <list translate="title" module="core">
+                        <title>Retrieve oggetto types</title>
+                        <method>items</method>
+                    </list>
+                </methods>
+                <faults module="core">
+                </faults>
+            </score_oggetto_type>
+            <score_oggetto_attribute_media translate="title" module="core">
+                <title>Oggetto Images API</title>
+                <model>score/oggetto_attribute_media_api</model>
+                <acl>score/oggetto/media</acl>
+                <methods>
+                    <currentStore translate="title" module="core">
+                        <title>Set/Get current store view</title>
+                    </currentStore>
+                    <list translate="title" module="core">
+                        <title>Retrieve oggetto image list</title>
+                        <method>items</method>
+                    </list>
+                    <info translate="title" module="core">
+                        <title>Retrieve oggetto image</title>
+                    </info>
+                    <types translate="title" module="core">
+                        <title>Retrieve oggetto image types</title>
+                    </types>
+                    <create translate="title" module="core">
+                        <title>Upload new oggetto image </title>
+                        <acl>score/oggetto/media/create</acl>
+                    </create>
+                    <update translate="title" module="core">
+                        <title>Update oggetto image</title>
+                        <acl>score/oggetto/media/update</acl>
+                    </update>
+                    <remove translate="title" module="core">
+                        <title>Remove oggetto image</title>
+                        <acl>score/oggetto/media/remove</acl>
+                    </remove>
+                </methods>
+                <faults module="core">
+                    <store_not_exists>
+                        <code>100</code>
+                        <message>Requested store view not found.</message>
+                    </store_not_exists>
+                    <oggetto_not_exists>
+                        <code>101</code>
+                        <message>Oggetto not exists.</message>
+                    </oggetto_not_exists>
+                    <data_invalid>
+                        <code>102</code>
+                        <message>Invalid data given. Details in error message.</message>
+                    </data_invalid>
+                    <not_exists>
+                        <code>103</code>
+                        <message>Requested image not exists in oggetto images' gallery.</message>
+                    </not_exists>
+                    <not_created>
+                        <code>104</code>
+                        <message>Image creation failed. Details in error message.</message>
+                    </not_created>
+                    <not_updated>
+                        <code>105</code>
+                        <message>Image not updated. Details in error message.</message>
+                    </not_updated>
+                    <not_removed>
+                        <code>106</code>
+                        <message>Image not removed. Details in error message.</message>
+                    </not_removed>
+                    <not_media>
+                        <code>107</code>
+                        <message>Requested oggetto doesn't support images</message>
+                    </not_media>
+                </faults>
+            </score_oggetto_attribute_media>
+            <score_oggetto_attribute_tier_price translate="title" module="core">
+                <title>Oggetto Tier Price API</title>
+                <model>score/oggetto_attribute_tierprice_api</model>
+                <acl>score/oggetto</acl>
+                <methods>
+                    <info translate="title" module="core">
+                        <title>Retrieve oggetto tier prices</title>
+                    </info>
+                    <update translate="title" module="core">
+                        <title>Update oggetto tier prices</title>
+                        <acl>score/oggetto/update_tier_price</acl>
+                    </update>
+                </methods>
+                <faults module="core">
+                    <oggetto_not_exists>
+                        <code>100</code>
+                        <message>Oggetto not exists.</message>
+                    </oggetto_not_exists>
+                    <data_invalid>
+                        <code>101</code>
+                        <message>Invalid data given. Details in error message.</message>
+                    </data_invalid>
+                    <not_updated>
+                        <code>102</code>
+                        <message>Tier prices not updated. Details in error message.</message>
+                    </not_updated>
+                </faults>
+            </score_oggetto_attribute_tier_price>
+            <score_oggetto_link translate="title" module="core">
+                <title>Oggetto links API (related, cross sells, up sells)</title>
+                <model>score/oggetto_link_api</model>
+                <acl>score/oggetto/link</acl>
+                <methods>
+                    <list translate="title" module="core">
+                        <title>Retrieve linked oggettos</title>
+                        <method>items</method>
+                    </list>
+                    <assign translate="title" module="core">
+                        <title>Assign oggetto link</title>
+                        <acl>score/oggetto/link/assign</acl>
+                    </assign>
+                    <update translate="title" module="core">
+                        <title>Update oggetto link</title>
+                        <acl>score/oggetto/link/update</acl>
+                    </update>
+                    <remove translate="title" module="core">
+                        <title>Remove oggetto link</title>
+                        <acl>score/oggetto/link/remove</acl>
+                    </remove>
+                    <types translate="title" module="core">
+                        <title>Retrieve oggetto link types</title>
+                    </types>
+                    <attributes translate="title" module="core">
+                        <title>Retrieve oggetto link type attributes</title>
+                    </attributes>
+                </methods>
+                <faults module="core">
+                    <type_not_exists>
+                        <code>100</code>
+                        <message>Given invalid link type.</message>
+                    </type_not_exists>
+                    <oggetto_not_exists>
+                        <code>101</code>
+                        <message>Oggetto not exists.</message>
+                    </oggetto_not_exists>
+                    <data_invalid>
+                        <code>102</code>
+                        <message>Invalid data given. Details in error message.</message>
+                    </data_invalid>
+                    <not_removed>
+                        <code>104</code>
+                        <message>Oggetto link not removed.</message>
+                    </not_removed>
+                </faults>
+            </score_oggetto_link>
+            <score_oggetto_custom_option translate="title" module="core">
+                <title>Catalog oggetto custom options API</title>
+                <model>score/oggetto_option_api</model>
+                <acl>score/oggetto/option</acl>
+                <methods>
+                    <add translate="title" module="core">
+                        <title>Add new custom option into oggetto</title>
+                        <acl>score/oggetto/option/add</acl>
+                    </add>
+                    <update translate="title" module="core">
+                        <title>Update custom option of oggetto</title>
+                        <acl>score/oggetto/option/update</acl>
+                    </update>
+                    <types translate="title" module="core">
+                        <title>Get list of available custom option types</title>
+                        <acl>score/oggetto/option/types</acl>
+                    </types>
+                    <info translate="title" module="core">
+                        <title>Get full information about custom option in oggetto</title>
+                        <acl>score/oggetto/option/info</acl>
+                    </info>
+                    <list translate="title" module="core">
+                        <title>Retrieve list of oggetto custom options</title>
+                        <acl>score/oggetto/option/list</acl>
+                        <method>items</method>
+                    </list>
+                    <remove translate="title" module="core">
+                        <title>Remove custom option</title>
+                        <acl>score/oggetto/option/remove</acl>
+                    </remove>
+                </methods>
+                <faults module="core">
+                    <oggetto_not_exists>
+                        <code>101</code>
+                        <message>Oggetto with requested id does not exist.</message>
+                    </oggetto_not_exists>
+                    <invalid_data>
+                        <code>102</code>
+                        <message>Provided data is invalid.</message>
+                    </invalid_data>
+                    <save_option_error>
+                        <code>103</code>
+                        <message>Error while saving an option. Details are in the error message.</message>
+                    </save_option_error>
+                    <store_not_exists>
+                        <code>104</code>
+                        <message>Store with requested code/id does not exist.</message>
+                    </store_not_exists>
+                    <option_not_exists>
+                        <code>105</code>
+                        <message>Option with requested id does not exist.</message>
+                    </option_not_exists>
+                    <invalid_type>
+                        <code>106</code>
+                        <message>Invalid option type provided. Call 'types' to get list of allowed option types.</message>
+                    </invalid_type>
+                    <delete_option_error>
+                        <code>107</code>
+                        <message>Error while deleting an option. Details are in the error message.</message>
+                    </delete_option_error>
+                </faults>
+            </score_oggetto_custom_option>
+            <score_oggetto_custom_option_value translate="title" module="core">
+                <title>Catalog oggetto custom option values API</title>
+                <model>score/oggetto_option_value_api</model>
+                <acl>score/oggetto/option/value</acl>
+                <methods>
+                    <list translate="title" module="core">
+                        <title>Retrieve list of option values</title>
+                        <method>items</method>
+                        <acl>score/oggetto/option/value/list</acl>
+                    </list>
+                    <info translate="title" module="core">
+                        <title>Retrieve option value info</title>
+                        <acl>score/oggetto/option/value/info</acl>
+                    </info>
+                    <add translate="title" module="core">
+                        <title>Add new values into custom option</title>
+                        <acl>score/oggetto/option/value/add</acl>
+                    </add>
+                    <update translate="title" module="core">
+                        <title>Update value of custom option</title>
+                        <acl>score/oggetto/option/value/update</acl>
+                    </update>
+                    <remove translate="title" module="core">
+                        <title>Remove value from custom option</title>
+                        <acl>score/oggetto/option/value/remove</acl>
+                    </remove>
+                </methods>
+                <faults module="core">
+                    <value_not_exists>
+                        <code>101</code>
+                        <message>Option value with requested id does not exist.</message>
+                    </value_not_exists>
+                    <add_option_value_error>
+                        <code>102</code>
+                        <message>Error while adding an option value. Details are in the error message.</message>
+                    </add_option_value_error>
+                    <option_not_exists>
+                        <code>103</code>
+                        <message>Option with requested id does not exist.</message>
+                    </option_not_exists>
+                    <invalid_option_type>
+                        <code>104</code>
+                        <message>Invalid option type.</message>
+                    </invalid_option_type>
+                    <store_not_exists>
+                        <code>105</code>
+                        <message>Store with requested code/id does not exist.</message>
+                    </store_not_exists>
+                    <can_not_delete>
+                        <code>106</code>
+                        <message>Can not delete option.</message>
+                    </can_not_delete>
+                    <update_option_value_error>
+                        <code>107</code>
+                        <message>Error while updating an option value. Details are in the error message.</message>
+                    </update_option_value_error>
+                    <option_value_title_required>
+                        <code>108</code>
+                        <message>Title field is required.</message>
+                    </option_value_title_required>
+                    <cant_delete_last_value>
+                        <code>109</code>
+                        <message>Option should have at least one value. Can not delete last value.</message>
+                    </cant_delete_last_value>
+                </faults>
+            </score_oggetto_custom_option_value>
+        </resources>
+        <resources_alias>
+            <category>score_category</category>
+            <category_attribute>score_category_attribute</category_attribute>
+            <oggetto>score_oggetto</oggetto>
+            <oggetto_attribute>score_oggetto_attribute</oggetto_attribute>
+            <oggetto_attribute_set>score_oggetto_attribute_set</oggetto_attribute_set>
+            <oggetto_type>score_oggetto_type</oggetto_type>
+            <oggetto_link>score_oggetto_link</oggetto_link>
+            <oggetto_attribute_media>score_oggetto_attribute_media</oggetto_attribute_media>
+            <oggetto_media>score_oggetto_attribute_media</oggetto_media>
+            <oggetto_attribute_tier_price>score_oggetto_attribute_tier_price</oggetto_attribute_tier_price>
+            <oggetto_tier_price>score_oggetto_attribute_tier_price</oggetto_tier_price>
+            <oggetto_custom_option>score_oggetto_custom_option</oggetto_custom_option>
+            <oggetto_custom_option_value>score_oggetto_custom_option_value</oggetto_custom_option_value>
+        </resources_alias>
+        <v2>
+            <resources_function_prefix>
+                <category>scoreCategory</category>
+                <category_attribute>scoreCategoryAttribute</category_attribute>
+                <oggetto>scoreOggetto</oggetto>
+                <oggetto_attribute>scoreOggettoAttribute</oggetto_attribute>
+                <oggetto_attribute_set>scoreOggettoAttributeSet</oggetto_attribute_set>
+                <oggetto_type>scoreOggettoType</oggetto_type>
+                <oggetto_tier_price>scoreOggettoAttributeTierPrice</oggetto_tier_price>
+                <oggetto_attribute_media>scoreOggettoAttributeMedia</oggetto_attribute_media>
+                <oggetto_link>scoreOggettoLink</oggetto_link>
+                <oggetto_custom_option>scoreOggettoCustomOption</oggetto_custom_option>
+                <oggetto_custom_option_value>scoreOggettoCustomOptionValue</oggetto_custom_option_value>
+            </resources_function_prefix>
+        </v2>
+        <rest>
+            <mapping>
+                <score_category>
+                    <get_list>
+                        <method>tree</method>
+                    </get_list>
+                </score_category>
+                <score_oggetto_attribute_media>
+                    <delete>
+                        <method>remove</method>
+                    </delete>
+                </score_oggetto_attribute_media>
+                <score_oggetto_link>
+                    <post>
+                        <method>assign</method>
+                    </post>
+                    <delete>
+                        <method>remove</method>
+                    </delete>
+                </score_oggetto_link>
+            </mapping>
+        </rest>
+        <acl>
+            <resources>
+                <score translate="title" module="core">
+                    <title>Catalog</title>
+                    <sort_order>1</sort_order>
+                    <category translate="title" module="core">
+                        <title>Category</title>
+                        <create translate="title" module="core">
+                            <title>Create</title>
+                        </create>
+                        <update translate="title" module="core">
+                            <title>Update</title>
+                        </update>
+                        <move translate="title" module="core">
+                            <title>Move</title>
+                        </move>
+                        <delete translate="title" module="core">
+                            <title>Delete</title>
+                        </delete>
+                        <tree translate="title" module="core">
+                            <title>Retrieve categories tree</title>
+                        </tree>
+                        <info translate="title" module="core">
+                            <title>Retrieve category data</title>
+                        </info>
+                        <attributes module="core" model="score/category">
+                            <title>Allowed Attributes (REST Only)</title>
+                            <sort_order>0</sort_order>
+                        </attributes>
+                        <oggetto translate="title" module="core">
+                            <title>Assigned Oggettos</title>
+                            <sort_order>100</sort_order>
+                            <assign translate="title" module="core">
+                                <title>Assign</title>
+                            </assign>
+                            <update translate="title" module="core">
+                                <title>Update</title>
+                            </update>
+                            <remove translate="title" module="core">
+                                <title>Remove</title>
+                            </remove>
+                        </oggetto>
+                    </category>
+                    <oggetto translate="title" module="core">
+                        <title>Oggetto</title>
+                        <create translate="title" module="core">
+                            <title>Create</title>
+                        </create>
+                        <update translate="title" module="core">
+                            <title>Update</title>
+                        </update>
+                        <delete translate="title" module="core">
+                            <title>Delete</title>
+                        </delete>
+                        <update_tier_price translate="title" module="core">
+                            <title>Update Tier Price</title>
+                        </update_tier_price>
+                        <info translate="title" module="core">
+                            <title>Retrieve oggettos data</title>
+                        </info>
+                        <listOfAdditionalAttributes>
+                            <title>Get list of non-default attributes by oggetto type and attributes set</title>
+                        </listOfAdditionalAttributes>
+                        <attributes module="core" model="score/oggetto">
+                            <title>Allowed Attributes (REST Only)</title>
+                            <sort_order>0</sort_order>
+                        </attributes>
+                        <attribute translate="title" module="core">
+                            <title>Oggetto Attributes</title>
+                            <sort_order>100</sort_order>
+                            <read translate="title" module="core">
+                                <title>Retrieve attribute data</title>
+                            </read>
+                            <write translate="title" module="core">
+                                <title>Change or Retrieve attribute store view</title>
+                            </write>
+                            <types translate="title" module="core">
+                                <title>Get list of possible attribute types</title>
+                            </types>
+                            <create translate="title" module="core">
+                                <title>Create</title>
+                            </create>
+                            <update translate="title" module="core">
+                                <title>Update</title>
+                            </update>
+                            <remove translate="title" module="core">
+                                <title>Remove</title>
+                            </remove>
+                            <info translate="title" module="core">
+                                <title>Get full information about attribute with list of options</title>
+                            </info>
+                            <option translate="title" module="core">
+                                <title>Options</title>
+                                <add translate="title" module="core">
+                                    <title>Add</title>
+                                </add>
+                                <remove translate="title" module="core">
+                                    <title>Remove</title>
+                                </remove>
+                            </option>
+                            <set translate="title" module="core">
+                                <title>Attribute Sets</title>
+                                <list translate="title" module="core">
+                                    <title>List</title>
+                                </list>
+                                <create translate="title" module="core">
+                                    <title>Create</title>
+                                </create>
+                                <remove translate="title" module="core">
+                                    <title>Remove</title>
+                                </remove>
+                                <attribute_add translate="title" module="core">
+                                    <title>Attribute add</title>
+                                </attribute_add>
+                                <attribute_remove translate="title" module="core">
+                                    <title>Attribute remove</title>
+                                </attribute_remove>
+                                <group_add translate="title" module="core">
+                                    <title>Group add</title>
+                                </group_add>
+                                <group_rename translate="title" module="core">
+                                    <title>Rename group</title>
+                                </group_rename>
+                                <group_remove translate="title" module="core">
+                                    <title>Group remove</title>
+                                </group_remove>
+                            </set>
+                        </attribute>
+                        <link translate="title" module="core">
+                            <title>Link (Related, Up sell, Cross sell)</title>
+                            <sort_order>101</sort_order>
+                            <assign translate="title" module="core">
+                                <title>Assign</title>
+                            </assign>
+                            <update translate="title" module="core">
+                                <title>Update</title>
+                            </update>
+                            <remove translate="title" module="core">
+                                <title>Remove</title>
+                            </remove>
+                        </link>
+                        <media translate="title" module="core">
+                            <title>Oggetto Images</title>
+                            <sort_order>102</sort_order>
+                            <create translate="title" module="core">
+                                <title>Create (Upload)</title>
+                            </create>
+                            <update translate="title" module="core">
+                                <title>Update</title>
+                            </update>
+                            <remove translate="title" module="core">
+                                <title>Remove</title>
+                            </remove>
+                        </media>
+                        <option translate="title" module="core">
+                            <title>Custom options</title>
+                            <sort_order>105</sort_order>
+                            <add translate="title" module="core">
+                                <title>Add</title>
+                            </add>
+                            <update translate="title" module="core">
+                                <title>Update</title>
+                            </update>
+                            <types translate="title" module="core">
+                                <title>List of types</title>
+                            </types>
+                            <info translate="title" module="core">
+                                <title>Info</title>
+                            </info>
+                            <list translate="title" module="core">
+                                <title>List</title>
+                            </list>
+                            <remove translate="title" module="core">
+                                <title>Remove</title>
+                            </remove>
+                            <value translate="title" module="core">
+                                <title>Option values</title>
+                                <sort_order>107</sort_order>
+                                <list translate="title" module="core">
+                                    <title>List</title>
+                                </list>
+                                <info translate="title" module="core">
+                                    <title>Info</title>
+                                </info>
+                                <add translate="title" module="core">
+                                    <title>Add</title>
+                                </add>
+                                <update translate="title" module="core">
+                                    <title>Update</title>
+                                </update>
+                                <remove translate="title" module="core">
+                                    <title>Remove</title>
+                                </remove>
+                            </value>
+                        </option>
+                    </oggetto>
+                </score>
+            </resources>
+        </acl>
+    </api>
+</config>

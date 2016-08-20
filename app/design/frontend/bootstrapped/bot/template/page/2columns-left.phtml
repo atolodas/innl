@@ -1,0 +1,44 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $this->getLang() ?>">
+    <head>
+        <?php echo $this->getChildHtml('head') ?>
+    </head>
+<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<?php echo $this->getChildHtml('after_body_start') ?>
+<div class="wrapper">
+
+    <div class="page">
+        <div class="relativeh50 relative h50">&nbsp;</div>
+
+        <div class="fixed  w100p h50 relative h50 bg-lightgrey" style="top:0px; z-index:10000">
+        <?php echo $this->getChildHtml('header') ?>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" id="col-left">
+                        <?php echo $this->getChildHtml('left') ?>
+                </div>
+                <div class="col-md-9">
+                        <?php echo $this->getChildHtml('global_messages') ?>
+                        <?php echo $this->getChildHtml('content') ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <link href="<?php echo $this->getSkinUrl('css/red.css')?>" rel="stylesheet"  />
+        <?php echo $this->getChildHtml('before_body_end') ?>
+
+</body>
+</html>

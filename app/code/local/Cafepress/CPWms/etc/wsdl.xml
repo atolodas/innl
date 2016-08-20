@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema>
+            <complexType name="cpwmsProcessFormatX">
+                <all>
+                    <element name="request_body" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="response_body" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="status" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+            <complexType name="wmsXmlFormat">
+                <all>
+                    <element name="request_body" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="response_body" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="request_products_part" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="status" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                    <element name="additional" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                </all>
+            </complexType>
+        </schema>
+    </types>
+    <message name="cpwmsProcessFormatRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="format" type="typens:wmsXmlFormat"/>
+        <part name="type" type="xsd:integer"/>
+        <part name="additional" type="xsd:string"/>
+    </message>
+    <message name="cpwmsProcessFormatResponse">
+        <part name="processResponse" type="typens:cpwmsProcessFormatX"/>
+    </message>
+    <message name="cpwmsGetAvailableOrdersRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="cpwmsGetAvailableOrdersResponse">
+        <part name="ordersSerialized" type="xsd:string"/>
+    </message>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="cpwmsProcessFormat">
+            <documentation>Process Xml Format</documentation>
+            <input message="typens:cpwmsProcessFormatRequest"/>
+            <output message="typens:cpwmsProcessFormatResponse"/>
+        </operation>
+    </portType>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="cpwmsGetAvailableOrders">
+            <documentation>Get Available Orders</documentation>
+            <input message="typens:cpwmsGetAvailableOrdersRequest"/>
+            <output message="typens:cpwmsGetAvailableOrdersResponse"/>
+        </operation>
+    </portType>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="cpwmsProcessFormat">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="cpwmsGetAvailableOrders">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+</definitions>

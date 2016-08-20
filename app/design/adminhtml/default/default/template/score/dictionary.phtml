@@ -1,0 +1,179 @@
+<?php 
+$data = $this->getDictionary();
+$countries = Mage::getSingleton('directory/country')->getResourceCollection()
+                ->loadByStore();
+$stores = Mage::app()->getStores();
+        $store_arr = array();
+        foreach ($stores as $store) {
+            $store_arr[]= array(
+               'value' => $store->getId(),
+               'label' => $store->getName()
+            );
+        }
+$_htmlId = $this->getRequest()->getParam('id');
+$countriesDict = $this->getDictionary('country');   
+$object = $data[0];     
+?>
+<style type="text/css">
+input,  select {
+    line-height: 20px !important;
+    font-size: 15px !important;
+    height: 20px !important;
+    margin-right: 20px;
+}
+
+select { height: 25px !important; }
+
+td { padding-bottom: 5px; }
+
+button { 
+	font-size: 15px;
+height: 25px; }
+</style>
+<form action="<?php echo $this->getUrl('*/*/save') ?>" method="post" name="form" id="dict">
+	<input type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" name="form_key"/>
+<input type="hidden" name="table" value="<?php echo $this->getRequest()->getParam('id') ?>" />
+<table>
+	<thead>
+		<tr>
+			<td><?php echo $this->__('Title') ?></td>
+			<td><?php echo $this->__('Site') ?></td>
+			<?php if(isset($object['code'])) { ?> <td><?php echo $this->__('Code') ?></td> <?php } ?>
+			<?php if(isset($object['country_id'])) { ?> <td><?php echo $this->__('Country') ?></td> <?php } ?>
+            <?php if(isset($object['lat'])) { ?> <td><?php echo $this->__('Lat') ?></td> <?php } ?>
+            <?php if(isset($object['long'])) { ?> <td><?php echo $this->__('Long') ?></td> <?php } ?>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody id="<?php echo $_htmlId ?>_container">
+	</tbody>
+</table>
+<button type="button" onclick="$('dict').submit()"><?php echo $this->__('Save') ?></button>
+</form>
+<button type="button" onclick="control.addItem()"><?php echo $this->__('Add') ?></button>
+<script type="text/javascript">
+
+Array_max = function(){
+	    return Math.max.apply( Math, arguments[0] );
+	};
+Array_min = function(){
+	    return Math.min.apply( Math, arguments[0] );
+	};
+
+//<![CDATA[
+var rowTemplate = '<tr>'
+    	+'<td><input name="elements[{{index}}][title]" value="" id="row_{{index}}_title" /></td> '
+		+'<td>'
+		+'			<select name="elements[{{index}}][store_id]" id="row_{{index}}_store_id">'
+        +'           <option value="0">Отключить</option>'
+				<?php foreach ($store_arr as $s) { 	?>
+		+'			 <option value="<?php echo $s['value'] ?>"><?php echo $s['label'] ?></option>'
+				<?php } ?>
+		+'	</select>'
+		+'</td> '
+		<?php if(isset($object['code'])) { ?> 
+		+'<td>'
+		+'	<select name="elements[{{index}}][code]" id="row_{{index}}_code">'
+				<?php foreach ($countries as $c) { ?>
+		+'			 <option value="<?php echo strtolower($c->getData('iso2_code')) ?>"><?php echo strtolower($c->getData('iso2_code'))  ?></option>'
+				<?php } ?>
+		+'	</select>'
+		+'</td> '
+		<?php } ?>
+		<?php if(isset($object['country_id'])) { ?> 
+        +'<td>'
+        +'  <select name="elements[{{index}}][country_id]" id="row_{{index}}_country_id">'
+                <?php foreach ($countriesDict as $c) { ?>
+        +'       <option value="<?php echo strtolower($c['id']) ?>"><?php echo $c['title']  ?></option>'
+                <?php } ?>
+        +'  </select>'
+        +'</td> '
+        <?php } ?>
+        <?php if(isset($object['lat'])) { ?> 
+        +'<td>'
+        +'<input name="elements[{{index}}][lat]" value="" id="row_{{index}}_lat" />' 
+        +'</td> '
+        <?php } ?>
+        <?php if(isset($object['long'])) { ?> 
+        +'<td>'
+        +'<input name="elements[{{index}}][lng]" value="" id="row_{{index}}_lng" />' 
+        +'</td> '
+        <?php } ?>
+		+'<td><input type="hidden" name="elements[{{index}}][delete]" class="delete" value="" id="row_{{index}}_delete" /><button title="<?php echo Mage::helper('catalog')->__("Delete") ?>" type="button" class="scalable delete  delete-product-option" id="row_{{index}}_delete_button" onclick="return control.deleteItem(event);"><?php echo Mage::helper('catalog')->__("Delete") ?></button>'
+    	+ '</tr>';
+
+var ids = [0];
+var control = {
+    template: new Template(rowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+    itemsCount: 0,
+    addItem : function () {
+    	var i = (Array_max(ids))+1;
+    
+        var data = {
+            store_id: '',
+            titl: '',
+            cod: '',
+            country_id: '',
+            lat: '',
+            lng: '',
+            readOnly: false,
+            index: i
+        };
+
+      
+
+        if(arguments.length >= 5) {
+        	data.index = arguments[0];
+            data.store_id = arguments[1];
+            data.titl        = arguments[2];
+            data.cod        = arguments[3];
+            data.country_id        = arguments[4];
+            data.lat        = arguments[5];
+            data.lng        = arguments[6];
+
+	        ids.push(arguments[0]);
+        } else { 
+			ids.push(i);
+        }
+
+   
+        Element.insert($('<?php echo $_htmlId ?>_container'), {
+            bottom : this.template.evaluate(data)
+        });
+
+       
+
+        if(arguments.length >= 5) {
+	        $('row_' + data.index + '_store_id').value    = data.store_id;
+	        $('row_' + data.index + '_title').value = data.titl;
+	        if($('row_' + data.index + '_code') != undefined) $('row_' + data.index + '_code').value    = data.cod;
+	        if($('row_' + data.index + '_country_id') != undefined) $('row_' + data.index + '_country_id').value    = data.country_id;
+            if($('row_' + data.index + '_lat')!=undefined) $('row_' + data.index + '_lat').value = data.lat;
+            if($('row_' + data.index + '_lng')!=undefined) $('row_' + data.index + '_lng').value = data.lng;
+        } 
+       
+       
+        $('<?php echo $_htmlId ?>_container').select('input', 'select').each(function(el){ Event.observe(el, 'change', el.setHasChanges.bind(el)); });
+    },
+    disableElement: function(el) {
+        el.disabled = true;
+        el.addClassName('disabled');
+    },
+    deleteItem: function(event) {
+        var tr = Event.findElement(event, 'tr');
+        if (tr) {
+            Element.select(tr, '.delete').each(function(elem){elem.value='1'});
+            Element.select(tr, ['input', 'select']).each(function(elem){elem.hide()});
+            Element.hide(tr);
+            Element.addClassName(tr, 'no-display template');
+        }
+        return false;
+    }
+};
+<?php foreach ($this->getDictionary() as $_item): ?>
+control.addItem(<?php echo $_item['id'] ?>,'<?php echo $_item['store_id'] ?>', '<?php echo $_item['title'] ?>', '<?php echo @$_item['code'] ?>',  '<?php echo @$_item['country_id'] ?>','<?php echo @$_item['lat'] ?>','<?php echo @$_item['long'] ?>' , false);
+<?php endforeach;  ?>
+
+
+//]]>
+</script>

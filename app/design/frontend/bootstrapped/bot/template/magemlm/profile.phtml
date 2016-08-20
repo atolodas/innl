@@ -1,0 +1,50 @@
+<?php /*
+ * Profile template for frontend
+ *
+ */
+ 	//$totalCommission 	= Mage::getModel('magemlm/commissions')->getCommissionSummary($customerId);
+	$customerCreatedAt  = Mage::helper('magemlm')->getCustomerCreatedDate();
+	//$monthCount 		= Mage::helper('magemlm')->countMonths($customerCreatedAt, date('Y-m'));
+	$customerId			= Mage::helper('customer')->getCustomer()->getId();
+	//$totalCommission    = Mage::getModel('magemlm/commissions')->getCommissionSummary($customerId);
+	$customer = Mage::helper('customer')->getCustomer();
+?>
+
+ <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="well">
+<form action="<?php echo $this->getUrl('customer/account/publicEditPost') ?>" method="post" id="form-validate" class="form" enctype="multipart/form-data">
+<div >
+   <div class="row">
+   <?php /* <div class="col-md-7 pull-right">
+    <?php echo $this->getBlockHtml('formkey')?>
+   <?php echo Mage::app()->getLayout()->createBlock('core/template')->setFormCode('public_account')->setTemplate('customer/form/attributes.phtml')->toHtml(); ?>
+  </div> */ ?>
+  <div class="col-md-12 p20">
+    <?php $customerMagemlm 	= Mage::getModel('magemlm/customer')->load($customerId, 'customer_id'); ?>
+    <div align="center" class="inline pull-left pright20">
+        <?php if ($customerMagemlm->getMagemlmImage()) { ?>
+            <img src="<?php echo  Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir('media') . DS . 'magemlm' ,$customerMagemlm->getMagemlmImage(),200); ?>" />
+        <?php } else { ?>
+            <img src="<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir('media') . DS . 'magemlm', 'male.png',200) ?>" />
+        <?php  } ?>
+	</div>
+    <input type="file" title="File" class="inline" name="magemlm_customer_picture" />
+  </div>
+  </div>
+</div>
+
+
+ <div class="block">
+ 	 	<p class="help-block block">* <?php echo $this->__('Uploading of new photo will replace the current one') ?></p>
+	    <p class="help-block"><?php echo $this->__('* Required Fields') ?></p>
+        <button type="submit" title="<?php echo $this->__('Save') ?>" class="btn btn-large btn-danger pull-right"><span><span><?php echo $this->__('Save') ?></span></span></button>
+ </div>
+
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+//]]>
+</script>
+</div>

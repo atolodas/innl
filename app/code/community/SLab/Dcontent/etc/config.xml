@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <SLab_Dcontent>
+            <version>0.2.7</version>
+        </SLab_Dcontent>
+    </modules>
+    <frontend>
+     <translate>
+            <modules>
+                <SLab_Warranty>
+                    <files>
+                        <default>SLab_Dcontent.csv</default>
+                    </files>
+                </SLab_Warranty>
+            </modules>
+        </translate>
+        <routers>
+            <dcontent>
+                <use>standard</use>
+                <args>
+                    <module>SLab_Dcontent</module>
+                    <frontName>beinspired</frontName>
+                </args>
+            </dcontent>
+        </routers>
+        <layout>
+            <updates>
+                <dcontent>
+                    <file>dcontent/dcontent.xml</file>
+                </dcontent>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+         <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <dcontent before="Mage_Adminhtml">SLab_Dcontent_Adminhtml</dcontent>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+     <translate>
+            <modules>
+                <SLab_Warranty>
+                    <files>
+                        <default>SLab_Dcontent.csv</default>
+                    </files>
+                </SLab_Warranty>
+            </modules>
+        </translate>
+		<menu>
+			<dp_all>
+                <children>
+                    <items module="dcontent">
+                        <title>Products Blocks</title>
+                        <sort_order>72</sort_order>
+                        <children>
+                            <items module="dcontent">
+                                <title>Manage Blocks</title>
+                                <sort_order>0</sort_order>
+                              <action>adminhtml/dcontent</action>
+                            </items>
+                            <oggettos module="dcontent">
+                                <title>Manage Oggettos Blocks</title>
+                                <sort_order>0</sort_order>
+                                <action>adminhtml/oggettos</action>
+                            </oggettos>
+                            <templates module="dcontent">
+                                <title>Manage Templates</title>
+                                <sort_order>0</sort_order>
+                                <action>adminhtml/templates</action>
+                            </templates>
+                        </children>
+                    </items>
+                </children>
+            </dp_all>
+		</menu>
+		<acl>
+			<resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+				<admin>
+					<children>
+						<SLab_Dcontent>
+							<title>Dcontent Module</title>
+							<sort_order>10</sort_order>
+						</SLab_Dcontent>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <blocks translate="title" module="dcontent">
+                                            <title>Product blocks config</title>
+                                        </blocks>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+					</children>
+                </admin>
+			</resources>
+        </acl>
+		<layout>
+			<updates>
+				<dcontent>
+					<file>dcontent/dcontent.xml</file>
+				</dcontent>
+			</updates>
+		</layout>
+    </adminhtml>
+    <global>
+        <models>
+            <dcontent>
+                <class>SLab_Dcontent_Model</class>
+                <resourceModel>dcontent_mysql4</resourceModel>
+            </dcontent>
+            <category>
+                <class>SLab_Dcontent_Category</class>
+            </category>
+            <templates>
+                <class>SLab_Dcontent_Model_Templates</class>
+                <resourceModel>dcontent_mysql4_templates</resourceModel>
+            </templates>
+            <dcontent_mysql4>
+                <class>SLab_Dcontent_Model_Mysql4</class>
+                <entities>
+                    <dcontent>
+                        <table>dcontent</table>
+                    </dcontent>
+                    <oggettos>
+                        <table>oggettos</table>
+                    </oggettos>
+                    <templates>
+                    	<table>dcontent_templates</table>
+					</templates>
+                </entities>
+            </dcontent_mysql4>
+        </models>
+        <resources>
+            <dcontent_setup>
+                <setup>
+                    <module>SLab_Dcontent</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </dcontent_setup>
+            <dcontent_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </dcontent_write>
+            <dcontent_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </dcontent_read>
+        </resources>
+        <blocks>
+            <dcontent>
+                <class>SLab_Dcontent_Block</class>
+            </dcontent>
+            <templates>
+                <class>SLab_Dcontent_Block_Templates</class>
+            </templates>
+            <adminhtml>
+            	<rewrite>
+            		<dcontent_edit_tab_ajax_serializer>SLab_Dcontent_Block_Adminhtml_Dcontent_Edit_Tab_Ajax_Serializer</dcontent_edit_tab_ajax_serializer>
+            	</rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <dcontent>
+                <class>SLab_Dcontent_Helper</class>
+            </dcontent>
+        </helpers>
+    </global>
+</config>
+
+

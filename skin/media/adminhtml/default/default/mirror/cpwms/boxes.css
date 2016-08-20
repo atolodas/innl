@@ -1,0 +1,57 @@
+#wmsGridReview_table{
+    width: 1500px;
+    overflow-x:scroll;
+}
+
+.wms-grid-request{
+    width: 500px;
+    overflow-x:scroll;
+}
+
+#schedule_element{
+    width: 200%;
+    border-spacing: 2px;
+}
+
+#schedule_element tr{
+    width: 100%;
+}
+
+#schedule_element tr td{
+}
+
+input.command{
+    width: 100%;
+}
+
+div.schedule-label{
+    padding-top: 2px;
+}
+
+td.schedule-header{
+    width: 20%;
+    font-weight: bold;
+}
+
+#schedule-select-minute, #schedule-select-hour, #schedule-select-day, #schedule-select-month, #schedule-select-weekday {
+    width: 100%;
+}
+
+#schedule_value{
+    width: 99%;
+}
+
+table.condition_table{
+    width: 150%;
+    margin-top: 10px;
+}
+
+table.condition_table tr th{
+    background-color: #6F8992;
+    color: #ffffff;
+    text-align: center;
+}
+
+table.condition_table tr td{
+    text-align: center;
+}

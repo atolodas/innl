@@ -1,0 +1,30 @@
+<?php
+if(Mage::getStoreConfig('DP_Social/header/facebook_enabled') == 1){  ?>
+ 
+<div onclick="window.open('http://www.facebook.com/<?php echo  Mage::getStoreConfig('DP_Social/social_ids/facebook_id')  ?>
+','subWind', 'HEIGHT=250, WIDTH=250')" class="facebook_header">
+
+
+</div>
+
+ <?php }?>
+ 
+<?php
+if(Mage::getStoreConfig('DP_Social/header/twitter_enabled') == 1){  ?>
+ 
+<div onclick="window.open('http://www.twitter.com/<?php echo  Mage::getStoreConfig('DP_Social/social_ids/twitter_id')  ?>
+','subWind', 'HEIGHT=250, WIDTH=250')" class="twitter_header">
+
+</div>
+
+ <?php }?>
+ 
+<?php
+if(Mage::getStoreConfig('DP_Social/header/youtube_enabled') == 1){  ?>
+ 
+<div onclick="window.open('http://www.youtube.com/user/<?php echo  Mage::getStoreConfig('DP_Social/social_ids/youtube_id')  ?>
+','subWind', 'HEIGHT=250, WIDTH=250')" class="youtube_header">
+
+</div>
+
+ <?php }?>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * SLab CPWms extension for Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * 
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade
+ * the SLab WmsServer module to newer versions in the future.
+ * If you wish to customize the SLab WmsServer module for your needs
+ * please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   SLab
+ * @package    SLab_CPWms
+ * @copyright  Copyright (C) 2012 
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <api>
+        <resources>
+            <cpwms translate="title">
+                <model>cpwms/api</model>
+                <title>CPWms Client XML Format API</title>
+                <acl>cpwms</acl>
+                <methods>
+                    <processFormat translate="title">
+                        <title>Process XML Format</title>
+                        <method>processFormat</method>
+                        <acl>cpwms/process_format</acl>
+                    </processFormat>
+                    <getAvailableOrders translate="title">
+                        <title>Get Available Orders</title>
+                        <method>getAvailableOrders</method>
+                        <acl>cpwms/get_available_orders</acl>
+                    </getAvailableOrders>
+                </methods>
+            </cpwms>
+        </resources>
+        <v2>
+            <resources_function_prefix>
+                <cpwms>cpwms</cpwms>
+            </resources_function_prefix>
+        </v2>
+        <acl>
+            <resources>
+                <cpwms translate="title" module="cpwms">
+                    <title>CPWms Client XML Format API</title>
+                    <sort_order>100</sort_order>
+                    <process_format translate="title" module="cpwms">
+                        <title>Process XML Format</title>
+                    </process_format>
+                    <get_available_orders translate="title" module="cpwms">
+                        <title>Get Available Orders</title>
+                    </get_available_orders>
+                </cpwms>
+            </resources>
+        </acl>
+    </api>
+</config>
+

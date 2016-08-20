@@ -1,0 +1,104 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $this->getUrl('customer/account/editPost') ?>" method="post" id="form-validate" class="form well col-md-6 mtop20">
+    <div class="content">
+    <fieldset class="col-md-6">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <legend><h3 class="legend"><?php echo $this->__('Account Information') ?></h3></legend>
+            <div class="controls">
+                <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getCustomer())->toHtml() ?>
+            </div>
+            <div class="control-group">
+                <label for="email" class="control-label"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                <div class="controls">
+                    <input type="text" name="email" id="email" value="<?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text required-entry validate-email" />
+                </div>
+            </div>
+        <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
+        <?php if ($_dob->isEnabled()): ?>
+            <div class="controls"><?php echo $_dob->setDate($this->getCustomer()->getDob())->toHtml() ?></div>
+        <?php endif ?>
+        <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
+        <?php if ($_taxvat->isEnabled()): ?>
+            <div class="controls"><?php echo $_taxvat->setTaxvat($this->getCustomer()->getTaxvat())->toHtml() ?></div>
+        <?php endif ?>
+        <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+        <?php if ($_gender->isEnabled()): ?>
+            <div class="controls"><?php echo $_gender->setGender($this->getCustomer()->getGender())->toHtml() ?></div>
+        <?php endif ?>
+            <div class="controls">
+                <label for="change_password" class="checkbox">
+                    <input type="checkbox" name="change_password" id="change_password" onclick="setPasswordForm(this.checked)" title="<?php echo $this->__('Change Password') ?>" class="checkbox" />
+                    <?php echo $this->__('Change Password') ?>
+                </label>
+
+            </div>
+    </fieldset>
+    <fieldset class="col-md-6" id="pass-block" style="display:none;">
+        <legend><h3 class="legend"><?php echo $this->__('Change Password') ?></h3></legend>
+                <label for="current_password" class="required"><em>*</em><?php echo $this->__('Current Password') ?></label>
+                <div class="controls">
+                    <input type="password" title="<?php echo $this->__('Current Password') ?>" class="input-text" name="current_password" id="current_password" />
+                </div>
+                <div class="control-group">
+                    <label for="password" class="required"><em>*</em><?php echo $this->__('New Password') ?></label>
+                    <div class="controls">
+                        <input type="password" title="<?php echo $this->__('New Password') ?>" class="input-text validate-password" name="password" id="password" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="confirmation" class="required"><em>*</em><?php echo $this->__('Confirm New Password') ?></label>
+                    <div class="controls">
+                        <input type="password" title="<?php echo $this->__('Confirm New Password') ?>" class="input-text validate-cpassword" name="confirmation" id="confirmation" />
+                    </div>
+                </div>
+    </fieldset>
+        <?php $formCode =  $this->getFormCode(); ?>
+        <input type="hidden" name="back" value="<?php echo Mage::helper('core/url')->getCurrentUrl() ?>" />
+        <input type="hidden" name="form_code" value="<?php echo ($formCode)?$formCode:'customer_account_create' ?>" />
+        <?php
+        if($formCode && $formCode!='customer_account_create') { ?>
+                <div class="col-md-12">
+                <h3>Additional Info</h3>
+                <fieldset class="control-group">
+                    <?php echo Mage::app()->getLayout()->createBlock('core/template')->setFormCode($formCode)->setTemplate('customer/form/attributes.phtml')->toHtml(); ?>
+                </fieldset>
+            </div>
+        <?php } ?>
+    </div>
+
+    <div class="col-md-12">
+        <p class="help-block"><?php echo $this->__('* Required Fields') ?></p>
+        <button type="submit" title="<?php echo $this->__('Save') ?>" class="btn btn-large btn-danger pull-right"><span><span><?php echo $this->__('Save') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    function setPasswordForm(arg){
+        if(!arg){
+            $('pass-block').show();
+            $('current_password').addClassName('required-entry');
+            $('password').addClassName('required-entry');
+            $('confirmation').addClassName('required-entry');
+
+        }else{
+            $('pass-block').hide();
+            $('current_password').removeClassName('required-entry');
+            $('password').removeClassName('required-entry');
+            $('confirmation').removeClassName('required-entry');
+        }
+    }
+
+//]]>
+</script>

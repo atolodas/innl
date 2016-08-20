@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+
+
+<config>
+    <modules>
+        <DP_All>
+            <version>2.2.0</version>
+        </DP_All>
+    </modules>
+
+    <global>
+        <blocks>
+            <dpall>
+                <class>DP_All_Block</class>
+            </dpall>
+            <adminhtml>
+                <rewrite>
+                    <notification_window>DP_All_Block_Notification_Window</notification_window>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <resources>
+            <dpall_setup>
+                <setup>
+                    <module>DP_All</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </dpall_setup>
+            <dpall_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </dpall_write>
+            <dpall_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </dpall_read>
+        </resources>
+        <models>
+            <dpall>
+                <class>DP_All_Model</class>
+            </dpall>
+        </models>
+
+        <helpers>
+            <dpall>
+                <class>DP_All_Helper</class>
+            </dpall>
+        </helpers>
+    </global>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <dpall module="DP_All">
+                    <file>dp_all.xml</file>
+                </dpall>
+            </updates>
+        </layout>
+
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <dpall>
+                                            <title>DP - All</title>
+                                        </dpall>
+                                        <dpstore>
+                                            <title>DP - Extensions Store</title>
+                                        </dpstore>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <dpall_exts>
+                        <type>singleton</type>
+                        <class>dpall/feed_extensions</class>
+                        <method>check</method>
+                    </dpall_exts>
+                    <dpall_check>
+                        <type>singleton</type>
+                        <class>dpall/feed_extensions</class>
+                        <method>checkExtensions</method>
+                    </dpall_check>
+                    <dpall_upds>
+                        <type>singleton</type>
+                        <class>dpall/feed_updates</class>
+                        <method>check</method>
+                    </dpall_upds>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+    </adminhtml>
+    <default>
+        <dpall>
+            <feed>
+                <url>ecommerce.aheadworks.com/blog/feed/?tag=feed&amp;community=1</url>
+                <use_https>0</use_https>
+                <check_frequency>86400</check_frequency>
+                <enabled>1</enabled>
+                <interests>INFO,PROMO,UPDATE_RELEASE,NEW_RELEASE,INSTALLED_UPDATE</interests>
+            </feed>
+        </dpall>
+    </default>
+</config>

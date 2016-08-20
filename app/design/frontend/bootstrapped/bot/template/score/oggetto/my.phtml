@@ -1,0 +1,155 @@
+<?php
+    $_oggettoCollection = $this->getLoadedOggettoCollection();
+
+    $_helper = $this->helper('score/output');
+    $limits = $this->getLayout()->createBlock('score/oggetto_list_toolbar')->getLimit();
+    if(!is_array($limits)) $limits = array($limits);
+      /* @var $pager Mage_Page_Block_Html_Pager */
+        $pager = $this->getLayout()->createBlock('page/html_pager', 'bootstrapped.standalone.pager');
+
+        // set limit - uses category's instead of default pager's (10-20-50)
+        $pager->setAvailableLimit($limits);
+        // need to set collection
+        $pager->setCollection($_oggettoCollection);
+        //set custom template
+        $pager->setTemplate('score/oggetto/list/pager.phtml');
+?>
+<?php if(!$_oggettoCollection->count()): ?>
+<div class="alert fade in">
+  <?php echo $this->__('There are no objects matching.') ?>
+</div>
+<?php else: ?>
+<div class="category-oggettos" id="oggettos">
+    <div class="" style="float:right">
+      <?php echo $pager->toHtml(); ?>
+    </div>
+
+    <?php echo $this->getToolbarHtml();?>
+
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $_iterator = 0; ?>
+    <ol class="oggettos-list unstyled row-fluid" id="oggettos-list">
+        <?php foreach ($_oggettoCollection as $_oggetto): ?>
+        <li class="item<?php if( ++$_iterator == sizeof($_oggettoCollection) ): ?> last<?php endif; ?> row-fluid">
+
+   <?php
+     if($output = Mage::getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($_oggetto,'mylist')) {
+	      echo $output;
+     } elseif($output = Mage::getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($_oggetto,'list')) {
+	      echo $output;
+     } else { ?>
+             <?php $img =  $this->helper('score/image')->init($_oggetto, 'image') ?>
+                <a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" class="product-image">
+            	<div  style="height:400px; overflow:scroll;"><img src="<?php echo $img->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" />
+              </div></a>
+
+
+
+            <div class="col-md-4"><a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" class="oggetto-image thumbnail"><img src="<?php //echo $this->helper('score/image')->init($_oggetto, 'image')->resize(225); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" /></a></div>
+            <?php // Oggetto description ?>
+            <div class="col-md-8">
+                <div class="thumbnail data">
+                    <div class="caption">
+                    <?php $_oggettoNameStripped = $this->stripTags($_oggetto->getName(), null, true); ?>
+                    <h3 class="oggetto-name"><a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $_oggettoNameStripped; ?>"><?php echo $_helper->oggettoAttribute($_oggetto, $_oggetto->getName() , 'name'); ?></a></h3>
+                        <?php if ($_oggetto->getPinedUrl()) { ?><a  target="_blank" href="<?php echo $_oggetto->getPinedUrl() ?>" title="<?php echo $_oggetto->getPinedUrl() ?>"><?php echo $_oggetto->getPinedUrl() ?></a> <?php } ?>
+
+                  <?php if($_oggetto->getRatingSummary()): ?>
+                        <?php echo $this->getReviewsSummaryHtml($_oggetto) ?>
+                    <?php endif; ?>
+                    <div class="row-fluid">
+                        <?php echo $this->getPriceHtml($_oggetto, true) ?>
+                    </div>
+                    <div class="desc std">
+                        <?php echo $_helper->oggettoAttribute($_oggetto, $_oggetto->getShortDescription(), 'short_description') ?>
+                        <a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $_oggettoNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                    </div>
+                 <?php  /*  <p class="add-to-links unstyled">
+                        <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                        <a href="<?php echo $this->helper('wishlist')->getAddUrl($_oggetto) ?>" class="link-wishlist label label-info"><?php echo $this->__('Add to Wishlist') ?></a>
+                        <?php endif; ?>
+                        <?php if($_compareUrl=$this->getAddToCompareUrl($_oggetto)): ?>
+                        <span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare label label-info"><?php echo $this->__('Add to Compare') ?></a>
+                        <?php endif; ?>
+                    </p> */ ?>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+        </li><hr>
+        <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('oggettos-list', 'none-recursive')</script>
+
+    <?php else: ?>
+
+    <?php // Grid Mode ?>
+
+    <?php $_collectionSize = $_oggettoCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+    <?php $i=0; foreach ($_oggettoCollection as $_oggetto):
+    ?>
+        <?php if ($i++%$_columnCount==0): ?>
+            <ul class="oggettos-grid unstyled thubmnails row-fluid">
+            <?php endif ?>
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> col-md-4">
+
+             <?php
+     if($output = Mage::getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($_oggetto,'mygrid')) {
+	      echo $output;
+     } elseif($output = Mage::getBlockSingleton('dcontent/oggettos')->getTemplateForOggetto($_oggetto,'grid')) {
+	      echo $output;
+     } else { ?>
+             <div class="thumbnail">
+
+                <a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" class="product-image">
+            	<div style="max-height:400px; overflow:scroll;"><img src="<?php echo $this->helper('score/image')->init($_oggetto, 'image')->resize(400); ?>" width="400" alt="<?php echo $this->stripTags($this->getImageLabel($_oggetto, 'image'), null, true) ?>" />
+              </div></a>
+
+                <div class="caption">
+                    <h3 class="oggetto-name"><a href="<?php echo $_oggetto->getOggettoUrl() ?>" title="<?php echo $this->stripTags($_oggetto->getName(), null, true) ?>"><?php echo $_helper->oggettoAttribute($_oggetto, $_oggetto->getName(), 'name') ?></a></h3>
+                       <?php if ($_oggetto->getPinedUrl()) { ?><a  target="_blank" href="<?php echo $_oggetto->getPinedUrl() ?>" title="<?php echo $_oggetto->getPinedUrl() ?>"><?php echo $_oggetto->getPinedUrl() ?></a> <?php } ?>
+                <?php echo Mage::app()->getLayout()->createBlock("scoretag/oggetto_list")->setCurrentOggettoId($_oggetto->getId())->setOggettoId($_oggetto->getId()+rand(1,10))->setTemplate("scoretag/votelist.phtml")->toHtml(); ?>
+                <?php if($_oggetto->getRatingSummary()): ?>
+                    <?php echo $this->getReviewsSummaryHtml($_oggetto, 'short') ?>
+                    <?php endif; ?>
+                    <?php /* echo $this->getPriceHtml($_oggetto, true) ?>
+                    <?php if($_oggetto->isSaleable()): ?>
+                        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="btn btn-danger btn-mini" onclick="setLocation('<?php echo $this->getAddToCartUrl($_oggetto) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php else: ?>
+                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                    <?php endif; ?>
+                    <p class="add-to-links unstyled">
+                        <?php if($_compareUrl=$this->getAddToCompareUrl($_oggetto)): ?>
+                        <a href="<?php echo $_compareUrl ?>" class="link-compare label label-info pull-right"><?php echo $this->__('Add to Compare') ?></a>
+                        <?php endif; ?>
+                        <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                            <a href="<?php echo $this->helper('wishlist')->getAddUrl($_oggetto) ?>" class="link-wishlist label label-info"><?php echo $this->__('Add to Wishlist') ?></a>
+                        <?php endif; ?>
+
+                    </p> <?php */ ?>
+                </div>
+                </div>
+                <?php } ?>
+            </li>
+            <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+            </ul>
+        <?php endif ?>
+        <?php        endforeach ?>
+    <script type="text/javascript">decorateGeneric($$('ul.oggettos-grid'), ['odd','even','first','last'])</script>
+    <?php endif; ?>
+
+    <div class="toolbar-bottom">
+        <?php
+        /* @var $toolbar Mage_Score_Block_Oggetto_List_Toolbar */
+        // get toolbars limits - overrides default pager limit
+        $toolbar = Mage::getBlockSingleton('score/oggetto_list_toolbar')->getAvailableLimit();
+?>
+  <div class="" style="float:right">
+<?php echo $pager->toHtml(); ?>
+</div>
+</div>
+</div>
+<?php endif; ?>
+

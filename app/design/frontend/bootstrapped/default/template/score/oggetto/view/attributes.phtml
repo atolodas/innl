@@ -1,0 +1,43 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+
+/**
+ * Oggetto additional attributes template
+ *
+ * @see Mage_Score_Block_Oggetto_View_Attributes
+ */
+?>
+<?php
+    $_helper = $this->helper('score/output');
+    $_oggetto = $this->getOggetto()
+?>
+<?php if($_additional = $this->getAdditionalData()): ?>
+    <h3><?php echo $this->__('Additional Information') ?></h3>
+    <table class="table table-striped table-bordered table-condensed" id="oggetto-attribute-specs-table">
+        <tbody>
+        <?php foreach ($_additional as $_data): ?>
+            <tr>
+                <td class="data">
+		<strong><h4><?php echo $this->htmlEscape($this->__($_data['label'])) ?></h4></strong>
+                <br/>
+		<?php 
+		if(in_array($_data['value'],array('','-'))) { echo "sorry, not available yet. come back later"; } 
+		else if($_data['code']=='repo') { echo "<a href='{$_data['value']}' target='_blank'>{$_data['value']}</a> *iframe unfortunatelly not available"; } 
+		else { ?>
+		<iframe src="<?php echo $_helper->oggettoAttribute($_oggetto, $_data['value'], $_data['code']) ?>" style="border:0;width:100%; height:500px "></iframe>
+		<?php } ?>
+		</td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <script type="text/javascript">decorateTable('oggetto-attribute-specs-table')</script>
+<?php endif;?>

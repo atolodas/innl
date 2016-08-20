@@ -1,0 +1,99 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<?php if ($this->getMessagesBlock()->getMessageCollection()->count()): 
+    $shown = array(); 
+    $messages = array();
+    foreach ($this->getMessagesBlock()->getMessageCollection()->getItems() as $message):
+        $messages[$message->getType()][] = $message->getCode();
+    endforeach;
+    ?>
+    <?php if (isset($messages['success'])) { ?>
+        <div class="success-dialog" style="z-index: 1000;display:none;" id="dialog-message-success">
+            <h3>Success message</h3>
+            <span class="content"><?php
+               foreach ($messages['success'] as $message):
+                   if (!in_array($message, $shown)) {
+                       $shown[] = $message;
+                       echo $message; ?> <br/>
+                   <?php
+                   }
+               endforeach;?>
+            </span>
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                
+                confirmDialogSuccess = jQuery('#dialog-message-success').dialog({
+                        autoOpen: false,
+                        modal: true,
+                        minWidth: 400,
+                        buttons: {},
+                        dialogClass: 'success-dialog success-dialog2',
+                        create: function () {
+                            jQuery(".ui-dialog .btn").removeClass(' ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover');
+                            jQuery(".ui-dialog-titlebar-close").html('<i class="ui-dialog-titlebar-close white fa fa-close"></i>');
+                        },
+                    }); 
+                        
+                confirmDialogSuccess.dialog('open').css({'min-height':'15px','padding':'0px'});
+                
+                setTimeout("confirmDialogSuccess.dialog('close');", 6000);
+
+                
+            });
+        </script>
+    <?php } ?>
+    <?php if (isset($messages['error'])) { ?>
+        <div class="error-dialog" style="z-index: 1000;display:none;" id="dialog-message-error">
+            <h3>Error message</h3>
+            <span class="content"><?php
+                foreach ($messages['error'] as $message):
+                    if (!in_array($message, $shown)) {
+                        $shown[] = $message;
+                        echo $message;?> <br/>
+                    <?php
+                    }
+                endforeach;?>
+            </span>
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                
+                confirmDialog = jQuery('#dialog-message-error').dialog({
+                        autoOpen: false,
+                        modal: true,
+                        minWidth: 400,
+                        buttons: {},
+                        dialogClass: 'error-dialog',
+                        create: function () {
+                            jQuery(".ui-dialog .btn").removeClass(' ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover');
+                            jQuery(".ui-dialog-titlebar-close").html('<i class="ui-dialog-titlebar-close white fa fa-close"></i>');
+                        },
+                    }); 
+                        
+                confirmDialog.dialog('open').css('min-height','15px');
+                        
+                setTimeout("confirmDialog.dialog('close');", 3000);
+            });
+                
+
+        </script>
+    <?php } ?>
+    <?php $this->getMessagesBlock()->getMessageCollection()->clear(); ?>
+<?php endif; ?>
+
+<div id="dialog-message-add" class="error-dialog absolute  pbottom10 p20 " title="" style="display: none">
+    <span class="content m20"></span>
+</div>
+<div id="dialog-message-success-add" class="success-dialog absolute  pbottom10 p20" title="" style="display: none">
+    <span class="content m20"></span>
+</div>

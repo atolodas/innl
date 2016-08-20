@@ -1,0 +1,16 @@
+<div class="well p5 centered">
+    <?php $data = $this->getData();
+    //print_r($data);
+
+    if(isset($data['title'])) { ?>
+        <h4><?php echo $data['title']; ?></h4>
+    <?php } ?>
+
+    <?php if(isset($data['image'])) { ?>
+        <div class="imageblock relative w100p">
+            <image src="<?php echo $data['image']; ?>" class="" />
+        </div>
+    <?php } ?>
+
+
+</div>

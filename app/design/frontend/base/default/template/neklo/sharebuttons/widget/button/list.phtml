@@ -1,0 +1,53 @@
+<?php /* @var $this Neklo_ShareButtons_Block_Widget_Button_List */ ?>
+<?php
+    $icon_type = 'circle';  //square or circle or simple
+    $is_color = true;
+    $color_class = $is_color ? 'color-icon' : '';
+?>
+
+<?php if ($this->isEnabled()): ?>
+
+    <script type="text/javascript">
+        var popupWidth = 640;
+        var popupHeight = 480;
+        var popupLeftOffset = screen.width / 2 - 640 / 2;
+        var popupTopOffset = screen.height / 2 - 480 / 2;
+    </script>
+
+    <div class="neklo-share-buttons">
+
+        <span class="neklo-sharebuttons-title">Share:</span>
+
+        <?php if ($this->isFacebookEnabled()) : ?>
+            <a class="social-icon facebook-<?php echo $icon_type ?> <?php echo $color_class ?>" href="javascript:popWin('http://www.facebook.com/sharer.php?u=<?php echo $this->getShareUrl(); ?>', 'facebook', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeftOffset + ',top=' + popupTopOffset + ',location=no,status=yes,menubar=no,toolbar=no,resizable=yes,scrollbars=yes');"></a>
+        <?php endif; ?>
+
+        <?php if ($this->isTwitterEnabled()) : ?>
+            <a class="social-icon twitter-<?php echo $icon_type ?> <?php echo $color_class ?>" href="javascript:popWin('http://twitter.com/share?url=<?php echo $this->getShareUrl(); ?>&text=<?php echo $this->getTitle(); ?><?php echo $this->getTwitterHashtags() ? '&hashtags=' . $this->getTwitterHashtags(): ''; ?><?php echo $this->getTwitterVia() ? '&via=' . $this->getTwitterVia(): ''; ?>', 'twitter', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeftOffset + ',top=' + popupTopOffset + ',location=no,status=yes,menubar=no,toolbar=no,resizable=yes,scrollbars=yes');"></a>
+        <?php endif; ?>
+
+        <?php if ($this->isGooglePlusEnabled()) : ?>
+            <a class="social-icon google-<?php echo $icon_type ?> <?php echo $color_class ?>" href="javascript:popWin('https://plus.google.com/share?url=<?php echo $this->getShareUrl(); ?>', 'googleplus', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeftOffset + ',top=' + popupTopOffset + ',location=no,status=yes,menubar=no,toolbar=no,resizable=yes,scrollbars=yes');"></a>
+        <?php endif; ?>
+
+        <?php if ($this->isPinterestEnabled()) : ?>
+            <a class="social-icon pinterest-<?php echo $icon_type ?> <?php echo $color_class ?>" href="javascript:popWin('https://pinterest.com/pin/create/bookmarklet/?url=<?php echo $this->getShareUrl(); ?>&description=<?php echo $this->getTitle(); ?>', 'pinterest', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeftOffset + ',top=' + popupTopOffset + ',location=no,status=yes,menubar=no,toolbar=no,resizable=yes,scrollbars=yes');"></a>
+        <?php endif; ?>
+
+        <?php if ($this->isRedditEnabled()) : ?>
+            <a class="social-icon reddit-<?php echo $icon_type ?> <?php echo $color_class ?>" href="javascript:popWin('http://reddit.com/submit?url=<?php echo $this->getShareUrl(); ?>&title=<?php echo $this->getTitle(); ?>', 'reddit', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeftOffset + ',top=' + popupTopOffset + ',location=no,status=yes,menubar=no,toolbar=no,resizable=yes,scrollbars=yes');"></a>
+        <?php endif; ?>
+
+        <?php if ($this->isDeliciousEnabled()) : ?>
+            <a class="social-icon delicious-<?php echo $icon_type ?> <?php echo $color_class ?>" href="javascript:popWin('https://delicious.com/save?v=5&provider=<?php echo $this->getDeliciousProvider(); ?>&noui&jump=close&url=<?php echo $this->getShareUrl(); ?>&title=<?php echo $this->getTitle(); ?>', 'delicious', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeftOffset + ',top=' + popupTopOffset + ',location=no,status=yes,menubar=no,toolbar=no,resizable=yes,scrollbars=yes');"></a>
+        <?php endif; ?>
+
+        <?php if ($this->isStumbleUponEnabled()) : ?>
+            <a class="social-icon stumbleupon-<?php echo $icon_type ?> <?php echo $color_class ?>" href="javascript:popWin('http://www.stumbleupon.com/submit?url=<?php echo $this->getShareUrl(); ?>&title=<?php echo $this->getTitle(); ?>', 'stumbleupon', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeftOffset + ',top=' + popupTopOffset + ',location=no,status=yes,menubar=no,toolbar=no,resizable=yes,scrollbars=yes');"></a>
+        <?php endif; ?>
+
+        <?php if ($this->isDiggEnabled()) : ?>
+            <a class="social-icon digg-<?php echo $icon_type ?> <?php echo $color_class ?>" href="javascript:popWin('http://digg.com/submit?url=<?php echo $this->getShareUrl(); ?>&title=<?php echo $this->getTitle(); ?>', 'digg', 'width=' + popupWidth + ',height=' + popupHeight + ',left=' + popupLeftOffset + ',top=' + popupTopOffset + ',location=no,status=yes,menubar=no,toolbar=no,resizable=yes,scrollbars=yes');"></a>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

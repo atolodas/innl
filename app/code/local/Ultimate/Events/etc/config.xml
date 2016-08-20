@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ultimate_Events extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Ultimate
+ * @package        Ultimate_Events
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <modules>
+        <Ultimate_Events>
+            <version>1.0.0</version>
+        </Ultimate_Events>
+    </modules>
+    <global>
+        <resources>
+            <ultimate_events_setup>
+                <setup>
+                    <module>Ultimate_Events</module>
+                    <class>Ultimate_Events_Model_Resource_Setup</class>
+                </setup>
+            </ultimate_events_setup>
+        </resources>
+        <blocks>
+            <ultimate_events>
+                <class>Ultimate_Events_Block</class>
+            </ultimate_events>
+        </blocks>
+        <helpers>
+            <ultimate_events>
+                <class>Ultimate_Events_Helper</class>
+            </ultimate_events>
+        </helpers>
+        <models>
+            <ultimate_events>
+                <class>Ultimate_Events_Model</class>
+                <resourceModel>ultimate_events_resource</resourceModel>
+            </ultimate_events>
+            <ultimate_events_resource>
+                <class>Ultimate_Events_Model_Resource</class>
+                <entities>
+                    <events>
+                        <table>ultimate_events_events</table>
+                    </events>
+                    <events_store>
+                        <table>ultimate_events_events_store</table>
+                    </events_store>
+                    <events_comment>
+                        <table>ultimate_events_events_comment</table>
+                    </events_comment>
+                    <events_comment_store>
+                        <table>ultimate_events_events_comment_store</table>
+                    </events_comment_store>
+                </entities>
+            </ultimate_events_resource>
+        </models>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <ultimate_events>
+                        <class>Ultimate_Events_Controller_Router</class>
+                        <method>initControllerRouters</method>
+                    </ultimate_events>
+                </observers>
+            </controller_front_init_routers>
+        </events>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <ultimate_events>
+                    <file>ultimate_events.xml</file>
+                </ultimate_events>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Ultimate_Events>
+                    <files>
+                        <default>Ultimate_Events.csv</default>
+                    </files>
+                </Ultimate_Events>
+            </modules>
+        </translate>
+        <global_search>
+            <events>
+                <class>ultimate_events/adminhtml_search_events</class>
+                <acl>ultimate_events</acl>
+            </events>
+        </global_search>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Ultimate_Events before="Mage_Adminhtml">Ultimate_Events_Adminhtml</Ultimate_Events>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <frontend>
+        <routers>
+            <ultimate_events>
+                <use>standard</use>
+                <args>
+                    <module>Ultimate_Events</module>
+                    <frontName>events</frontName>
+                </args>
+            </ultimate_events>
+        </routers>
+        <layout>
+            <updates>
+                <ultimate_events>
+                    <file>ultimate_events.xml</file>
+                </ultimate_events>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Ultimate_Events>
+                    <files>
+                        <default>Ultimate_Events.csv</default>
+                    </files>
+                </Ultimate_Events>
+            </modules>
+        </translate>
+    </frontend>
+    <default>
+        <ultimate_events>
+            <events>
+                <breadcrumbs>1</breadcrumbs>
+                <allow_comment>0</allow_comment>
+                <rss>0</rss>
+                <meta_title>events</meta_title>
+            </events>
+        </ultimate_events>
+    </default>
+</config>

@@ -1,0 +1,62 @@
+<?php /*
+ * Profile template for frontend
+ *
+ */
+ 	//$totalCommission 	= Mage::getModel('magemlm/commissions')->getCommissionSummary($customerId);
+	$customerCreatedAt  = Mage::helper('magemlm')->getCustomerCreatedDate();
+	//$monthCount 		= Mage::helper('magemlm')->countMonths($customerCreatedAt, date('Y-m'));
+	$customerId			= Mage::helper('customer')->getCustomer()->getId();
+	//$totalCommission    = Mage::getModel('magemlm/commissions')->getCommissionSummary($customerId);
+	$customer = Mage::helper('customer')->getCustomer();
+?>
+
+ <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div>
+<div class="page-title well">
+	<h3><?php echo $this->__('Additional settings'); ?></h3>
+ </div>
+
+
+
+<form action="<?php echo $this->getUrl('customer/account/publicEditPost') ?>" method="post" id="form-validate" class="form" enctype="multipart/form-data">
+<div class="well">
+   <div class="row">
+   <div class="col-md-6">
+    <?php echo $this->getBlockHtml('formkey')?>
+   <?php echo Mage::app()->getLayout()->createBlock('core/template')->setFormCode('public_account')->setTemplate('customer/form/attributes.phtml')->toHtml(); ?>
+  </div>
+  <div class="col-md-2 pull-right">
+    <?php $customerMagemlm 	= Mage::getModel('magemlm/customer')->load($customerId, 'customer_id'); ?>
+    <p align="center">
+        <?php if ($customerMagemlm->getMagemlmImage()) { ?>
+            <img src="<?php echo  Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir('media') . DS . 'magemlm' ,$customerMagemlm->getMagemlmImage(),200); ?>" />
+        <?php } else { ?>
+            <img src="<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir().'/'.str_replace(Mage::getBaseUrl(),'',$this->getSkinUrl('images/')),'def_user.jpeg',200) ?>" />
+        <?php  } ?>
+    <input type="file" title="File" width="0" name="magemlm_customer_picture" />
+       <p class="form-list note">
+              <span><?php echo Mage::helper('magemlm')->__('Uploading of new photo will replace the current one') ?></span>
+       </p>
+    </p>
+  </div>
+  </div>
+</div>
+
+
+ <div class="well">
+        <p class="help-block"><?php echo $this->__('* Required Fields') ?></p>
+        <button type="submit" title="<?php echo $this->__('Save') ?>" class="btn pull-right"><span><span><?php echo $this->__('Save') ?></span></span></button>
+        <p class="back-link">
+            <span class="icon-backward"></span>
+            <a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><?php echo $this->__('Back') ?></a>
+        </p>
+ </div>
+
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+//]]>
+</script>
+</div>

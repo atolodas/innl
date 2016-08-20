@@ -1,0 +1,30 @@
+<?php 
+$oggettos= $this->getOggettos();
+$ids = array_unique($oggettos->getAllIds());
+$counter = $this->collectionSize;
+$interest = count(array_unique($this->getOggettos()->addAttributeToFilter('interest',1)->getAllIds()));
+if($interest>=7) $counter = $counter-7;
+else $counter = $counter-$interest;
+if($counter>0) {
+$urlParts = array(); 
+foreach ($_POST as $key => $value) {
+    if(is_array($value)) $value = $value['from'];
+    $urlParts[] = $key.'='.$value;
+}
+$urlStr = implode('&', $urlParts);
+    ?>
+<div style="display:none"><?php echo $this->getOggettos()->getSelect(); ?></div>
+<div class="clearer">&nbsp;</div>
+<div style="text-transform: uppercase;" class="centered f20">
+<a class="purple" href="<?php echo Mage::getBaseUrl().Mage::registry('slang').DS.strtolower($this->getSet().'s') ?>?<?php echo $urlStr ?>">
+<u>
+<?php 
+
+$set = $this->getSet();
+$set = strtolower($set);
+$label = $this->__('%s more '.$set.'s',$counter);
+echo Mage::helper('funstica')->translate($label,$counter); ?>
+</u>
+</a>
+</div>
+<?php } ?>

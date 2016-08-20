@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <TM_EasyFlags>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Catalog />
+            </depends>
+        </TM_EasyFlags>     
+    </modules>
+</config>

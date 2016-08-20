@@ -1,0 +1,91 @@
+<?php 
+$shown = array(); 
+$types = array(
+    Mage_Core_Model_Message::ERROR,
+    Mage_Core_Model_Message::WARNING,
+    Mage_Core_Model_Message::NOTICE,
+    Mage_Core_Model_Message::SUCCESS,
+);
+
+$messages = array();
+foreach ($types as $type) {
+    if($this->getMessages($type)) { 
+        foreach ($this->getMessages($type) as $message):
+            $messages[$type][] = $message->getText();
+        endforeach;
+    }   
+}
+
+if(isset($messages['success'])) { ?>
+        <div class="success-dialog" style="z-index: 1000;display:none;width:520px;" id="dialog-message-success">
+            <span class="content"><?php
+               foreach ($messages['success'] as $message):
+                   if (!in_array($message, $shown)) {
+                       $shown[] = $message;
+                       echo $message; ?> <br/>
+                   <?php
+                   }
+               endforeach;?>
+            </span>
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                confirmDialogSuccess = jQuery('#dialog-message-success').dialog({
+                        autoOpen: false,
+                        modal: true,
+                        resizable:false,
+                        minWidth: 400,
+                        buttons: {},
+                        dialogClass: 'success-dialog success-dialog2',
+                        create: function () {
+                            jQuery(".ui-dialog .btn").removeClass(' ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover');
+                            jQuery(".ui-dialog-titlebar-close").html('<i class="ui-dialog-titlebar-close white fa fa-close"></i>');
+                        },
+                    }); 
+                confirmDialogSuccess.dialog('open').css({'min-height':'15px','padding':'0px'});
+            });
+        </script>
+    <?php } ?>
+    <?php if (isset($messages['error'])) { ?>
+        <div class="error-dialog" style="z-index: 1000;display:none;width:520px;" id="dialog-message-error">
+            <span class="content"><?php
+                foreach ($messages['error'] as $message):
+                    if (!in_array($message, $shown)) {
+                        $shown[] = $message;
+                        echo $message;?> <br/>
+                    <?php
+                    }
+                endforeach;?>
+            </span>
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                
+                confirmDialog = jQuery('#dialog-message-error').dialog({
+                        autoOpen: false,
+                        modal: true,
+                        minWidth: 400,
+                        resizable:false,
+                        buttons: {},
+                        dialogClass: 'error-dialog',
+                        create: function () {
+                            jQuery(".ui-dialog .btn").removeClass(' ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover');
+                            jQuery(".ui-dialog-titlebar-close").html('<i class="ui-dialog-titlebar-close white fa fa-close"></i>');
+                        },
+                    }); 
+                        
+                confirmDialog.dialog('open').css('min-height','15px');
+            });
+                
+
+        </script>
+    <?php } ?>
+    <?php $this->getMessagesBlock()->getMessageCollection()->clear(); ?>
+
+
+<div id="dialog-message-add" class="error-dialog absolute  pbottom10 p20 " title="" style="display: none">
+    <span class="content m20"></span>
+</div>
+<div id="dialog-message-success-add" class="success-dialog absolute  pbottom10 p20" title="" style="display: none">
+    <span class="content m20"></span>
+</div>

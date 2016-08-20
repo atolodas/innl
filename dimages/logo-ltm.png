@@ -1,0 +1,7 @@
+<html class="b-sys"><head><title>Ошибка системы</title>
+            <link href="/css/sys.css" rel="stylesheet" type="text/css" />
+            </head><body><div class="b-sys-message">
+            <span class="b-sys-message_icon"></span>
+            <div class="b-sys-message_title">/srv/dev/www/admin.php</div>
+            <div class="b-sys-message_text"><p><strong>Controller class is invalid. pages\adminDimages</strong></p></div>
+            </div></body></html>

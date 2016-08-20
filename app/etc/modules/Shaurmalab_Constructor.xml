@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Shaurmalab_Constructor>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Shaurmalab_Constructor>
+    </modules>
+</config>

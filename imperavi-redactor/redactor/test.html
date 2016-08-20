@@ -1,0 +1,112 @@
+<div class="navbar-inner p10 centered"><h2 class="white mleft20 pleft20 inline f40" style="padding-left:75px;font-family:Georgia; font-weight: bolder">
+	<span class="fa-stack f25 mright10">
+		<i class="fa fa-gear fa-stack-2x bg-black rounded"></i>
+		<i class="fa fa-gear black fa-stack-1x fa-inverse  "></i>
+	</span>
+	inNativeLife</h2>
+</div>
+<div class="centered container" style="padding:60px 0;">
+	<h1 class="quote italic" style="font-family: Georgia; font-weight: bolder; display: block;">Лоукостер в мире стартапов</h1>
+	<h3>Делаем бюджетные сайты с любовью...</h3>
+	<div class="row centered bold mtop20">
+		<div class="col-md-4 mtop20 "> <button class="btn btn-large btn-success bold  p20  ptop10 pbottom10  f20" onclick="document.location.href = '{{store url=''}}constructor'">
+			Конструктор | $2/месяц</button>
+			<div class="m10 p50 npt npb">
+				<table class="w100p text-center">
+					<tbody>
+						<tr  class="active"><td>1Гб хостинг ($2/месяц)</td></tr>
+						<tr><td>Стандартный дизайн</td></tr>
+						<tr  class="active"><td>Синхронизация 1го API</td></tr>
+						<tr><td>До 500 пользователей</td></tr>
+						<tr class="active"><td>Поддомен *.innl.co</td></tr>
+						<tr><td>Поддержка по E-mail</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-4 mtop20"> <button class="btn btn-large btn-danger bold  p20  ptop10 pbottom10  f20" onclick="jQuery('#subject').get(0).value = 'Хочу заказать прототип за $400';dialog('contactForm');">Прототип за $400</button>
+			<div class=" m10 p50 npt npb">
+				<table class=" text-center  w100p  ">
+					<tbody>
+						<tr class="active"><td>3Гб хостинг ($10/месяц)</td></tr>
+						<tr><td>Стандартный дизайн</td></tr>
+						<tr class="active"><td>Синхронизация до 3х API</td></tr>
+						<tr><td>До 1000 пользователей</td></tr>
+						<tr class="active"><td>Поддомен *.innl.co</td></tr>
+						<tr><td>Поддержка по E-mail</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="col-md-4 mtop20">
+			<button class="btn btn-large btn-warning bold  p20  ptop10 pbottom10  f20" onclick="jQuery('#subject').get(0).value = 'Хочу заказать MVP за $1000';dialog('contactForm');">MVP за $1000</button>
+			<div class="m10 p50 npt npb">
+				<table class="w100p text-center">
+					<tbody>
+						<tr  class="active"><td>6Гб хостинг ($20/месяц)</td></tr>
+						<tr><td>Шаблонный дизайн</td></tr>
+						<tr  class="active"><td>Синхронизация до 5ти API</td></tr>
+						<tr><td>До 5000 пользователей</td></tr>
+						<tr class="active"><td>Ваш домен</td></tr>
+						<tr><td>Поддержка по E-mail</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="background-color:#fff;color:#000;" class="row mtop20"> 
+	<div class="container">
+		<div class="col-md-4 col-sm-12 "> <img src="http://innl.co/media//wysiwyg/base/7aec2ff7d88a13af0ce279d85983334b.jpg" style="position: relative; bottom: 0px; cursor: default;"> </div>
+		<div class="col-md-8 col-sm-12" style="min-height:200px">
+			<blockquote id="mainquote" class="mtop20">
+				<h2 class="quote italic" style="font-family: Georgia; font-weight: bolder; display: block;">Однажды у тебя будет свой Стартап...<br>
+					<br>
+					C покером и куртизанками.
+				</h2>
+			</blockquote>
+		</div>
+	</div>
+</div>
+<div class="container mtop20"> <div class="row"> 
+	<aside class="col-md-3 widget"> 
+		<div class="section-title postfooter">
+			<p class=" white f15 mtop20">© С <i class="fa fa-bomb f20"></i> из Минска, 2015</p>
+		</div>
+	</aside>
+	<aside class="col-md-4"> 
+		<div class="section-title postfooter">
+			<p class=" white f15 mtop20"><a class=" white f15 mtop20" href="mailto:innativelife@gmail.com">innativelife@gmail.com</a></p>
+		</div>
+	</aside> 
+	<aside class="col-md-5 widget"> <div style="font-size: 48px;" class="socialicons pbottom20 "> <a class=" white " href="http://vk.com/innlco" target="_blank"><i class="fa fa-vk"></i></a> <a class=" white " href="http://twitter.com/innativelife" target="_blank"><i class="fa fa-twitter"></i></a> <a class=" white " href="http://facebook.com/innativelife" target="_blank"><i class="fa fa-facebook"></i></a> <a class=" white " href="http://instagram.com/wwwinnativelife" target="_blank"><i class="fa fa-instagram"></i></a> <a class=" white " href="http://spark.ru/startup/innl-co" target="_blank"><i class="fa fa-star"></i></a> </div>
+	</aside> <aside class="col-sm-12"> </aside> </div>
+</div>
+
+
+
+<div class="section section-center section-contact" style="display:none; width: 600px">
+	<form action="{{store url=''}}contacts/index/post/" id="contactForm" style="min-height:500px; padding:0 5%;" class="ajaxForm" method="post" role="form"><div class="row"><div class=""><div class="form-group">
+		{{block name="formkey" type="core/template" template="core/formkey.phtml"}}
+		<label class="sr-only">Тема</label>
+		<input name="subject" class="form-control" id="subject" placeholder="Тема" type="text"></div>
+		<div class="form-group"><label class="sr-only">Имя</label>
+			<input name="name" class="form-control" placeholder="Имя" type="text"></div>
+			<div class="form-group"><label class="sr-only">Email</label>
+				<input name="email" class="form-control" placeholder="Email" type="email"></div>
+				<div class="form-group"><label class="sr-only">Сообщение</label>
+					<textarea name="comment" class="form-control" placeholder="Сообщение" style="height: 100px" rows="6"></textarea>
+				</div>
+				<button type="submit" class="btn btn-large pull-right btn-success" title="Отправить">Отправить</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<style>
+.panel-default,.panel-heading, .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td { border: none; } body { overflow-x: hidden;background-attachment: fixed; background-blend-mode: luminosity; background-color: #c2cbee; background-image: url("/header.jpg") !important; background-position: 0 10%; background-repeat: no-repeat; background-size: cover; color: #fff;
+padding:0; position: relative; text-align: center; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+td, th { padding: 8px; font-size: 15px; border-bottom: 1px solid #fff; }
+</style>

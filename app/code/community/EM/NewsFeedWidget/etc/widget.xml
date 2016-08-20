@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Branko Ajzele, http://activecodeline.com
+ *
+ * NOTICE OF LICENSE
+ *
+ * @category    ActiveCodeline
+ * @package     ActiveCodeline_Widget
+ * @copyright   Copyright (c) 2009 Branko Ajzele
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<widgets>
+    <newsfeedwidget_list type="newsfeedwidget/List">
+
+        <name>EM NewsFeed</name>
+        <description type="desc">Get new feed</description>
+        
+        <parameters>
+        	<feed_link>
+                <visible>1</visible>
+                <label>Feed link</label>
+                <description>Feed link</description>
+                <type>text</type>
+                <value>http://</value>
+            </feed_link>
+            <show_author>
+                <visible>1</visible>
+                <label>Show author</label>
+                <description>Show author of feed</description>
+                <type>select</type>
+                <values>
+                	<no translate="label">
+                        <value>false</value>
+                        <label>No</label>
+                    </no>
+                    <yes translate="label">
+                        <value>true</value>
+                        <label>Yes</label>
+                    </yes>
+                </values>
+            </show_author>
+            <show_date>
+                <visible>1</visible>
+                <label>Show date</label>
+                <description>Show date of feed</description>
+                <type>select</type>
+                <values>
+                	<no translate="label">
+                        <value>false</value>
+                        <label>No</label>
+                    </no>
+                    <yes translate="label">
+                        <value>true</value>
+                        <label>Yes</label>
+                    </yes>
+                </values>
+            </show_date>
+            <date_format>
+                <visible>1</visible>
+                <label>Date format</label>
+                <description>Date format, use PHP date format (etc: %Y-%m-%d)</description>
+                <type>text</type>
+                <value>write on %Y-%m-%d</value>
+            </date_format>
+            <show_title>
+                <visible>1</visible>
+                <label>Show title</label>
+                <description>Show title of feed</description>
+                <type>select</type>
+                <values>
+                	<yes translate="label">
+                        <value>true</value>
+                        <label>Yes</label>
+                    </yes>
+                	<no translate="label">
+                        <value>false</value>
+                        <label>No</label>
+                    </no>
+                </values>
+            </show_title>
+            <show_desc>
+                <visible>1</visible>
+                <label>Show description</label>
+                <description>Show description of feed</description>
+                <type>select</type>
+                <values>
+                	<yes translate="label">
+                        <value>true</value>
+                        <label>Yes</label>
+                    </yes>
+                	<no translate="label">
+                        <value>false</value>
+                        <label>No</label>
+                    </no>
+                </values>
+            </show_desc>
+            <desc_length>
+                <visible>1</visible>
+                <label>Description length</label>
+                <description></description>
+                <type>text</type>
+            </desc_length>
+            <show_image>
+                <visible>1</visible>
+                <label>Show image</label>
+                <description>Show image of feed</description>
+                <type>select</type>
+                <values>
+                	<no translate="label">
+                        <value>false</value>
+                        <label>No</label>
+                    </no>
+                    <yes translate="label">
+                        <value>true</value>
+                        <label>Yes</label>
+                    </yes>
+                </values>
+            </show_image>
+            <image_size>
+                <visible>1</visible>
+                <label>Image size</label>
+                <description>Image size (etc: 60x60 or 60;60)</description>
+                <type>text</type>
+            </image_size>
+            <more_link>
+                <visible>1</visible>
+                <label>More link</label>
+                <description>Link to feed</description>
+                <type>text</type>
+                <value>http://</value>
+            </more_link>
+            <more_text>
+                <visible>1</visible>
+                <label>More text</label>
+                <description>Text of more link (default:"Show more")</description>
+                <type>text</type>
+                <value>Show more</value>
+            </more_text>
+            <count>
+                <visible>1</visible>
+                <label>Count</label>
+                <description>Number of feed (default: 5)</description>
+                <type>text</type>
+            </count>
+            <template>
+                <visible>1</visible>
+                <label>Template</label>
+                <description>Path of template file</description>
+                <type>text</type>
+                <value>em_newsfeedwidget/list.phtml</value>
+            </template>
+        </parameters>
+
+    </newsfeedwidget_list>
+</widgets>

@@ -1,0 +1,49 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<div id="fade">&nbsp;</div>
+<div class="row">
+<label class="pointer btn-navbar" onclick="toggleMobileMenu('#mobile-menu','right')">
+   <i class="fa fa-bars f25 white inline pull-right mtop10 mright10"></i>
+</label>
+<span id="left-mobile"></span>
+<div class="span white dt h50">
+	<logo onclick="document,location.href = '<?php echo $this->getUrl('') ?>'" class="dtc pointer">
+	<?php 
+		$html =  $this->getLogoAlt();
+		$noHtml = strip_tags($html);
+		if($html != $noHtml) { 
+			echo $html; 
+		} else { 
+	?>
+		<h3 class="bold m5 f20" style="font-family:Verdana"><?php echo $noHtml ?></h3>
+    <?php } ?>
+    </logo>
+</div>
+<div class="nav-collapse" id="mobile-menu">
+	<div class="col-lg-6 col-md-6 mleft20">
+	    <ul class="links nav"<?php if($this->getName()): ?> id="<?php echo $this->getName() ?>"<?php endif;?>>
+	          <?php echo $this->getChildHtml('topMenuCms') ?>
+	    </ul>
+	</div>
+
+    <?php echo $this->getChildHtml('topLinks') ?>
+    	<?php echo $this->getChildHtml('topOggettoSearch') ?>
+</div><!--/.nav-collapse -->
+
+<?php 
+$url = Mage::helper('core/url')->getCurrentUrl();
+if(substr_count($url, 'customer/account') == 0) Mage::getSingleton('customer/session')->setBeforeAuthUrl($url); ?>
+
+</div>

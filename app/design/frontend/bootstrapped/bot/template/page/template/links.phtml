@@ -1,0 +1,67 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<?php
+/**
+ * @see Mage_Page_Block_Template_Links
+ */
+?>
+<?php $_links = $this->getLinks(); ?>
+<div class="absolute right0 h50 w50 dt">
+    <div class="dtc p5">
+        <?php echo $this->getChildHtml('store_language') ?>
+    </div>
+</div>
+<script type="text/javascript">
+var userpic = '<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir('media') . DS . 'magemlm', 'male.png', 50,50) ?>';
+</script>
+
+<?php if(count($_links)>0): ?>
+<div class="fixed right0 mright50">
+    <ul class="links nav">
+        <li class="">
+            <a class="np mtop5"style="height: 35px" href="<?php echo $this->getUrl('customer/account') ?>">
+                <?php
+                $customer = Mage::getSingleton('customer/session')->getCustomer();
+
+                if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+                    $customerId = Mage::helper('customer')->getCustomer()->getId();
+                    $customerMagemlm = Mage::getModel('magemlm/customer')->load($customerId, 'customer_id'); ?>
+                    <?php if ($customerMagemlm->getMagemlmImage()) { ?>
+                        <img class="rounded"
+                             src="<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir('media') . DS . 'magemlm', $customerMagemlm->getMagemlmImage(), 35,35); ?>"/>
+                        <script type="text/javascript">
+                            userpic = '<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir('media') . DS . 'magemlm', $customerMagemlm->getMagemlmImage(), 50,50); ?>';
+                        </script>
+                    <?php } else { ?>
+                        <img class="rounded"
+                             src="<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir('media') . DS . 'magemlm', 'male.png', 35,35) ?>"/>
+
+                    <?php
+                    }
+                } else {
+                    ?>
+                    <img class="rounded"
+                         src="<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir('media') . DS . 'magemlm', 'male.png', 35,35) ?>"/>
+                <?php
+                }
+                ?>
+            </a>
+        </li>
+
+    </ul>
+</div>
+<?php endif; ?>
+<?php /*
+<!-- popup cart page -->
+<div id="popupcart">
+    <?php echo $this->getLayout()->createBlock('checkout/cart_sidebar')->setTemplate('checkout/cart/sidebar.phtml')->toHtml(); ?>
+</div> */ ?>

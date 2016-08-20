@@ -1,0 +1,29 @@
+<div class="content-header">
+    <h3 class="icon-head head-devtools-systemcheck"><?php echo $this->__('View XMLs'); ?></h3>
+</div>
+
+<div class="entry-edit">
+    <form action="<?php echo $this->getUrl('cpcore/adminhtml_dev/xmlTailFile'); ?>" method="post" id="xml_inspector_form">
+
+        <label><?php echo $this->__('File'); ?>
+            <?php echo $this->getXmlDropdown(); ?>
+        </label>
+
+        <a href="" onclick="viewxmls.refresh(); return false;"><?php echo $this->__('Refresh'); ?></a>
+
+        <input style="display:none" type="submit" />
+    </form>
+    <div id="xml-console" class="devconsole">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+    var viewxmls = new xml_inspector.Xml('xml_inspector_form', '<?php echo $this->getUrl('cpcore/adminhtml_dev/xmlTailFile'); ?>');
+    <?php if($this->getFileName() != ''): ?>
+    window.onload = viewxmls.view_file('<?php echo $this->getFileName(); ?>', '<?php echo Mage::getBaseDir('media').'/xmls/'; ?>');
+    <?php endif; ?>
+    var file_inspector = document.getElementById('file_inspector_dl');
+    file_inspector.onchange = function(){
+        viewxmls.refresh();
+        return false;
+    }
+</script>

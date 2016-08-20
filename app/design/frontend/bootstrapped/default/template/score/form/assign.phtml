@@ -1,0 +1,77 @@
+<div style="height: 500px; width: 500px;" class="well">
+<?php
+$objects =  $this->getObjectsToAssign(0);
+$assignedTo = $this->getObjectsToAssign(1);
+$assignedIds = $assignedTo->getColumnValues('entity_id');
+$assignedList = '';
+$c = array();
+foreach($objects as $object) {
+    if(in_array($object->getId(),$assignedIds)) continue;
+//    echo $object->getId().' '.$object->getTitle().' !!'.$object->getAssignedUid()."!!<br/>";
+    //$c[] = "{id: '{$object->getId()}', text: '{$object->getTitle()}'}";
+	$assignedList .= '<option value="' . $object->getId() . '">' . $object->getTitle() .'</option>';
+
+}
+//$data = '['.implode(',', $c).']';
+
+?>
+    <script type="text/javascript">
+        //jQuery(document).ready(function(){
+/*        jQuery('#assignTo').select2({
+            data: <?php echo $data ?>,
+            multiple: false,
+            allowClear: false
+        });*/
+			jQuery('#assignTo').styler({
+				selectSearch: true,
+				selectSearchLimit: 0,
+				selectSearchNotFound: 'Not found',
+				selectSearchPlaceholder: 'Start typing...'
+			});
+		
+        // });
+    </script>
+    <div id="groups" aria-labelledby="ui-id-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-hidden="false" style="display: block;">
+        <p><i>User is a member of the following groups</i></p>
+        <fieldset>
+            <table class="simple-table w100">
+                <tbody><tr>
+                    <th width="10%" class="taс">ID</th>
+                    <th class="60%">Group name</th>
+                    <th width="30%">Action</th>
+                </tr>
+                <?php
+                foreach($assignedTo as $object) { ?>
+                    <tr>
+                    <td class="tac"><?php echo $object->getId() ?></td>
+                    <td class="tac"><?php echo $object->getTitle() ?> </td>
+                    <td>
+                        <a class="view-btn btn btn-action btn-small mr5px" href="<?php echo $this->getUrl('score/oggetto/view').'id/'.$object->getId() ?>">
+                            <?php echo $this->__('View '.$this->getTo()) ?>
+                        </a>
+                        <a class="btn btn-small" href="#"><?php echo $this->__('Delete from '.$this->getTo()) ?></a>
+                    </td>
+                </tr>
+                <?php } ?>
+                <tr class="add_new_group" id="add_new_group" style="display: none;">
+                    <td valign="top" colspan="2">
+						<select id="assignTo" name="assignTo" class="custom-select-search w100">
+							<?php echo $assignedList; ?>
+						</select>
+					</td>
+                    <td valign="top">
+                        <?php $repeat = $_SERVER['REQUEST_URI'];  ?>
+                        <a id="group_save" class="assign-btn btn btn-small btn-action2 w45 mr5px" onclick="assignCustomerToObject('<?php echo $this->getUrl('score/oggetto/assignCustomer') ?>object/'+$('assignTo').value+'/customer/<?php echo $this->getRequest()->getParam('id') ?>','<?php echo Mage::getBaseUrl().$repeat ?>')">Save</a>
+                        <a id="group_cancel" class="btn btn-small w45" href="javascript:void(0)" onclick="$('add_new_group').hide();" >Cancel</a></td>
+                </tr>
+                </tbody></table>
+        </fieldset>
+        <p class="tar">
+            <a id="add_group" class="btn btn-action2" onclick="$('add_new_group').show();" href="#">Add to new group</a>
+        </p>
+    </div>
+
+    <script type="text/javascript">
+       // observePopups();
+    </script>
+</div>

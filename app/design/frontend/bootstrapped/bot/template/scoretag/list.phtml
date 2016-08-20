@@ -1,0 +1,37 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<div class="box-collateral well">
+    <?php echo $this->getChildHtml('list_before')?>
+    <?php if( $this->getCount() ): ?>
+    <?php echo $this->renderScoretags('<a href="%1$s">%2$s</a> (%3$s)') ?>
+    <?php endif; ?>
+    <br/>   <br/>
+    <form id="addTagForm" action="<?php echo $this->getFormAction(); ?>" method="get" class="form-inline">
+            <input type="text" class="input-text required-entry" name="oggettoScoretagName" id="oggettoScoretagName" style="margin:0" />
+            <button type="button" title="<?php echo $this->__('Add Tags') ?>" class="btn" onclick="submitTagForm()">
+                <span>
+                    <span><?php echo $this->__('Add Tags') ?></span>
+                </span>
+            </button>
+    </form>
+    <p class="note" style="font-size:11px;"><?php echo $this->__("Use spaces to separate tags. Use single quotes (') for phrases.") ?></p>
+    <script type="text/javascript">
+    //<![CDATA[
+        var addTagFormJs = new VarienForm('addTagForm');
+        function submitTagForm(){
+            if(addTagFormJs.validator.validate()) {
+                addTagFormJs.form.submit();
+            }
+        }
+    //]]>
+    </script>
+</div>

@@ -1,0 +1,7 @@
+<div id="wishlistind<?php echo $this->getOid()?>" class="f25 inline pbottom10">
+<i class="fa green fa-star  pointer inwishlist" onclick="jQuery.ajax('<?php echo $this->getUrl('wishlist/index/removeByOggettoId', array('oid' => $this->getOid())) ?>isAjax/1/'); jQuery(this).hide(); jQuery(this).parent().find('.outwishlist').show()"  <?php if(!in_array($this->getOid(),Mage::getBlockSingleton('score/bookmarks')->getWishlistIds())) { ?>  style="display:none" <?php } ?> >
+</i>
+
+<i class="fa grey fa-star pointer outwishlist" onclick="jQuery.ajax('<?php echo Mage::helper('wishlist')->getOggettoAddUrl($this->getOid()) ?>isAjax/1/'); jQuery(this).hide(); jQuery(this).parent().find('.inwishlist').show()" <?php if(in_array($this->getOid(),Mage::getBlockSingleton('score/bookmarks')->getWishlistIds())) { ?>  style="display:none" <?php } ?> >
+</i>
+</div>

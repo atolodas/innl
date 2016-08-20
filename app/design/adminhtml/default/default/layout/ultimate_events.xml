@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ultimate_Events extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Ultimate
+ * @package        Ultimate_Events
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+    <adminhtml_events_events_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/ultimate_events/events</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="ultimate_events/adminhtml_events" name="events" />
+
+        </reference>
+    </adminhtml_events_events_index>
+    <adminhtml_events_events_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="ultimate_events/adminhtml_events_grid" name="events_grid"/>
+        </block>
+    </adminhtml_events_events_grid>
+    <!-- Events add/edit action -->
+    <adminhtml_events_events_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/ultimate_events/events</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="ultimate_events/adminhtml_events_edit" name="events_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="ultimate_events/adminhtml_events_edit_tabs" name="events_tabs"></block>
+        </reference>
+    </adminhtml_events_events_edit>
+
+    <adminhtml_events_events_comment_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/ultimate_events/events_comment</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="ultimate_events/adminhtml_events_comment" name="events_comment_grid"/>
+        </reference>
+    </adminhtml_events_events_comment_index>
+    <adminhtml_events_events_comment_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="ultimate_events/adminhtml_events_comment_grid" name="events_comment_grid"/>
+        </block>
+    </adminhtml_events_events_comment_grid>
+    <adminhtml_events_events_comment_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>cms/ultimate_events/events_comment</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="ultimate_events/adminhtml_events_comment_edit" name="events_comment_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="ultimate_events/adminhtml_events_comment_edit_tabs" name="events_comment_tabs"></block>
+        </reference>
+    </adminhtml_events_events_comment_edit>
+</layout>

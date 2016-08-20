@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Shaurmalab_Bot>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Shaurmalab_Bot>
+    </modules>
+</config>

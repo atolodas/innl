@@ -1,0 +1,9 @@
+<?php if(count($this->getStores())>1): ?>
+<div class="language-switcher" id="easyflags">
+    <?php foreach ($this->getStores() as $_lang): ?>
+<?php if($_lang->getCode()!=Mage::registry('scode').'_'.Mage::registry('slang')) { ?>
+        <a href="<?php echo str_replace(Mage::registry('slang').'/','',$_lang->getCurrentUrl(false)) ?>"><img src="<?php echo $this->getSkinUrl('images/flags/' . str_replace(Mage::registry('scode').'_','',$_lang->getCode()) . '.gif') ?>" alt="<?php echo $this->htmlEscape($_lang->getName()) ?>"/></a>
+    <?php } ?> 
+    <?php endforeach; ?>
+</div>
+<?php endif; ?> 

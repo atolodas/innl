@@ -1,0 +1,5 @@
+<?php
+
+class Cafepress_CPWms_Model_Xmlformat_Entity_CoreWmsEntity extends Cafepress_CPWms_Model_Xmlformat_Entity_Abstract
+{
+}

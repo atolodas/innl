@@ -1,0 +1,27 @@
+<div class="well">
+<form action="" method="post" onsubmit="searchMy(this.action,$('qo').value); return false;" target="frame" style="margin:0;" >
+Search for your projects:
+<input type="text" name="qo"  id="qo"  class="" />
+<div id="search-loader" class="loader red-label"  style="display:none"><img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" /></div>
+<span class="loader red-label">* press Enter for search </span>
+</form>
+<iframe id="frame" src="http://www.innativelife.com/empty.html" style="display:none;"></iframe>
+<script type='text/javascript'>
+      function searchMy(url,term) {
+$('search-loader').style.display = 'inline';
+   new EasyAjax.Request(url + '?q='+term.replace(' ','-'), {
+                method: 'post',
+                action_content: 'myoggettos',
+                parameters: {easy_ajax: 1},
+                onComplete: function (transport)
+                {
+                        var data = transport.responseText.evalJSON();
+$('search-loader').style.display = 'none';
+                        $('oggettos').innerHTML = data.action_content_data.myoggettos;
+              }
+                });
+      }
+    </script>
+</div>
+
+<?php echo Mage::getBlockSingleton("score/myoggettos")->setTemplate("score/oggetto/my.phtml")->setSet('Project')->toHtml()  ?>

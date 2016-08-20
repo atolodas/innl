@@ -1,0 +1,35 @@
+<div class="well" id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    <?php 
+    $store = Mage::app()->getStore(); 
+    $object = Mage::registry('current_product')?Mage::registry('current_product'):Mage::registry('oggetto');
+    ?>
+    var disqus_shortname = '<?php echo Mage::getStoreConfig('score/comments/disqus_shortname') ?>';
+    var disqus_title = '<?php echo $store->getName().': '.$object->getName() ?>';
+  
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+     <?php 
+        if(is_object(Mage::registry('current_product'))) { 
+            $kind = 'product';
+            $id = Mage::registry('current_product')->getId();
+        } elseif(is_object(Mage::registry('current_oggetto'))) { 
+            $kind = 'oggetto';
+            $id = Mage::registry('current_oggetto')->getId();
+        }
+    ?>
+
+     var disqus_config = function() {
+        this.callbacks.onNewComment = [function(comment) { 
+            jQuery.post("<?php Mage::getBaseUrl() ?>score/oggetto/newcommentmail", { comment: comment.id, kind: '<?php echo $kind ?>', id: <?php echo $id ?> }, function(result){
+                    console.log(result);
+            });
+        }];
+    };
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>

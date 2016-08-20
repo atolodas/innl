@@ -1,0 +1,12 @@
+div.devconsole {
+  background: #f0ffff/*#000*/;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+/*  border: 3px groove #ccc;*/
+  color: #000000/*#ccc*/;
+  display: block;
+  padding: 5px;
+  width: 100%;
+  display: block;
+  overflow-x: scroll;
+}

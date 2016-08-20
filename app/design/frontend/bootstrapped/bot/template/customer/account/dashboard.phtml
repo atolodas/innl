@@ -1,0 +1,26 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<div class="dashboard well mtop20">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <div class="page-title">
+    <h3><?php echo $this->__('My Dashboard') ?></h3>
+    <?php echo $this->getChildHtml('hello') ?>
+    <?php echo $this->getChildHtml('top') ?>
+    </div>
+
+    <div class="box-account box-info">
+        <?php echo $this->getChildHtml('info') ?>
+        <?php echo $this->getChildHtml('address') ?>
+    </div>
+    <?php //echo $this->getChildHtml('info1') ?>
+    <?php //echo $this->getChildHtml('info2') ?>
+</div>

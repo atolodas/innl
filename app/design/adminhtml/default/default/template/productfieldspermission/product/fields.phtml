@@ -1,0 +1,126 @@
+
+<?php $attributes = $this->getProductsAttributes() ?>
+<?php $roles = $this->getRoles() ?>
+<div class="content-header">
+	<h3><?php echo $this->__('Manage Product Fields Permission') ?></h3>
+</div>
+<form method="post" action="<?php echo $this->getUrl('productfieldspermission/adminhtml_product_fields/save') ?>" id="formProductFields" name="formProductFields">
+<input name="form_key" type="hidden" value="<?php echo $this->getFormKey() ?>" />
+<?php $message = Mage::getSingleton('checkout/session')->getData('productFields') ?>
+<?php if(!empty($message)): ?>
+	<ul class="messages">
+		<li class="success-msg"><?php echo $message ?></li>
+	</ul>
+	<?php Mage::getSingleton('checkout/session')->setData('productFields', ''); ?>
+<?php endif; ?>
+
+<div align="right">
+	<button class="scalable save" onclick="javascript: return validate();" type="submit">
+		<span><?php echo $this->__('Make Read Only') ?></span>
+	</button>
+</div>
+<div class="grid">
+<table class="data">
+	<?php if(count($attributes)>0): ?>
+	<thead>
+		<tr class="filter"> 
+			<th>
+				<input type="checkbox" id="select-all" title="select-deselect all" onclick="javascript: selectCheckBoxes('<?php echo count($attributes) ?>');" />
+			</th>
+			<th>
+				<?php echo $this->__('Role') ?>&nbsp;:&nbsp;							
+				<select id="role" name="role" onchange="javascript: setRole(this.value,'<?php echo count($attributes) ?>');" style="width:250px;"> 
+					<option value="">-- <?php echo $this->__('Select Role') ?> --</option>
+					<?php if(count($roles)>0): ?>
+						<?php foreach($roles as $role): ?>
+							<option value="<?php echo $role->getId() ?>"><?php echo $role->getRoleName() ?></option> 
+						<?php endforeach; ?> 
+					<?php endif; ?>
+				</select>	
+			</th>				
+		</tr>
+	</thead>
+	<tbody>	
+		<?php $i = 0; ?>
+		<?php foreach ($attributes as $attribute): ?>
+		<tr>
+			<td>
+				<input type="checkbox" id="chk_<?php echo $i++ ?>" name="attribute[<?php echo $attribute->getAttributeId() ?>]" value="<?php echo $attribute->getAttributeId() ?>" />
+			</td> 
+			<td>	
+				<?php echo $this->__($attribute->getFrontend()->getLabel())." (".$attribute->getAttributeCode().")" ?>
+			</td>
+		</tr>
+		<?php endforeach; ?> 
+		<tr>
+			<td>
+				<input type="checkbox" id="chk_inventory_tab" name="inventory_tab" value="1" />
+			</td> 
+			<td>	
+				<?php echo $this->__('Inventory ')." (inventory_tab)" ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="checkbox" id="chk_websites_tab" name="websites_tab" value="1" />
+			</td> 
+			<td>	
+				<?php echo $this->__('Websites ')." (websites_tab)" ?>
+			</td>
+		</tr>
+	<?php endif; ?>
+	</tbody>
+</table>
+</div>
+</form>
+
+<script type="text/javascript">
+function validate()
+{
+	var role = $('role').value;
+	if(role=="") {
+		alert('Please select the role');
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+function setRole(role, count)
+{
+	var i;
+	var url = '<?php echo $this->getUrl('productfieldspermission/adminhtml_ajax') ?>';	
+	new Ajax.Request(url, {
+		method:'post',
+		parameters: {role: role },
+		onComplete: function(transport){
+			var response = transport.responseText.evalJSON(true);
+			for(i=0;i<count;i++) {
+				$('chk_'+i).checked = response[i];
+			} 
+			$('chk_inventory_tab').checked = response['inventory_tab'];
+			$('chk_websites_tab').checked = response['websites_tab'];	
+			$('select-all').checked = false;										
+		}
+	});
+}
+function selectCheckBoxes(count)
+{
+	var i, chk = $('select-all').checked;
+	if(chk) {
+		for(i=0;i<count;i++) {
+			$('chk_'+i).checked = true;
+		} 
+		$('chk_inventory_tab').checked = true;
+		$('chk_websites_tab').checked = true;
+	}
+	else {
+		for(i=0;i<count;i++) {
+			$('chk_'+i).checked = false;
+		} 
+		$('chk_inventory_tab').checked = false;
+		$('chk_websites_tab').checked = false;
+	}
+}
+</script> 
+

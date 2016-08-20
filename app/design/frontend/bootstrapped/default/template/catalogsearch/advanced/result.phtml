@@ -1,0 +1,41 @@
+<?php
+/**
+ * Magento responsive theme
+ *
+ * @category    design
+ * @package     bootstrapped_default
+ * @copyright   Copyright (c) 2012 Magenthon (http://magenthon.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      Vedran Subotic <vedran@magenthon.com>
+ */
+?>
+<div class="page-title well">
+    <h3><?php echo $this->__('Catalog Advanced Search') ?></h3>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php if($this->getResultCount()): ?>
+ 
+<?php else: ?>
+    <p class="error-msg"><?php echo $this->helper('catalogsearch')->__('No items were found using the following search criteria.');?></p>
+<?php endif; ?>
+
+<div class="advanced-search-summary">
+    <?php $searchCriterias=$this->getSearchCriterias(); ?>
+        <?php foreach (array('left', 'right') as $side): ?>
+            <?php if(@$searchCriterias[$side]): ?>
+                <ul>
+                    <?php foreach($searchCriterias[$side] as $criteria): ?>
+                        <li><strong><?php echo $this->htmlEscape($this->helper('catalog')->__($criteria['name'])); ?>:</strong> <?php echo $this->htmlEscape($criteria['value']); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php if($this->getResultCount()): ?>
+        <p>
+            <?php echo $this->helper('catalogsearch')->__("Don't see what you're looking for?"); ?>
+        </p>
+    <?php endif; ?>
+</div>
+<?php if($this->getResultCount()): ?>
+    <?php echo $this->getOggettoListHtml() ?>
+<?php endif; ?>

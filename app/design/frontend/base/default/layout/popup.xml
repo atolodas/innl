@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/popup.css</name><params/></action>
+            <action method="addJs"><file>dp_popup/popup.js</file></action>
+            <action method="addJs"><file>dp_popup/jquery.simplemodal-1.4.4.js</file></action>
+            <action method="addJs"><file>dp_popup/ajax.js</file></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="popup/popup" name="popup" template="popup/popup.phtml" />
+        </reference>
+    </default>
+</layout> 

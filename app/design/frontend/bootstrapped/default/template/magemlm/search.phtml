@@ -1,0 +1,136 @@
+<div class="col-md-4 col-left" id="col-left">
+<div class="well">
+<h4><?php echo Mage::helper('core')->__('Search for co-founders'); ?></h4>
+    <hr class="grey nmt" />
+<form method="post" action="<?php echo Mage::getBaseUrl() ?>inl/customer/search">
+<span>
+<label class="desc"><?php echo Mage::helper('core')->__('Name / nickname'); ?></label>
+<input type="text" name="name" placeholder="<?php echo $this->__('Name / nickname') ?>" value="<?php echo @$_POST['name'] ?>" class="w100p" />
+</span>
+ <?php
+  $attributes = Mage::getResourceModel('customer/form_attribute_collection')
+                ->addFormCodeFilter('search_form')
+                ->addFieldToFilter('attribute_code',array('in'=>array('roles','location','bio','im_good','interested')))
+                ->load()
+                ;
+
+      foreach($attributes as $attribute) {
+      ?>
+
+        <span class="">
+          <label class="desc">
+            <?php echo $attribute->getStoreLabel() ?>
+         </label>
+          <span>
+	        <?php switch($attribute->getFrontendInput()) {
+                case 'text': ?>
+                  <input   name="<?php echo $attribute->getAttributeCode() ?>" type="text" class="w100p field text medium <?php echo $attribute->getFrontendClass() ?>" value="<?php echo @$_POST[$attribute->getAttributeCode()]; ?>" maxlength="255"  />
+                <?php break;
+                case 'textarea': ?>
+                  <input   name="<?php echo $attribute->getAttributeCode() ?>" type="text" class="w100p field text medium <?php echo $attribute->getFrontendClass() ?>" value="<?php echo @$_POST[$attribute->getAttributeCode()]; ?>"  />
+                <?php break;
+                case 'multiselect':  ?>
+                  <select multiple="true" size="5"  name="<?php echo $attribute->getAttributeCode() ?>[]" type="text" class="w100p field medium <?php echo $attribute->getFrontendClass() ?>" value="" maxlength="255" >
+                    <?php $options = $attribute->getSource()->getAllOptions(false);
+                    foreach($options as $key=>$value) { ?>
+                      <option 	<?php if(isset($_POST) && isset($_POST[$attribute->getAttributeCode()]) && in_array($value['value'],$_POST[$attribute->getAttributeCode()])) { echo "selected='selected'";  } ?> value="<?php echo $value['value'] ?>"><?php echo $value['label'] ?></option>
+                    <?php }	?>
+                  </select>
+                <?php break;
+                 case 'select':
+                   $options = $attribute->getSource()->getAllOptions(false);
+                  ?>
+                  <select name="<?php echo $attribute->getAttributeCode() ?>" type="text" class="w100p field medium <?php echo $attribute->getFrontendClass() ?>" value="" maxlength="255" >
+                    <?php foreach($options as $key=>$value) { ?>
+                      <option 	<?php if(in_array($value['value'],@$_POST[$attribute->getAttributeCode()])) { echo "selected='selected'";  } ?> value="<?php echo $value['value'] ?>"><?php echo $value['label'] ?></option>
+                    <?php }	?>
+                  </select>
+                 <?php break;
+                  case 'date':
+                  default:
+                break;
+                } ?>
+          </span>
+        </span>
+
+      <?php } ?>
+
+<input type="submit" value="<?php echo Mage::helper('core')->__('Search') ?>" class="col-md-2 btn-large p5" />
+<input type="button" value="<?php echo Mage::helper('core')->__('Reset Search'); ?>" class="col-md-2 btn-large p5" onclick="document.location.href = '<?php echo Mage::getBaseUrl() ?>inl/customer/search'" />
+</form>
+
+</div>
+</div>
+<div class="col-md-8">
+<div class="well">
+<?php
+    $_oggettoCollection=$this->getLoadedOggettoCollection();
+  //  echo $_oggettoCollection->getSelect();
+	$_oggettoCollection->addAttributeToSelect('image');
+$limits = $this->getLayout()->createBlock('score/oggetto_list_toolbar')->getLimit();
+if(!is_array($limits)) $limits = array($limits);
+    $_helper = $this->helper('score/output');
+
+      /* @var $pager Mage_Page_Block_Html_Pager */
+        $pager = $this->getLayout()->createBlock('page/html_pager', 'bootstrapped.standalone.pager');
+
+        // set limit - uses category's instead of default pager's (10-20-50)
+        $pager->setAvailableLimit($limits);
+        // need to set collection
+        $pager->setCollection($_oggettoCollection);
+        //set custom template
+        $pager->setTemplate('score/oggetto/list/pager.phtml');
+?>
+<?php if(!$_oggettoCollection->count()): ?>
+<div class="alert fade in">
+  <?php echo $this->__('There are no users matching.') ?>
+</div>
+<?php else: ?>
+<div class="category-oggettos" id="oggettos">
+    <div class="" style="float:right">
+      <?php echo $pager->toHtml(); ?>
+    </div>
+
+    <?php echo Mage::getBlockSingleton("score/oggetto_list_toolbar")->setTemplate("customer/toolbar.phtml")->setCollection($_oggettoCollection)->toHtml(); ?>
+
+    <?php $_iterator = 0; ?>
+    <ol class="oggettos-list unstyled row-fluid" id="oggettos-list">
+        <?php foreach ($_oggettoCollection as $customer): ?>
+        <li class="item<?php if( ++$_iterator == sizeof($_oggettoCollection) ): ?> last<?php endif; ?> row-fluid">
+<?php $customerMagemlm 	= Mage::getModel('magemlm/customer')->load($customer->getEntityId(), 'customer_id'); ?>
+    <span class="col-md-3">
+        <a href="<?php echo $this->getUrl('inl/customer/meet').'id/'.$customer->getId() ?>">
+
+         <?php if ($customerMagemlm->getMagemlmImage()) { ?>
+             <img src="<?php echo  Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir('media') . DS . 'magemlm' ,$customerMagemlm->getMagemlmImage(),200); ?>" />
+         <?php } else { ?>
+             <img src="<?php echo Mage::helper('catalog/image')->resizeImg(Mage::getBaseDir().'/'.str_replace(Mage::getBaseUrl(),'',$this->getSkinUrl('images/')),'def_user.jpeg',200) ?>" />
+         <?php  } ?>
+        </a>
+      </span>
+   <?php
+             if($output = Mage::getBlockSingleton('dcontent/oggettos')->getTemplateForCustomer($customer,'customer_list')) {
+	        echo $output;
+        }
+
+     ?>
+        </li><hr>
+        <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('oggettos-list', 'none-recursive')</script>
+
+
+    <div class="toolbar-bottom">
+        <?php
+        /* @var $toolbar Mage_Score_Block_Oggetto_List_Toolbar */
+        // get toolbars limits - overrides default pager limit
+        $toolbar = Mage::getBlockSingleton('score/oggetto_list_toolbar')->getAvailableLimit();
+?>
+  <div class="" style="float:right">
+<?php echo $pager->toHtml(); ?>
+</div>
+</div>
+</div>
+<?php endif; ?>
+
+</div></div>

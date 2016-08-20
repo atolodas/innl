@@ -1,0 +1,70 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
+<?php
+    $stores = $this->getStores();
+    $data = $this->getLinedata();
+    if (!$data){
+        $data = array();
+        $data[0] = array(
+            'line_id' => 'NEW_LINE_ID_CODE',
+            'store_id' => 0,
+            'value' => '',
+        );
+        $defaultData = true;
+    } else {
+        $defaultData = false;
+    }
+    
+    $types = Mage::helper('cpwms/replacer')->getLineTypes();
+?>
+<tr id="replacer-values-line-<?php echo $data[0]['line_id'] ?>">
+    <td>
+        <select name="replacer[values][<?=$data[0]['line_id']?>][type]" style="width: 100px;">
+            <?php foreach($types as $type): ?>
+                <option 
+                    value="<?php echo $type['id']; ?>"
+                    <?php if(!$defaultData && ($data['type']==$type['id'])): ?>selected<?php endif; ?>
+                ><?php echo $type['label']; ?></option>
+            <?php endforeach; ?>
+        </select>
+    </td>
+    <td>
+        <input type="text"
+               name="replacer[values][<?=$data[0]['line_id']?>][default]"
+               value="<?=$data[0]['value']?>"
+               class="for-delete-<?=$data[0]['line_id']?> required-entry" />
+        <input type="hidden" name="replacer[values][<?=$data[0]['line_id']?>][line_id]" value="<?=$data[0]['line_id']?>" />
+        <input type="hidden" id="replacer-values-line-delete-<?=$data[0]['line_id']?>" name="replacer[values][<?=$data[0]['line_id']?>][delete]" value="false" />
+    </td>
+    <td>
+        :
+    </td>
+    <?php foreach($stores as $store): ?>
+    <td>
+        <?php if ($defaultData):{ ?>
+
+                <input type="text"
+                       name="replacer[values][<?=$data[0]['line_id']?>][store_value][<?=$store['store_id']?>]"
+                       value=""
+                       class="for-delete-<?=$data[0]['line_id']?>"
+                    />
+
+        <?php }else:{ ?>
+            <input type="text"
+                   name="replacer[values][<?=$data[0]['line_id']?>][store_value][<?=$store['store_id']?>]"
+                   value="<?php echo isset($data[$store['store_id']]['value'])?$data[$store['store_id']]['value']:''; ?>"
+                   class="for-delete-<?=$data[0]['line_id']?>"
+                />
+        <?php }endif; ?>
+    </td>
+    <?php endforeach; ?>
+    <td>
+        <button id="replacer-line-button-delete-<?=$data[0]['line_id']?>" onclick="deleteLine(<?=$data[0]['line_id']?>); return false;">-</button>
+        <button id="replacer-line-button-undelete-<?=$data[0]['line_id']?>" onclick="undeleteLine(<?=$data[0]['line_id']?>); return false;" style="display: none;">+</button>
+    </td>
+</tr>

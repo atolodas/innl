@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+	<!-- Load style on every page. This will be fixed later. -->
+    <default>
+        <reference name="head">
+            <block type="core/template"
+				name="janrain_share_styles"
+				template="janrain/share/styles.phtml"/>
+            <block type="core/template"
+        name="janrain_share_share"
+        template="janrain/share/share.phtml"/>
+        </reference>
+    </default>
+</layout>

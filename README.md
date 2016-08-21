@@ -8,8 +8,11 @@
 <br/>
 http://99quotes.innl.co/ru/quotes<br/>
 http://p.innl.co/en/pages<br/>
-http://funstica.com/<br/>
+http://p.innl.co/ru/pages (поддержка локализации каждого отдельного проекта)<br/>
+http://demo.innl.co/<br/>
 http://tobotornot.com/<br/>
+<br/>
+Демо панели администратора отдельного сайта на платформе: http://demo.innl.co/manage/ <br/>
 <br/>
 Как это работает - https://spark.ru/startup/talkbot/blog/9633/skaz-o-tom-chto-est-obschego-v-razrabotke-unikalnih-veb-servisov-i-startapov <br/>
 
